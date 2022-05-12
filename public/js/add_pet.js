@@ -1,5 +1,5 @@
 // get objects need to modify
-let addPetForm = document.getElementById('add-pet-form');
+let addPetForm = document.getElementById('add-pet-form-AJAX');
 
 // modify objects we need
 addPetForm.addEventListener("submit", function (e) {
@@ -8,11 +8,11 @@ addPetForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // get form fields we need to get data from
-    let inputPetName = document.getElementById("input-pet_name");
-    let inputOwnerID = document.getElementById("input-ownerID");
-    let inputPetTypeID = document.getElementById("input-pet_typeID");
-    let inputBreed = document.getElementById("input-breed");
-    let inputBirthdate = document.getElementById("input-birthdate");
+    let inputPetName = document.getElementById("input-pet_name-add");
+    let inputOwnerID = document.getElementById("input-ownerID-add");
+    let inputPetTypeID = document.getElementById("input-pet_typeID-add");
+    let inputBreed = document.getElementById("input-breed-add");
+    let inputBirthdate = document.getElementById("input-birthdate-add");
 
     // get values from form fields
     let petNameValue = inputPetName.value;
@@ -32,7 +32,7 @@ addPetForm.addEventListener("submit", function (e) {
 
     // setup ajax request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/add-pet", true);
+    xhttp.open("POST", "/add-pet-AJAX", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // tell ajax request how to resolve
@@ -67,8 +67,8 @@ addRowToTable = (data) => {
     let newRowIndex = currentTable.rows.length;
 
     // get a reference to the new row from the database query
-    let parsedData = JSON.parse(data);
-    let newRow = parsedData[parsedData.length - 1];
+    let parseData = JSON.parse(data);
+    let newRow = parseData[parseData.length - 1];
 
     // create a new row and 5 cells
     let row = document.createElement("TR");
