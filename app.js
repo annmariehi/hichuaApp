@@ -199,7 +199,7 @@ app.put('/put-pet', function(req,res,next){
     })
 });
 
-app.post('/add-pet', function(req, res)
+app.post('/add-pet-AJAX', function(req, res)
 {
     let data = req.body;
 
@@ -209,7 +209,7 @@ app.post('/add-pet', function(req, res)
         breed = 'NULL'
     }
 
-    query1 = `INSERT INTO Pets(pet_name, ownerID, pet_typeID, breed, birthdate) VALUES ('${data['input-pet_name']}', '${data['input-ownerID']}', '${data['input-pet_typeID']}', ${breed}, '${data['input-birthdate']}');`;
+    query1 = `INSERT INTO Pets(pet_name, ownerID, pet_typeID, breed, birthdate) VALUES ('${data.pet_name}', '${data.ownerID}', '${data.pet_typeID}', ${breed}, '${data.birthdate}');`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
