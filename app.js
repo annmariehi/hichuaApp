@@ -47,7 +47,56 @@ app.get('/appointments', function(req,res)
 // Owners Page
 app.get('/owners', function(req,res)
 {
-    res.render('owners');
+    //res.render('owners');
+       // Populate Owners table
+       let query1;
+
+       // If there is no query string, we just perform a basic SELECT
+       if(req.query.owner_name === undefined)
+       {
+           query1 = "SELECT * FROM Owners;";
+       }
+
+       // If there is a query string, we assume this is a search
+       else
+       {
+           query1 = `SELECT * FROM Owners WHERE owner_name LIKE "${req.query.owner_name}%"`
+       }
+
+       db.pool.query(query1, function(error, rows, fields){
+
+           // Save the owners
+           let owners = rows;
+            return res.render('owners', {data: owners});
+        })
+});
+
+
+// Add Owner
+app.post('/add-owner-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Owners(owner_name, email) VALUES ('${data['input-owner_name']}', '${data['input-email']}');`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we direct back to our root route, which automatically runs the SELECT * FROM Pets
+        // and presents it on the screen
+        else
+        {
+            res.redirect('/owners');
+        }
+    });
 });
 
 // Pet Types Page
