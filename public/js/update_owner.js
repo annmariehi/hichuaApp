@@ -8,7 +8,7 @@ updateOwnerForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // get form fields we need data from
-    let inputOwnerName = document.getElementById("mySelect");
+    let inputOwnerName = document.getElementById("ownerSelect");
     let inputEmail = document.getElementById("input-email-update");
 
     // get values from form fields
@@ -23,7 +23,7 @@ updateOwnerForm.addEventListener("submit", function (e) {
     }
 
     // put data we want to send in javascript object
-    let data = {
+    let Owner = {
         owner_name: ownerNameValue,
         email: emailValue
     }
@@ -46,12 +46,12 @@ updateOwnerForm.addEventListener("submit", function (e) {
     }
 
     // send request and wait for response
-    xhttp.send(JSON.stringify(data));
+    xhttp.send(JSON.stringify(Owner));
 
 })
 
-function updateRow(data, ownerID){
-    let parseData = JSON.parse(data);
+function updateRow(Owner, ownerID){
+    let parseData = JSON.parse(Owner);
 
     let table = document.getElementById("owners-table");
 
