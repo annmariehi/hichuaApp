@@ -238,6 +238,38 @@ app.post('/add-pet', function(req, res)
 });
 
 
+app.post('/add-pet-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+    let breed = parseInt(data['input-breed']);
+    if (isNaN(breed))
+    {
+        breed = 'NULL'
+    }
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Pets(pet_name, ownerID, pet_typeID, breed, birthdate) VALUES ('${data['input-pet_name']}', '${data['input-ownerID']}', '${data['input-pet_typeID']}', ${breed}, '${data['input-birthdate']}');`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we direct back to our root route, which automatically runs the SELECT * FROM Pets
+        // and presents it on the screen
+        else
+        {
+            res.redirect('/pets');
+        }
+    })
+})
+
 /*
     LISTENER
 */
