@@ -8,11 +8,11 @@ addPetForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // get form fields we need to get data from
-    let inputPetName = document.getElementById('input-pet_name');
-    let inputOwnerID = document.getElementById('input-ownerID');
-    let inputPetTypeID = document.getElementById('input-pet_typeID');
-    let inputBreed = document.getElementById('input-breed');
-    let inputBirthdate = document.getElementById('input-birthdate');
+    let inputPetName = document.getElementById("input-pet_name");
+    let inputOwnerID = document.getElementById("input-ownerID");
+    let inputPetTypeID = document.getElementById("input-pet_typeID");
+    let inputBreed = document.getElementById("input-breed");
+    let inputBirthdate = document.getElementById("input-birthdate");
 
     // get values from form fields
     let petNameValue = inputPetName.value;
@@ -92,7 +92,7 @@ addRowToTable = (data) => {
     deleteCell = document.createElement("button");
     deleteCell.innerHtml = "Delete";
     deleteCell.onclick = function(){
-        deletePet(newRow.PetID);
+        deletePet(newRow.petID);
     };
 
     // add the cells to the row
@@ -105,7 +105,7 @@ addRowToTable = (data) => {
     row.appendChild(deleteCell);
 
     // add custom row attribute so deleteRow function can find a newly added row
-    row.setAttribute('data-value', newRow.id);
+    row.setAttribute('data-value', newRow.petID);
 
     // add the row to the table
     currentTable.appendChild(row);
