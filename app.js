@@ -11,7 +11,7 @@ var app     = express();
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-PORT        = 50679;
+PORT        = 50688;
 
 // Database
 var db = require('./database/db-connector');
@@ -198,7 +198,7 @@ app.put('/put-pet', function(req,res,next){
     })
 })
 
-app.post('/add-pet-form', function(req, res)
+app.post('/add-pet', function(req, res)
 {
     let data = req.body;
 

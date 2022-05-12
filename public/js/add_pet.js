@@ -1,5 +1,5 @@
 // get objects need to modify
-let addPetForm = document.getElementById('add-pet-form-ajax');
+let addPetForm = document.getElementById('add-pet-form');
 
 // modify objects we need
 addPetForm.addEventListener("submit", function (e) {
