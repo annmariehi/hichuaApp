@@ -9,7 +9,7 @@ updatePetForm.addEventListener("submit", function (e) {
 
     // get form fields we need data from
     let inputPetName = document.getElementById("mySelect");
-    let inputPetTypeID = document.getElementById("input-pet_typeID-update");
+    let inputPetTypeID = document.getElementById("input-pet_type-update");
 
     // get values from form fields
     let petNameValue = inputPetName.value;
@@ -66,7 +66,7 @@ function updateRow(data, petID){
             let td = updateRowIndex.getElementsByTagName("td")[3];
 
             // reassign pet_type to value we updated to
-            td.innerHTML = parsedData[0].type_name;
+            td.innerHTML = parseData[0].type_name;
         }
     }
 }
