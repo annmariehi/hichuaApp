@@ -1,98 +1,45 @@
-
-<!-- main.hbs -->
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Hichua Veterinarian Hospital</title>
-</head>
-<body>
-
-    <!-- pets.hbs -->
+  <!-- pets.hbs -->
 <h1>Pets</h1>
+
 <a href="/">Home</a>
+<a href="/pets">Pets</a>
+<a href="/appointments">Appointments</a>
+<a href="/owners">Owners</a>
+<a href="/pet-types">Pet Types</a>
+<a href="/procedures">Procedures</a>
+<a href="/veterinarians">Veterinarians</a>
 
-
+{{!-- Pets Table --}}
 <table id="pets-table">
-
     <thead>
 
         <tr>
+            {{#each data.[0]}}
             <th>
-                petID
+                {{@key}}
             </th>
-            <th>
-                pet_name
-            </th>
-            <th>
-                ownerID
-            </th>
-            <th>
-                pet_typeID
-            </th>
-            <th>
-                breed
-            </th>
-            <th>
-                birthdate
-            </th>
+            {{/each}}
             <th>delete</th>
         </tr>
-
     </thead>
 
     <tbody>
-
-        <tr data-value=1>
-            <td>1</td>
-            <td>Sunday</td>
-            <td>Robert McGee</td>
-            <td>Dog</td>
-            <td>Domestic Shorthair</td>
-            <td>Wed Apr 15 2020 00:00:00 GMT-0700 (Pacific Daylight Time)</td>
-            <td><button onclick="deletePet(1)">Delete</button></td>
+        {{#each data}}
+        <tr data-value={{this.petID}}>
+            <td>{{this.petID}}</td>
+            <td>{{this.pet_name}}</td>
+            <td>{{this.ownerID}}</td>
+            <td>{{this.pet_typeID}}</td>
+            <td>{{this.breed}}</td>
+            <td>{{this.birthdate}}</td>
+            <td><button onclick="deletePet({{this.petID}})">Delete</button>
         </tr>
-        <tr data-value=2>
-            <td>2</td>
-            <td>Knox</td>
-            <td>Ankur Manz</td>
-            <td>Cat</td>
-            <td>Main Coon</td>
-            <td>Wed Sep 23 2015 00:00:00 GMT-0700 (Pacific Daylight Time)</td>
-            <td><button onclick="deletePet(2)">Delete</button></td>
-        </tr>
-        <tr data-value=3>
-            <td>3</td>
-            <td>Chelsea</td>
-            <td>Reko Velasco</td>
-            <td>Rat</td>
-            <td>Great Dane</td>
-            <td>Sat Jun 23 2018 00:00:00 GMT-0700 (Pacific Daylight Time)</td>
-            <td><button onclick="deletePet(3)">Delete</button></td>
-        </tr>
-        <tr data-value=4>
-            <td>4</td>
-            <td>Pico de Gallo</td>
-            <td>Eliana Randall</td>
-            <td>Rat</td>
-            <td></td>
-            <td>Thu Jul 01 2021 00:00:00 GMT-0700 (Pacific Daylight Time)</td>
-            <td><button onclick="deletePet(4)">Delete</button></td>
-        </tr>
-        <tr data-value=5>
-            <td>5</td>
-            <td>Snickers</td>
-            <td>Vina Rosenfeld</td>
-            <td>Dog</td>
-            <td>Pomeranian</td>
-            <td>Thu Mar 01 2012 00:00:00 GMT-0800 (Pacific Standard Time)</td>
-            <td><button onclick="deletePet(5)">Delete</button></td>
-        </tr>
+        {{/each}}
     </tbody>
 </table>
 <script src="./js/delete_pet.js"></script>
 
+{{!-- Search form --}}
 <h2>Search Using an HTML Form</h2>
 <p>Search by pet name using the field below. Partial pet names are ok!</p>
 <form id="search-pet" method='GET' action='/pets'>
@@ -103,63 +50,29 @@
     <a href='/pets'><button>Reset</button></a>
 </form>
 
-<h2>Adding Data using an HTML form</h2>
-<p>To add a new pet, please enter their information below and click 'Submit'!</p>
-<form id="add-pet-form" method="POST" action="/add-pet-form">
-    <label for="input-pet_name">Pet Name: </label>
-    <input type="text" name="input-pet_name" id="input-pet_name">
 
-    <label for="input-ownerID">Owner: </label>
-    <select name="input-ownerID" id="input-ownerID">
-        <option value="">Select Owner</option>
-        <option value="1">Robert McGee</option>
-        <option value="2">Ankur Manz</option>
-        <option value="3">Reko Velasco</option>
-        <option value="4">Eliana Randall</option>
-        <option value="5">Vina Rosenfeld</option>
-    </select>
-
-    <label for="input-pet_typeID">Pet Type: </label>
-    <select name="input-pet_typeID" id="input-pet_typeID">
-        <option value="">Select Pet Type</option>
-        <option value="1">Dog</option>
-        <option value="2">Cat</option>
-        <option value="3">Rat</option>
-        <option value="4">Rabbit</option>
-    </select>
-
-    <label for="input-breed">Breed: </label>
-    <input type="text" name="input-breed" id="input-breed">
-
-    <label for="input-birthdate">Birthdate: </label>
-    <input type="date" name="input-birthdate" id="input-birthdate">
-
-    <input type="submit">
-</form>
-
-<h2>Adding Data with AJAX</h2>
+{{!-- Add Pet Form --}}
+<h2>Add a Pet</h2>
 <p>to add new pet, please enter their information and click submit</p>
-<form id="add-pet-form-ajax">
+<form id="add-pet-form">
+
      <label for="input-pet_name">Pet Name: </label>
     <input type="text" name="input-pet_name" id="input-pet_name">
 
     <label for="input-ownerID">Owner: </label>
     <select name="input-ownerID" id="input-ownerID">
         <option value="">Select Owner</option>
-        <option value="1">Robert McGee</option>
-        <option value="2">Ankur Manz</option>
-        <option value="3">Reko Velasco</option>
-        <option value="4">Eliana Randall</option>
-        <option value="5">Vina Rosenfeld</option>
+        {{#each owners}}
+        <option value="{{this.ownerID}}">{{this.owner_name}}</option>
+        {{/each}}
     </select>
 
     <label for="input-pet_typeID">Pet Type: </label>
     <select name="input-pet_typeID" id="input-pet_typeID">
         <option value="">Select Pet Type</option>
-        <option value="1">Dog</option>
-        <option value="2">Cat</option>
-        <option value="3">Rat</option>
-        <option value="4">Rabbit</option>
+        {{#each pet_types}}
+        <option value="{{this.pet_typeID}}">{{this.type_name}}</option>
+        {{/each}}
     </select>
 
     <label for="input-breed">Breed: </label>
@@ -171,31 +84,25 @@
     <input type="submit">
 </form>
 
-<h2>Updating A Pet Form</h2>
+{{!-- Update Pet Form --}}
+<h2>Update A Pet</h2>
 <p>To update a pet's blah blah select their name from the drop down</p>
-<form id="update-pet-form-ajax">
+<form id="update-pet-form">
     <label for="input-pet_name">Pet's Name: </label>
     <select name="input-pet_name" id="mySelect">
         <option value="test">Select a Pet</option>
-        <option value="1">Sunday</option>
-        <option value="2">Knox</option>
-        <option value="3">Chelsea</option>
-        <option value="4">Pico de Gallo</option>
-        <option value="5">Snickers</option>
+        {{#each data}}
+        <option value="{{this.petID}}">{{this.pet_name}}</option>
+        {{/each}}
     </select>
 
     <label for="input-pet_type">Pet Type: </label>
     <select name="input-pet_type" id="input-pet_type-update">
         <option>select pet type</option>
-        <option value="1">Dog</option>
-        <option value="2">Cat</option>
-        <option value="3">Rat</option>
-        <option value="4">Rabbit</option>
+        {{#each data}}
+        <option value="{{this.pet_typeID}}">{{this.type_name}}</option>
     </select>
     <input type="submit">
 </form>
 
 <script src="./js/update_pet.js"></script>
-
-</body>
-</html>
