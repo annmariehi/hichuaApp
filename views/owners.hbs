@@ -11,10 +11,10 @@
 
 
 {{!-- Owners Table --}}
-<table id="owners-table">
+<table>
     <thead>
         <tr>
-            {{#each data.[0]}}
+            {{#each Owner.[0]}}
             <th>
                 {{@key}}
             </th>
@@ -23,8 +23,8 @@
     </thead>
 
     <tbody>
-        {{#each data}}
-        <tr data-value={{this.ownerID}}>
+        {{#each Owner}}
+        <tr>
             <td>{{this.ownerID}}</td>
             <td>{{this.owner_name}}</td>
             <td>{{this.email}}</td>
@@ -52,8 +52,8 @@
      <label for="input-owner_name">Owner Name: </label>
     <input type="text" name="input-owner_name" id="input-owner_name">
 
-    <label for="input-email">Owner: </label>
-    <input type="email" name="input-email" id="input-email">
+    <label for="input-email">Email: </label>
+    <input type="text" name="input-email" id="input-email">
 
     <input type="submit">
 </form>
@@ -64,15 +64,15 @@
 <p>To update an owner's email, select their name and enter their new email</p>
 <form id="update-owner-form">
     <label for="input-owner_name">Owner's Name: </label>
-    <select name="input-owner_name" id="mySelect">
+    <select name="input-owner_name" id="ownerSelect">
         <option value="test">Select an Owner</option>
-        {{#each data}}
+        {{#each Owner}}
         <option value="{{this.ownerID}}">{{this.owner_name}}</option>
         {{/each}}
     </select>
 
     <label for="input-email">New Email: </label>
-    <input type="email" name="input-email" id="input-email-update">
+    <input type="text" name="input-email" id="input-email-update">
 
     <input type="submit">
 </form>
