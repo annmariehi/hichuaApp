@@ -50,7 +50,9 @@
     <a href='/pets'><button>Reset</button></a>
 </form>
 
-<h2>Adding with HTML</h2>
+
+{{!-- Add Pet Form --}}
+<h2>Add a Pet</h2>
 <p>please enter info and click submit</p>
 <form id="add-pet-form" method="POST" action="/add-pet-form">
      <label for="input-pet_name">Pet Name: </label>
@@ -81,41 +83,6 @@
     <input type="submit">
 </form>
 
-
-{{!-- Add Pet Form AJAX --}}
-<h2>Add a Pet</h2>
-<p>to add new pet, please enter their information and click submit</p>
-<form id="add-pet-form-AJAX">
-
-     <label for="input-pet_name">Pet Name: </label>
-    <input type="text" name="input-pet_name" id="input-pet_name-add">
-
-    <label for="input-ownerID">Owner: </label>
-    <select name="input-ownerID" id="input-ownerID-add">
-        <option value="">Select Owner</option>
-        {{#each owners}}
-        <option value="{{this.ownerID}}">{{this.owner_name}}</option>
-        {{/each}}
-    </select>
-
-    <label for="input-pet_typeID">Pet Type: </label>
-    <select name="input-pet_typeID" id="input-pet_typeID-add">
-        <option value="">Select Pet Type</option>
-        {{#each pet_types}}
-        <option value="{{this.pet_typeID}}">{{this.type_name}}</option>
-        {{/each}}
-    </select>
-
-    <label for="input-breed">Breed: </label>
-    <input type="text" name="input-breed" id="input-breed-add">
-
-    <label for="input-birthdate">Birthdate: </label>
-    <input type="date" name="input-birthdate" id="input-birthdate-add">
-
-    <input type="submit">
-</form>
-
-<script src="./js/add_pet.js"></script>
 
 {{!-- Update Pet Form --}}
 <h2>Update A Pet</h2>
