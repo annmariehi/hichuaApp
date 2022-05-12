@@ -17,3 +17,16 @@
   .delete {
     display: block;
   }
+
+  body {
+    background-color: aqua;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  th, td {
+    border: 1px solid black;
+    padding: 5px;
+  }
