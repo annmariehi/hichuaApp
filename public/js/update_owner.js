@@ -8,11 +8,11 @@ updateOwnerForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // get form fields we need data from
-    let inputOwnerName = document.getElementById("ownerSelect");
+    let inputOwnerID = document.getElementById("ownerSelect");
     let inputEmail = document.getElementById("input-email-update");
 
     // get values from form fields
-    let ownerNameValue = inputOwnerName.value;
+    let ownerIDValue = inputOwnerID.value;
     let emailValue = inputEmail.value;
 
     // for REQUIRED values
@@ -24,7 +24,7 @@ updateOwnerForm.addEventListener("submit", function (e) {
 
     // put data we want to send in javascript object
     let Owner = {
-        owner_name: ownerNameValue,
+        ownerID: ownerIDValue,
         email: emailValue
     }
 
@@ -38,7 +38,7 @@ updateOwnerForm.addEventListener("submit", function (e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // add new data to table
-            updateRow(xhttp.response, ownerNameValue);
+            updateRow(xhttp.response, ownerIDValue);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")

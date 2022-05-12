@@ -64,7 +64,7 @@
 <p>To update an owner's email, select their name and enter their new email</p>
 <form id="update-owner-form">
     <label for="input-owner_name">Owner's Name: </label>
-    <select name="input-owner_name" id="ownerSelect">
+    <select name="input-ownerID" id="ownerSelect">
         <option value="test">Select an Owner</option>
         {{#each Owner}}
         <option value="{{this.ownerID}}">{{this.owner_name}}</option>
