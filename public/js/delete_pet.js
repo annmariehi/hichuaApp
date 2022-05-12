@@ -29,7 +29,7 @@ function deletePet(petID) {
 function deleteRow(petID){
 
     let table = document.getElementById("pets-table");
-    for (let i = 0, row; row = talbe.rows[i]; i++) {
+    for (let i = 0, row; row = table.rows[i]; i++) {
         // iterate thru rows
         if (table.rows[i].getAttribute("data-value") == petID) {
             table.deleteRow(i);
