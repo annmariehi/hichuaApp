@@ -145,6 +145,8 @@ app.get('/pets', function(req, res)
                                         // an object where 'data' is equal to the 'rows' we
 });                                     // recieve back from the query
 
+
+// Delete Pet
 app.delete('/delete-pet', function(req,res,next){
     let data = req.body;
     let petID = parseInt(data.petID);
@@ -162,6 +164,7 @@ app.delete('/delete-pet', function(req,res,next){
     })
 });
 
+// Update Pet
 app.put('/put-pet', function(req,res,next){
     let data = req.body;
 
@@ -199,45 +202,8 @@ app.put('/put-pet', function(req,res,next){
     })
 });
 
-app.post('/add-pet-AJAX', function(req, res)
-{
-    let data = req.body;
 
-    let breed = parseInt(data.breed);
-    if(isNaN(breed))
-    {
-        breed = 'NULL'
-    }
-
-    query1 = `INSERT INTO Pets(pet_name, ownerID, pet_typeID, breed, birthdate) VALUES ('${data.pet_name}', '${data.ownerID}', '${data.pet_typeID}', ${breed}, '${data.birthdate}');`;
-    db.pool.query(query1, function(error, rows, fields){
-
-        // Check to see if there was an error
-        if (error) {
-
-            // Log the error to the terminal so we know what went wrong
-            console.log(error)
-            res.sendStatus(400);
-        }
-        else
-        {
-            query2= 'SELECT * FROM Pets;';
-            db.pool.query(query2, function(error, rows, fields){
-                if (error) {
-                    console.log(error);
-                    res.sendStatus(400);
-                }
-                else
-                {
-                    res.send(rows)
-                }
-            })
-        }
-
-    })
-});
-
-
+// Add Pet
 app.post('/add-pet-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
