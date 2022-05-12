@@ -17,8 +17,9 @@ PORT        = 50688;
 var db = require('./database/db-connector');
 
 // Handlebars
-var exphbs = require('express-handlebars');
+
 const { engine } = require('express-handlebars');
+var exphbs = require('express-handlebars');
 app.engine('.hbs', engine({
     extname: ".hbs"
 }));
@@ -35,43 +36,43 @@ app.use(express.static('public'));
 app.get('/', function(req,res)
 {
     res.render('index');
-})
+});
 
 // Apointments Page
 app.get('/appointments', function(req,res)
 {
     res.render('appointments');
-})
+});
 
 // Owners Page
 app.get('/owners', function(req,res)
 {
     res.render('owners');
-})
+});
 
 // Pet Types Page
 app.get('/pet-types', function(req, res)
 {
     res.render('pet-types');
-})
+});
 
 // Veterinarians Page
 app.get('/veterinarians', function(req,res)
 {
     res.render('veterinarians');
-})
+});
 
 // Procedures Page
 app.get('/procedures', function(req,res)
 {
     res.render('procedures');
-})
+});
 
 // Appointments Page
 app.get('/appointments', function(req,res)
 {
     res.render('appointments');
-})
+});
 
 // Pets Page
 app.get('/pets', function(req, res)
@@ -159,7 +160,7 @@ app.delete('/delete-pet', function(req,res,next){
             res.sendStatus(204);
         }
     })
-})
+});
 
 app.put('/put-pet', function(req,res,next){
     let data = req.body;
@@ -196,7 +197,7 @@ app.put('/put-pet', function(req,res,next){
             })
         }
     })
-})
+});
 
 app.post('/add-pet', function(req, res)
 {
