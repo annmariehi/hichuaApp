@@ -56,6 +56,11 @@
     padding: 5px;
     max-width: fit-content;
   }
+
+  #add-vet {
+    padding: 5px;
+    max-width: fit-content;
+  }
 /*
   #color-div {
     background-color: #009fb7ff;
