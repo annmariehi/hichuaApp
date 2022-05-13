@@ -34,26 +34,35 @@
       </table>
     </div>
 
-      <div id="add-vet">
-      <form id="add-vet-form">
-        <legend>Add Veterinarian</legend>
-        <fieldset>
-          <label>Vet's Name: </label>
-          <input type="text" name="insert-vet_name" id="insert-vet_name">
-          <div></div>
-          <label>Procedures: </label>
-          <input type="checkbox" id="neuter" name="neuter">
-          <label for="neuter">Neuter</label>
-          <input type="checkbox" id="spay" name="spay">
-          <label for="spay">Spay</label>
-          <input type="checkbox" id="vaccinate" name="vaccinate">
-          <label for="vaccinate">Vaccinate</label>
-          <input type="checkbox" id="wellnessExam" name="wellnessExam">
-          <label for="wellnessExam">Wellness Exam</label>
-          <input type="checkbox" id="sickExam" name="sickExam">
-          <label for="sickExam">Sick Exam</label>
-        </fieldset>
-        <input type="submit" value="Add Veterinarian">
-      </form>
-    </div>
+{{!-- Add Vet Form --}}
+<div id="add-vet">
+  <form id="add-vet-form">
+    <legend>Add Veterinarian</legend>
+    <fieldset>
+      <label>Vet's Name: </label>
+      <input type="text" name="insert-vet_name" id="insert-vet_name">
+      <div></div>
+
+      <label>Procedures: </label>
+
+      <input type="checkbox" id="neuter" name="neuter">
+      <label for="neuter">Neuter</label>
+
+      <input type="checkbox" id="spay" name="spay">
+      <label for="spay">Spay</label>
+
+      <input type="checkbox" id="vaccinate" name="vaccinate">
+      <label for="vaccinate">Vaccinate</label>
+
+      <input type="checkbox" id="wellnessExam" name="wellnessExam">
+      <label for="wellnessExam">Wellness Exam</label>
+
+      <input type="checkbox" id="sickExam" name="sickExam">
+      <label for="sickExam">Sick Exam</label>
+      <div></div>
+
+      <input type="submit" value="Add Veterinarian">
+    </fieldset>
+  </form>
+</div>
 
