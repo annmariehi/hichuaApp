@@ -1,5 +1,5 @@
 <!--pets.hbs-->
-<h1>Pets</h1>
+<h2>Pets</h2>
 
 {{!-- Pets Table --}}
 <table id="pets-table">
@@ -32,21 +32,27 @@
 <script src="./js/delete_pet.js"></script>
 
 {{!-- Search form --}}
-<h2>Search Using an HTML Form</h2>
-<p>Search by pet name using the field below. Partial pet names are ok!</p>
+<div id="search-pets">
 <form id="search-pet" method='GET' action='/pets'>
+<legend>Search Pets</legend>
+<fieldset>
+<p>Search by pet name using the field below. Partial pet names are ok!</p>
     <label for="input-pet_name"> Search by Pet Name: </label>
     <input type="text" name="pet_name" id="input-pet_name-search">
 
-    <input type="submit">
+    <input type="submit" value="search">
     <a href='/pets'><button>Reset</button></a>
+    </fieldset>
 </form>
+</div>
 
-
-{{!-- Add Pet Form --}}
-<h2>Add a Pet</h2>
+{{!-- Add Pet Form IN FORM HEADER AFTER ID: method="POST" action="/add-pet-form" --}}
+<div id="add-pet">
+<form id="add-pet-form">
+<legend>Add a Pet</legend>
+<fieldset>
 <p>please enter info and click submit</p>
-<form id="add-pet-form" method="POST" action="/add-pet-form">
+
      <label for="input-pet_name">Pet Name: </label>
     <input type="text" name="input-pet_name" id="input-pet_name">
 
@@ -72,14 +78,18 @@
     <label for="input-birthdate">Birthdate: </label>
     <input type="date" name="input-birthdate" id="input-birthdate">
 
-    <input type="submit">
+    <input type="submit" value="Add Pet">
+    </fieldset>
 </form>
-
+</div>
 
 {{!-- Update Pet Form --}}
-<h2>Update A Pet</h2>
-<p>To update a pet's blah blah select their name from the drop down</p>
-<form id="update-pet-form">
+<div id="update-pet">
+    <form id="update-pet-form">
+        <legend>Update a Pet</legend>
+        <fieldset>
+<p>To update a Pet, select their name from the drop down menu.</p>
+
     <label for="input-pet_name">Pet's Name: </label>
     <select name="input-pet_name" id="petSelect">
         <option value="test">Select a Pet</option>
@@ -95,7 +105,8 @@
         <option value="{{this.pet_typeID}}">{{this.type_name}}</option>
         {{/each}}
     </select>
-    <input type="submit">
+    <input type="submit" value="Update Pet">
 </form>
-
+</fieldset>
+</div>
 <script src="./js/update_pet.js"></script>
