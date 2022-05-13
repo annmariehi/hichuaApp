@@ -98,6 +98,6 @@ DELETE FROM Appointments WHERE appointmentID = :input-appoitnmentID;
 -- display all Exam_Rooms data for Exam_Rooms Table
 SELECT * FROM Exam_Rooms;
 
--- Add a new exam room to Exam_Rooms
+-- add a new exam room to Exam_Rooms
 INSERT INTO Exam_Rooms(exam_roomID)
 VALUES (:input-exam_roomID);
