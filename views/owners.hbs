@@ -37,9 +37,12 @@
 
 <aside>
 {{!-- Add Owner Form IN FORM HEADER AFTER ID: method="POST" action="/add-owner-form"--}}
-<h2>Add an Owner</h2>
-<p>please enter info and click submit</p>
+<div id="add-owner">
 <form id="add-owner-form">
+<legend>Add an Owner</legend>
+<fieldset>
+<p>please enter info and click submit</p>
+
      <label for="input-owner_name">Owner Name: </label>
     <input type="text" name="input-owner_name" id="input-owner_name">
 
@@ -47,13 +50,17 @@
     <input type="text" name="input-email" id="input-email">
 
     <input type="submit">
+</fieldset>
 </form>
+</div>
 
 
 {{!-- Update Owner Form --}}
-<h2>Update Owner Email</h2>
-<p>To update an owner's email, select their name and enter their new email</p>
+<div id="update-owner">
 <form id="update-owner-form">
+<legend>Update Owner Email</legend>
+<fieldset>
+<p>To update an owner's email, select their name and enter their new email</p>
     <label for="input-owner_name">Owner's Name: </label>
     <select name="input-ownerID" id="ownerSelect">
         <option value="test">Select an Owner</option>
@@ -61,12 +68,12 @@
         <option value="{{this.ownerID}}">{{this.owner_name}}</option>
         {{/each}}
     </select>
-
     <label for="input-email">New Email: </label>
     <input type="text" name="input-email" id="input-email-update">
-
     <input type="submit">
+</fieldset>
 </form>
+</div>
 
 <script src="./js/update_owner.js"></script>
 </aside>
