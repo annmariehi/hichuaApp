@@ -6,12 +6,68 @@
 --prussian-blue: #172a3aff;
 */
 
+/* PAGE LAYOUT */
   body {
     background-color: #c2cfb2ff;
     padding: 10px;
   }
 
-  /* TABLES */
+  /* table on right forms on left?
+  .column {
+    float: left;
+    width: 50%;
+  }
+
+  .row:after {
+    display: table;
+    clear: both;
+  }
+  */
+
+  #page-container {
+    position: relative;
+  }
+
+  #content-wrap {
+    padding-bottom: 2.5rem;
+  }
+
+  footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+
+  }
+
+/* NAV BAR */
+  .topnav {
+    background-color: #8db580ff;
+    overflow: hidden;
+  }
+
+  .topnav a {
+    float: left;
+    padding: 14px 16px;
+    color: #172a3aff;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .topnav a:hover {
+    background-color: #009fb7ff;
+  }
+
+  .active {
+    background-color: #172a3aff;
+    color:  #009fb7ff !important;
+  }
+
+  .active:hover {
+    color: #172a3aff !important;
+  }
+
+/* TABLES */
   table {
     border-collapse: collapse;
       border: "1";
@@ -36,38 +92,15 @@
     font-weight:bold;
   }
 
-  /* FORMS */
+/* FORMS */
   form {
     padding: 5px;
     max-width: fit-content;
   }
 
-  /* NAV BAR */
-.topnav {
-  background-color: #8db580ff;
-  overflow: hidden;
-}
 
-.topnav a {
-  float: left;
-  padding: 14px 16px;
-  color: #172a3aff;
-  text-align: center;
-  text-decoration: none;
-}
 
-.topnav a:hover {
-  background-color: #009fb7ff;
-}
-
-.active {
-  background-color: #172a3aff;
-  color:  #009fb7ff !important;
-}
-
-.active:hover {
-  color: #172a3aff !important;
-}
+  /* ETC */
   /*
   #update-pet {
     padding: 5px;
