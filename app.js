@@ -48,6 +48,20 @@ app.get('/exam-rooms', function(req, res)
 app.get('/appointments', function(req,res)
 {
     res.render('appointments');
+/*
+    let displayAppointments;
+
+    if(req.query.pet_name === undefined)
+    {
+        displayAppointments = "SELECT * FROM Appointments;";
+        // display procedures? display total cost?
+    }
+    else
+    {
+        displayAppointments = 'SELECT * FROM Appointments WHERE petID
+    }
+
+*/
 });
 
 // Owners Page
