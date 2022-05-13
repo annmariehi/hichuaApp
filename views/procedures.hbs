@@ -1,2 +1,97 @@
 <!-- procedures.hbs -->
 <h1>Procedures</h1>
+
+
+    <div class="browse" style="display: block;">
+      <table>
+        <tbody>
+          <tr>
+            <th>Procedure ID</th>
+            <th>Name</th>
+            <th>Cost($)</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Neuter</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Spay</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Vaccinate</td>
+            <td>15</td>
+          </tr>
+             <tr>
+            <td>4</td>
+            <td>Wellness Exam</td>
+            <td>50</td>
+          </tr>
+             <tr>
+            <td>5</td>
+            <td>Sick Exam</td>
+            <td>50</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="insert_proc" style="display: block;">
+      <form method="POST" id="insertProc">
+        <legend>Add Procedure</legend>
+        <fieldset>
+          <label>proc_name</label>
+          <input type="text" name="procNameInsert">
+        </fieldset>
+        <input class="btn" type="submit" id="insertsubmit" value="Add Procedure">
+      </form>
+    </div>
+
+    <div id="update_proc" style="display: block;">
+      <form METHOD="POST" id="updateProc">
+          <legend>Update Procedure</legend>
+          <fieldset>
+            <label>Id:</label> 1
+            <label>proc_name</label>
+            <input type="text" name="procNameUpdate" value="neuter">
+          </fieldset>
+          <input class="btn" type="submit" id="updatesubmit" value="Update Procedure">
+        </form>
+    </div>
+
+{{!-- Add Procedure Form IN FORM HEAD AFTER ID: method="POST" action="/add-procedure-form"--}}
+<h2>Add a Procedure</h2>
+<p>please enter info and click submit</p>
+<form id="add-procedure-form">
+     <label for="input-proc_name">Procedure Name: </label>
+    <input type="text" name="input-proc_name" id="input-proc_name">
+
+    <label for="input-cost">Cost: </label>
+    <input type="number" name="input-cost" id="input-cost">
+
+    <input type="submit">
+</form>
+
+
+{{!-- Update Procedure Form --}}
+<h2>Update A Procedure</h2>
+<p>To update the cost of a procedure, please select the procedure name from the drop down</p>
+<form id="update-procedure-form">
+    <label for="input-procedure_name">Pet's Name: </label>
+    <select name="input-procedure_name" id="procedureSelect">
+        <option value="test">Select a Procedure</option>
+        {{#each Procedure}}
+        <option value="{{this.procedureID}}">{{this.proc_name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-cost">Cost: </label>
+    <input type="number" name="input-cost" id="input-cost-update">
+
+    <input type="submit">
+</form>
+
+<script src="./js/update_procedure.js"></script>
