@@ -38,6 +38,12 @@ app.get('/', function(req,res)
     res.render('index');
 });
 
+// Exam Room Page
+app.get('/exam-rooms', function(req, res)
+{
+    res.render('exam-rooms');
+});
+
 // Apointments Page
 app.get('/appointments', function(req,res)
 {
