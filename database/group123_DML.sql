@@ -44,6 +44,12 @@ VALUES (:input-owner_name, :input-email);
 INSERT INTO Appointments(petID, exam_roomID, appointment_date)
 VALUES (:input-petID, :input-exam_roomID, :input-appointment_date);
 
+-- Delete appointment from Appointments
+DELETE FROM Appointments WHERE appointmentID = :appoitnmentID_selected_from_browse_appointments_page
+
+-- Delete pet from Pets
+DELETE FROM Pets WHERE petID = :petID_selected_from_browse_pets_page
+
 -- update Owner's email in Owners table
 UPDATE Owners SET email = :input-email-update WHERE Owners.ownerID = :input-ownerID;
 
@@ -82,9 +88,5 @@ INSERT INTO Procedure_has_Vet(procedureID, vetID)
 VALUES (:procedureID, :vetID)
 
 
--- Delete appointment from Appointments
-DELETE FROM Appointments WHERE appointmentID = :appoitnmentID_selected_from_browse_appointments_page
 
--- Delete pet from Pets
-DELETE FROM Pets WHERE petID = :petID_selected_from_browse_pets_page
 
