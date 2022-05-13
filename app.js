@@ -127,8 +127,43 @@ app.put('/put-owner', function(req,res,next){
 // Pet Types Page
 app.get('/pet-types', function(req, res)
 {
-    res.render('pet-types');
+       let displayPetTypes = "SELECT * FROM Pet_Types;";
+
+       db.pool.query(displayPetTypes, function(error, rows, fields){
+
+            res.render('pet-types', {PetType: rows});
+        })
 });
+
+// Add Pet Type
+app.post('/add-pet_type-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let PetType = req.body;
+
+
+    // Create the query and run it on the database
+    createPetTypeQuery = `INSERT INTO Pet_Types(type_name) VALUES ('${PetType['input-type_name']}');`;
+    db.pool.query(createPetTypeQuery, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we direct back to our root route, which automatically runs the SELECT * FROM Pets
+        // and presents it on the screen
+        else
+        {
+            res.redirect('/pet-types');
+        }
+    });
+});
+
+
+
 
 // Veterinarians Page
 app.get('/veterinarians', function(req,res)
