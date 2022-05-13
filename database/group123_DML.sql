@@ -16,6 +16,40 @@ SELECT * FROM Procedures;
 -- display all Appointments data for Appointments Table
 SELECT * FROM Appointments;
 
+-- Add a new pet
+INSERT INTO Pets(pet_name, ownerID, pet_typeID, breed, birthdate)
+VALUES (:pet_name, :ownerID, :pet_typeID, :breed, :birthdate);
+
+-- Add a new pet type to Pet_Types
+INSERT INTO Pet_Types(type_name)
+VALUES (:input-type_name);
+
+-- Add a new veterinarian to Veterinarians
+INSERT INTO Veterinarians(vet_name)
+VALUES (:input-vet_name);
+
+-- Add a new procedure to Procedures
+INSERT INTO Procedures(proc_name, cost)
+VALUES (:input-proc_name, :input-cost);
+
+-- Add a new exam room to Exam_Rooms
+INSERT INTO Exam_Rooms(exam_roomID)
+VALUES (:input-exam_roomID);
+
+-- Add a new owner to Owners
+INSERT INTO Owners(owner_name, email)
+VALUES (:input-owner_name, :input-email);
+
+-- Add a new appointment to Appointments
+INSERT INTO Appointments(petID, exam_roomID, appointment_date)
+VALUES (:input-petID, :input-exam_roomID, :input-appointment_date);
+
+-- update Owner's email in Owners table
+UPDATE Owners SET email = :input-email-update WHERE Owners.ownerID = :input-ownerID;
+
+--
+
+
 -- get a single pet's data for the Update Pet's form
 SELECT petID, pet_name, ownerID, pet_typeID, breed, birthdate
 FROM Pets WHERE petID = :petID_selected_from_browse_pet_page
@@ -36,33 +70,7 @@ FROM Owners WHERE ownerID = :ownerID_selected_from_browse_owners_page
 SELECT exam_roomID
 FROM Exam_Rooms WHERE exam_roomID = :exam_roomID_selected_from_browse_exam_room_page
 
--- Add a new pet
-INSERT INTO Pets(pet_name, ownerID, pet_typeID, breed, birthdate)
-VALUES (:pet_name, :ownerID, :pet_typeID, :breed, :birthdate)
 
--- Add a new pet type
-INSERT INTO Pet_Types(type_name)
-VALUES (:type_name)
-
--- Add a new veterinarian
-INSERT INTO Veterinarians(vet_name)
-VALUES (:vet_name)
-
--- Add a new procedure
-INSERT INTO Procedures(proc_name, cost)
-VALUES (:proc_name, :cost)
-
--- Add a new exam room
-INSERT INTO Exam_Rooms(exam_roomID)
-VALUES (:exam_roomID)
-
--- Add a new owner
-INSERT INTO Owners(owner_name, email)
-VALUES (:owner_name, :email)
-
--- Add a new appointment
-INSERT INTO Appointments(petID, exam_roomID, appointment_date)
-VALUES (:petID, :exam_roomID, :appointment_date)
 
 
 
