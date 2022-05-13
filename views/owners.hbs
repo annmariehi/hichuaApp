@@ -1,5 +1,5 @@
 <!-- owners.hbs -->
-<h1>Owners</h1>
+<h2>Owners</h2>
 
 {{!-- Owners Table --}}
 <table>
@@ -25,15 +25,20 @@
 </table>
 
 {{!-- Search form --}}
-<h2>Search</h2>
-<p>Search by owner name</p>
+<div id="search-owners">
 <form id="search-owner" method='GET' action='/owners'>
-    <label for="input-owner_name"> Search by Owner Name: </label>
+<legend>Search</legend>
+<fieldset>
+<p>Search by owner name. Partial names okay!</p>
+
+    <label for="input-owner_name"> Owner Name: </label>
     <input type="text" name="owner_name" id="input-owner_name-search">
 
-    <input type="submit">
+    <input type="submit" value="search">
     <a href='/owners'><button>Reset</button></a>
+    </fieldset>
 </form>
+</div>
 
 <aside>
 {{!-- Add Owner Form IN FORM HEADER AFTER ID: method="POST" action="/add-owner-form"--}}
@@ -49,7 +54,7 @@
     <label for="input-email">Email: </label>
     <input type="text" name="input-email" id="input-email">
 
-    <input type="submit">
+    <input type="submit" value="add owner">
 </fieldset>
 </form>
 </div>
@@ -70,7 +75,7 @@
     </select>
     <label for="input-email">New Email: </label>
     <input type="text" name="input-email" id="input-email-update">
-    <input type="submit">
+    <input type="submit" value="update owner">
 </fieldset>
 </form>
 </div>
