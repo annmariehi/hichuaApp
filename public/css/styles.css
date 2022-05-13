@@ -19,7 +19,9 @@
   }
 
   body {
-    background-color: aqua;
+    background-color: #c2cfb2ff;
+    padding: 10px;
+
   }
 
   table {
@@ -30,3 +32,44 @@
     border: 1px solid black;
     padding: 5px;
   }
+
+  #update-pet {
+    padding: 5px;
+    max-width: fit-content;
+  }
+
+  #add-pet {
+    padding: 5px;
+    max-width: fit-content;
+  }
+
+  #search-pets {
+    padding: 5px;
+    max-width: fit-content;
+  }
+
+  legend {
+    font-weight:bold;
+  }
+
+  #add-appointment {
+    padding: 5px;
+    max-width: fit-content;
+  }
+/*
+  #color-div {
+    background-color: #009fb7ff;
+    border: 3px solid white;
+  }
+
+  nav {
+    padding: 5px;
+  }
+  */
+  /* CSS HEX
+--persian-plum: #66101fff;
+--laurel-green: #c2cfb2ff;
+--dark-sea-green: #8db580ff;
+--pacific-blue: #009fb7ff;
+--prussian-blue: #172a3aff;
+*/
