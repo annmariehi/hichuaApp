@@ -72,7 +72,7 @@ app.get('/owners', function(req,res)
 });
 
 
-// Add Owner
+/* Add Owner
 app.post('/add-owner-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let Owner = req.body;
@@ -98,12 +98,12 @@ app.post('/add-owner-form', function(req, res){
         }
     });
 });
-
-// Update Owner
+*/
+/* Update Owner (Doesn't work yet)
 app.put('/put-owner', function(req,res,next){
     let Owner = req.body;
 
-    let email = parseInt(Owner.email);
+    let email = Owner.email;
     let ownerID = parseInt(Owner.ownerID);
 
     let queryUpdateOwnerEmail = 'UPDATE Owners SET email = ? WHERE Owners.ownerID = ?';
@@ -123,26 +123,26 @@ app.put('/put-owner', function(req,res,next){
     })
 
 });
-
-// Pet Types Page
+*/
+// Pet Types Page (doesn't work yet)
 app.get('/pet-types', function(req, res)
 {
        let displayPetTypes = "SELECT * FROM Pet_Types;";
 
        db.pool.query(displayPetTypes, function(error, rows, fields){
 
-            res.render('pet-types', {PetType: rows});
+            res.render('pet-types', {PetTypes: rows});
         })
 });
 
-// Add Pet Type
-app.post('/add-pet_type-form', function(req, res){
+/* Add Pet Type (doesn't work yet)
+app.post('/add-pet-type-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
-    let PetType = req.body;
+    let PetTypes = req.body;
 
 
     // Create the query and run it on the database
-    createPetTypeQuery = `INSERT INTO Pet_Types(type_name) VALUES ('${PetType['input-type_name']}');`;
+    createPetTypeQuery = `INSERT INTO Pet_Types(type_name) VALUES ("${PetTypes['input-type_name']}");`;
     db.pool.query(createPetTypeQuery, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -161,7 +161,7 @@ app.post('/add-pet_type-form', function(req, res){
         }
     });
 });
-
+*/
 
 
 
@@ -219,8 +219,6 @@ app.get('/pets', function(req, res)
             let pet_types = rows;
 
             // Construct an object for reference in the table
-            // Array.map is awesome for doing something with each
-            // element of an array.
             let pet_typemap = {}
             pet_types.map(pet_type => {
                 let pet_typeID = parseInt(pet_type.pet_typeID, 10);
@@ -255,11 +253,10 @@ app.get('/pets', function(req, res)
 });                                     // recieve back from the query
 
 
-// Delete Pet
+/* Delete Pet
 app.delete('/delete-pet', function(req,res,next){
     let data = req.body;
     let petID = parseInt(data.petID);
-   // let deleteCert_Pet = 'DELETE FROM Pets WHERE petID = ?';
     let deletePet= `DELETE FROM Pets WHERE petID = ?`;
 
     db.pool.query(deletePet, [petID], function(error, rows, fields){
@@ -272,8 +269,8 @@ app.delete('/delete-pet', function(req,res,next){
         }
     })
 });
-
-// Update Pet
+*/
+/* Update Pet
 app.put('/put-pet', function(req,res,next){
     let data = req.body;
 
@@ -310,9 +307,9 @@ app.put('/put-pet', function(req,res,next){
         }
     })
 });
+*/
 
-
-// Add Pet
+/* Add Pet
 app.post('/add-pet-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -344,7 +341,7 @@ app.post('/add-pet-form', function(req, res){
         }
     })
 })
-
+*/
 /*
     LISTENER
 */
