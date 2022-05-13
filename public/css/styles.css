@@ -11,6 +11,7 @@
     padding: 10px;
   }
 
+  /* TABLES */
   table {
     border-collapse: collapse;
       border: "1";
@@ -25,6 +26,7 @@
     background-color: #172a3aff;
     color: #009fb7ff;
   }
+
   tbody {
     background-color: white;
     color: #172a3aff;
@@ -34,11 +36,13 @@
     font-weight:bold;
   }
 
+  /* FORMS */
   form {
     padding: 5px;
     max-width: fit-content;
   }
 
+  /* NAV BAR */
 .topnav {
   background-color: #8db580ff;
   overflow: hidden;
@@ -126,14 +130,4 @@
   }
 
 
-  */
-/*
-  #color-div {
-    background-color: #009fb7ff;
-    border: 3px solid white;
-  }
-
-  nav {
-    padding: 5px;
-  }
   */
