@@ -8,7 +8,7 @@ updatePetForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // get form fields we need data from
-    let inputPetName = document.getElementById("mySelect");
+    let inputPetName = document.getElementById("petSelect");
     let inputPetTypeID = document.getElementById("input-pet_type-update");
 
     // get values from form fields

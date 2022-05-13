@@ -81,7 +81,7 @@
 <p>To update a pet's blah blah select their name from the drop down</p>
 <form id="update-pet-form">
     <label for="input-pet_name">Pet's Name: </label>
-    <select name="input-pet_name" id="mySelect">
+    <select name="input-pet_name" id="petSelect">
         <option value="test">Select a Pet</option>
         {{#each data}}
         <option value="{{this.petID}}">{{this.pet_name}}</option>
