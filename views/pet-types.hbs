@@ -1,11 +1,39 @@
 <!-- pet-types.hbs -->
 <h1>Pet Types</h1>
 
-{{!-- Pet Types Table --}}
 <table>
     <thead>
         <tr>
-            {{#each PetType.[0]}}
+            <th>Pet Type ID</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Dog</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Cat</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Rat</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Rabbit</td>
+        </tr>
+    </tbody>
+
+</table>
+
+{{!-- Pet Types Table
+<table>
+    <thead>
+        <tr>
+            {{#each PetTypes.[0]}}
             <th>
                 {{@key}}
             </th>
@@ -14,7 +42,7 @@
     </thead>
 
     <tbody>
-        {{#each PetType}}
+        {{#each PetTypes}}
         <tr>
             <td>{{this.pet_typeID}}</td>
             <td>{{this.type_name}}</td>
@@ -22,11 +50,12 @@
         {{/each}}
     </tbody>
 </table>
+ --}}
 
 {{!-- Add Pet Type Form --}}
 <h2>Add a Pet Type</h2>
 <p>please enter info and click submit</p>
-<form id="add-pet_type-form" method="POST" action="/add-pet_type-form">
+<form id="add-pet-type-form" method="POST" action="/add-pet-type-form">
      <label for="input-type_name">Pet Type Name: </label>
     <input type="text" name="input-type_name" id="input-type_name">
 
