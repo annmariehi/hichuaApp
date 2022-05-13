@@ -74,23 +74,9 @@ INSERT INTO Procedure_has_Vet(procedureID, vetID)
 VALUES (:procedureID, :vetID)
 
 
--- Delete appt
-DELETE FROM Appointments WHERE id = :appoitnmentID_selected_from_browse_appointments_page
+-- Delete appointment from Appointments
+DELETE FROM Appointments WHERE appointmentID = :appoitnmentID_selected_from_browse_appointments_page
 
--- Delete pet
-DELETE FROM Pets WHERE id = :petID_selected_from_browse_pets_page
+-- Delete pet from Pets
+DELETE FROM Pets WHERE petID = :petID_selected_from_browse_pets_page
 
--- Delete Veterinarian
-DELETE FROM Veterinarian WHERE id = :vetID_selected_from_browse_vets_page
-
--- Delete Pet Types
-DELETE FROM Pet_Types WHERE id = :pet_typeID_selected_from_browse_pet_types_page
-
--- Delete Procedures
-DELETE FROM Procedures WHERE id = :procedureID_selected_from_browse_procedures_page
-
--- Delete Exam Rooms
-DELETE FROM Exam_Rooms WHERE id = :exam_roomID_selected_from_browse_exam_rooms_page
-
--- Delete Owners
-DELETE FROM Owners WHERE id = :ownerID_selected_from_browse_owners_page
