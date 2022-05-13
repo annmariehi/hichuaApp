@@ -41,44 +41,46 @@
 
 
 
-{{!-- Add Procedure Form IN FORM HEAD AFTER ID: method="POST" action="/add-procedure-form"--}}
+{{!-- Add Procedure Form --}}
+{{!-- IN FORM HEAD AFTER ID: method="POST" action="/add-procedure-form" --}}
 <div id="add-procedure">
-<form id="add-procedure-form">
-<legend>Add a Procedure</legend>
-<fieldset>
-<p>please enter info and click submit</p>
+  <form id="add-procedure-form">
+    <legend>Add a Procedure</legend>
+    <fieldset>
+      <p>please enter info and click "Add Procedure"</p>
 
-     <label for="input-proc_name">Procedure Name: </label>
-    <input type="text" name="input-proc_name" id="input-proc_name">
+      <label for="input-proc_name">Procedure Name: </label>
+      <input type="text" name="input-proc_name" id="input-proc_name">
 
-    <label for="input-cost">Cost: </label>
-    <input type="number" name="input-cost" id="input-cost">
+      <label for="input-cost">Cost: </label>
+      <input type="number" name="input-cost" id="input-cost">
 
-    <input type="submit">
+      <input type="submit" value="Add Procedure">
     </fieldset>
-</form>
+  </form>
 </div>
 
 {{!-- Update Procedure Form --}}
 <div id="update-procedure">
   <form id="update-procedure-form">
-<legend>Update A Procedure</legend>
-<fieldset>
-<p>To update the cost of a procedure, please select the procedure name from the drop down</p>
-    <label for="input-procedure_name">Procedure: </label>
-    <select name="input-procedure_name" id="procedureSelect">
+    <legend>Update A Procedure</legend>
+    <fieldset>
+      <p>To update the cost of a procedure, please select the procedure name from the drop down</p>
+
+      <label for="input-procedure_name">Procedure: </label>
+      <select name="input-procedure_name" id="procedureSelect">
         <option value="test">Select a Procedure</option>
         {{#each Procedure}}
         <option value="{{this.procedureID}}">{{this.proc_name}}</option>
         {{/each}}
-    </select>
+      </select>
 
-    <label for="input-cost">Cost: </label>
-    <input type="number" name="input-cost" id="input-cost-update">
+      <label for="input-cost">Cost: </label>
+      <input type="number" name="input-cost" id="input-cost-update">
 
-    <input type="submit">
+      <input type="submit" value="Update Procedure">
     </fieldset>
-</form>
+  </form>
 </div>
 
 <script src="./js/update_procedure.js"></script>

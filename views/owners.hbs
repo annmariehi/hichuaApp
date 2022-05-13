@@ -26,58 +26,61 @@
 
 {{!-- Search form --}}
 <div id="search-owners">
-<form id="search-owner" method='GET' action='/owners'>
-<legend>Search</legend>
-<fieldset>
-<p>Search by owner name. Partial names okay!</p>
+    <form id="search-owner" method='GET' action='/owners'>
+        <legend>Search</legend>
+        <fieldset>
+            <p>Search by owner name. Partial names okay!</p>
 
-    <label for="input-owner_name"> Owner Name: </label>
-    <input type="text" name="owner_name" id="input-owner_name-search">
+            <label for="input-owner_name"> Owner Name: </label>
+            <input type="text" name="owner_name" id="input-owner_name-search">
 
-    <input type="submit" value="search">
-    <a href='/owners'><button>Reset</button></a>
-    </fieldset>
-</form>
+            <input type="submit" value="search">
+            <a href='/owners'><button>Reset</button></a>
+        </fieldset>
+    </form>
 </div>
 
 <aside>
-{{!-- Add Owner Form IN FORM HEADER AFTER ID: method="POST" action="/add-owner-form"--}}
+{{!-- Add Owner Form --}}
+{{!--IN FORM HEADER AFTER ID: method="POST" action="/add-owner-form"--}}
 <div id="add-owner">
-<form id="add-owner-form">
-<legend>Add an Owner</legend>
-<fieldset>
-<p>please enter info and click submit</p>
+    <form id="add-owner-form">
+        <legend>Add an Owner</legend>
+        <fieldset>
+            <p>please enter info and click submit</p>
 
-     <label for="input-owner_name">Owner Name: </label>
-    <input type="text" name="input-owner_name" id="input-owner_name">
+            <label for="input-owner_name">Owner Name: </label>
+            <input type="text" name="input-owner_name" id="input-owner_name">
 
-    <label for="input-email">Email: </label>
-    <input type="text" name="input-email" id="input-email">
+            <label for="input-email">Email: </label>
+            <input type="text" name="input-email" id="input-email">
 
-    <input type="submit" value="add owner">
-</fieldset>
-</form>
+            <input type="submit" value="add owner">
+        </fieldset>
+    </form>
 </div>
 
 
 {{!-- Update Owner Form --}}
 <div id="update-owner">
-<form id="update-owner-form">
-<legend>Update Owner Email</legend>
-<fieldset>
-<p>To update an owner's email, select their name and enter their new email</p>
-    <label for="input-owner_name">Owner's Name: </label>
-    <select name="input-ownerID" id="ownerSelect">
-        <option value="test">Select an Owner</option>
-        {{#each Owner}}
-        <option value="{{this.ownerID}}">{{this.owner_name}}</option>
-        {{/each}}
-    </select>
-    <label for="input-email">New Email: </label>
-    <input type="text" name="input-email" id="input-email-update">
-    <input type="submit" value="update owner">
-</fieldset>
-</form>
+    <form id="update-owner-form">
+        <legend>Update Owner Email</legend>
+        <fieldset>
+            <p>To update an owner's email, select their name and enter their new email</p>
+
+            <label for="input-owner_name">Owner's Name: </label>
+            <select name="input-ownerID" id="ownerSelect">
+                <option value="test">Select an Owner</option>
+                {{#each Owner}}
+                 <option value="{{this.ownerID}}">{{this.owner_name}}</option>
+                {{/each}}
+            </select>
+
+            <label for="input-email">New Email: </label>
+            <input type="text" name="input-email" id="input-email-update">
+            <input type="submit" value="update owner">
+        </fieldset>
+    </form>
 </div>
 
 <script src="./js/update_owner.js"></script>
