@@ -1,31 +1,11 @@
-.display_table {
-    background-color: rgb(225, 238, 234);
-  }
-
-  table {
-    border: "1";
-  }
-
-  .insert {
-    display: block;
-  }
-
-  .update {
-    display: block;
-  }
-
-  .delete {
-    display: block;
-  }
-
   body {
     background-color: #c2cfb2ff;
     padding: 10px;
-
   }
 
   table {
     border-collapse: collapse;
+      border: "1";
   }
 
   th, td {
@@ -33,6 +13,14 @@
     padding: 5px;
   }
 
+  form {
+    padding: 5px;
+    max-width: fit-content;
+  }
+
+
+
+  /*
   #update-pet {
     padding: 5px;
     max-width: fit-content;
@@ -96,6 +84,7 @@
     padding: 5px;
     max-width: fit-content;
   }
+  */
 /*
   #color-div {
     background-color: #009fb7ff;
