@@ -1,2 +1,34 @@
 <!-- pet-types.hbs -->
 <h1>Pet Types</h1>
+
+{{!-- Pet Types Table --}}
+<table>
+    <thead>
+        <tr>
+            {{#each PetType.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each PetType}}
+        <tr>
+            <td>{{this.pet_typeID}}</td>
+            <td>{{this.type_name}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{!-- Add Pet Type Form --}}
+<h2>Add a Pet Type</h2>
+<p>please enter info and click submit</p>
+<form id="add-pet_type-form" method="POST" action="/add-pet_type-form">
+     <label for="input-type_name">Pet Type Name: </label>
+    <input type="text" name="input-type_name" id="input-type_name">
+
+    <input type="submit">
+</form>
