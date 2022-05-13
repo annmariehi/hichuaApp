@@ -1,2 +1,91 @@
 <!-- appointments.hbs -->
-<h1>Appointments</h1>
+<h2>Appointments</h2>
+
+{{!-- Appointments Table --}}
+      <table>
+        <tbody>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Appointment ID</th>
+            <th>Pet Name</th>
+            <th>Exam Room</th>
+            <th>Scheduled Procedures</th>
+            <th>Date</th>
+          </tr>
+          <tr>
+            <td><a href="appointments-edit.hbs">Edit</a></td>
+            <td><a href="#">Delete</a></td>
+            <td>1</td>
+            <td>Knox</td>
+            <td>1</td>
+            <td>wellness exam, vaccinate</td>
+            <td>4/26/2022</td>
+          </tr>
+          <tr>
+            <td><a href="appointments-edit.hbs">Edit</a></td>
+            <td><a href="#">Delete</a></td>
+            <td>2</td>
+            <td>Chelsea</td>
+            <td>2</td>
+            <td>sick exam</td>
+            <td>4/26/2022</td>
+          </tr>
+          <tr>
+            <td><a href="appointments-edit.hbs">Edit</a></td>
+            <td><a href="#">Delete</a></td>
+            <td>3</td>
+            <td>Pico de Gallo</td>
+            <td>3</td>
+            <td>neuter, vaccinate</td>
+            <td>4/26/2022</td>
+          </tr>
+        </tbody>
+      </table>
+
+{{!-- Add Appointment Form --}}
+    <div id="add-appointment">
+      <form id="add-appointment-form">
+        <legend>Add Appointment</legend>
+        <fieldset>
+          <div>
+          <label for="petIDInsert">pet name:</label>
+          <select name="petIDInsert" id="petIDInsert">
+            <option value="1">Sunday</option>
+            <option value="2">Knox</option>
+            <option value="3">Chelsea</option>
+            <option value="4">Pico de Gallo</option>
+            <option value="5">Snickers</option>
+          </select>
+          </div>
+          <div>
+          <label for="roomIDInsert">exam room:</label>
+          <select name="roomIDInsert" id="roomIDInsert">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div>
+          <label for="proceduresInsert">procedures:</label>
+          <input type="checkbox" id="neuter" name="neuter">
+          <label for="neuter">Neuter</label>
+          <input type="checkbox" id="spay" name="spay">
+          <label for="spay">Spay</label>
+          <input type="checkbox" id="vaccinate" name="vaccinate">
+          <label for="vaccinate">Vaccinate</label>
+          <input type="checkbox" id="wellnessExam" name="wellnessExam">
+          <label for="wellnessExam">Wellness Exam</label>
+          <input type="checkbox" id="sickExam" name="sickExam">
+          <label for="sickExam">Sick Exam</label>
+        </div>
+        <div>
+          <label for ="apptdateInsert">appointment date:</label>
+          <input type="date" id="apptdateInsert" name="apptdateInsert"
+          value="2022-01-01" min="2022-01-01" max="2023-01-01">
+        </div>
+
+        <input type="submit" value="Add Appointment">
+                </fieldset>
+      </form>
+    </div>
