@@ -1,15 +1,25 @@
 <!-- veterinarians.hbs -->
 <h2>Veterinarians</h2>
 
+{{!-- script to highlight current tab in nav bar --}}
+<script>
+  var element = document.getElementById("vetsNav");
+  element.classList.add("active");
+</script>
+
+
 {{!-- Veterinarians Table --}}
 <p>Click view to see all the procedures that talented vet can perform!</p>
       <table>
-        <tbody>
+        <thead>
           <tr>
             <th>Vet ID</th>
             <th>Vet Name</th>
             <th>Procedures</th>
           </tr>
+        </thead>
+        <tbody>
+
           <tr>
             <td>1</td>
             <td>Sara Robinson</td>

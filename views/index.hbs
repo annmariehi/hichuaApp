@@ -1,5 +1,12 @@
 <!-- index.hbs -->
 
+{{!-- script to highlight current tab in nav bar --}}
+<script>
+  var element = document.getElementById("homeNav");
+  element.classList.add("active");
+</script>
+
+{{!-- list of pages --}}
 <ul>
     <li><a href="/">Home</a></li>
     <p>This is the page you are currently on</p>

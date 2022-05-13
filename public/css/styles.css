@@ -1,3 +1,11 @@
+    /* CSS HEX (Color Pallette)
+--persian-plum: #66101fff;
+--laurel-green: #c2cfb2ff;
+--dark-sea-green: #8db580ff;
+--pacific-blue: #009fb7ff;
+--prussian-blue: #172a3aff;
+*/
+
   body {
     background-color: #c2cfb2ff;
     padding: 10px;
@@ -13,13 +21,49 @@
     padding: 5px;
   }
 
+  thead {
+    background-color: #172a3aff;
+    color: #009fb7ff;
+  }
+  tbody {
+    background-color: white;
+    color: #172a3aff;
+  }
+
+  legend {
+    font-weight:bold;
+  }
+
   form {
     padding: 5px;
     max-width: fit-content;
   }
 
+.topnav {
+  background-color: #8db580ff;
+  overflow: hidden;
+}
 
+.topnav a {
+  float: left;
+  padding: 14px 16px;
+  color: #172a3aff;
+  text-align: center;
+  text-decoration: none;
+}
 
+.topnav a:hover {
+  background-color: #009fb7ff;
+}
+
+.active {
+  background-color: #172a3aff;
+  color:  #009fb7ff !important;
+}
+
+.active:hover {
+  color: #172a3aff !important;
+}
   /*
   #update-pet {
     padding: 5px;
@@ -34,10 +78,6 @@
   #search-pets {
     padding: 5px;
     max-width: fit-content;
-  }
-
-  legend {
-    font-weight:bold;
   }
 
   #add-appointment {
@@ -70,6 +110,11 @@
     max-width: fit-content;
   }
 
+  #search-owners {
+    padding: 5px;
+    max-width: fit-content;
+  }
+
   #add-pet-type {
     padding: 5px;
     max-width: fit-content;
@@ -80,10 +125,7 @@
     max-width: fit-content;
   }
 
-  #search-owners {
-    padding: 5px;
-    max-width: fit-content;
-  }
+
   */
 /*
   #color-div {
@@ -95,10 +137,3 @@
     padding: 5px;
   }
   */
-  /* CSS HEX
---persian-plum: #66101fff;
---laurel-green: #c2cfb2ff;
---dark-sea-green: #8db580ff;
---pacific-blue: #009fb7ff;
---prussian-blue: #172a3aff;
-*/

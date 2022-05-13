@@ -1,12 +1,21 @@
 <!--exam-rooms.hbs-->
 
+{{!-- script to highlight current tab in nav bar --}}
+<script>
+  var element = document.getElementById("examRoomsNav");
+  element.classList.add("active");
+</script>
+
 {{!-- Exam Rooms Table --}}
 <h2>Exam Rooms</h2>
       <table>
-        <tbody>
+        <thead>
           <tr>
             <th>Exam Room IDs</th>
           </tr>
+        </thead>
+        <tbody>
+
           <tr>
             <td>1</td>
           </tr>
@@ -20,13 +29,13 @@
       </table>
 
 {{!-- Add Exam Room Form --}}
-      <div id="add-exam-room">
+    <div id="add-exam-room">
       <form id="add-exam-room-form">
         <legend>Add Exam Room</legend>
         <fieldset>
           <label>Exam Room Number: </label>
           <input type="number" name="insert-exam_room" id="insert-exam_room">
+          <input type="submit" value="Add Exam Room">
         </fieldset>
-        <input type="submit" value="Add Exam Room">
       </form>
     </div>

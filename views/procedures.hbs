@@ -1,15 +1,24 @@
 <!-- procedures.hbs -->
 <h2>Procedures</h2>
 
+{{!-- script to highlight current tab in nav bar --}}
+<script>
+  var element = document.getElementById("proceduresNav");
+  element.classList.add("active");
+</script>
+
 {{!-- Procedures Table --}}
     <div class="browse" style="display: block;">
       <table>
-        <tbody>
+        <thead>
           <tr>
             <th>Procedure ID</th>
             <th>Name</th>
             <th>Cost($)</th>
           </tr>
+        </thead>
+        <tbody>
+
           <tr>
             <td>1</td>
             <td>Neuter</td>

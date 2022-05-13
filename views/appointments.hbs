@@ -1,11 +1,16 @@
 <!-- appointments.hbs -->
 <h2>Appointments</h2>
 
+{{!-- script to highlight current tab in nav bar --}}
+<script>
+  var element = document.getElementById("appointmentsNav");
+  element.classList.add("active");
+</script>
+
 {{!-- Appointments Table --}}
       <table>
-        <tbody>
+        <thead>
           <tr>
-
             <th>Appointment ID</th>
             <th>Pet Name</th>
             <th>Exam Room</th>
@@ -14,6 +19,9 @@
             <th>Edit</th>
             <th>Delete</th>
           </tr>
+        </thead>
+        <tbody>
+
           <tr>
 
             <td>1</td>

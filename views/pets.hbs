@@ -1,6 +1,12 @@
 <!--pets.hbs-->
 <h2>Pets</h2>
 
+{{!-- script to highlight current tab in nav bar --}}
+<script>
+  var element = document.getElementById("petsNav");
+  element.classList.add("active");
+</script>
+
 {{!-- Pets Table --}}
 <table id="pets-table">
     <thead>
