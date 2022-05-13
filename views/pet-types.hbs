@@ -1,5 +1,5 @@
 <!-- pet-types.hbs -->
-<h1>Pet Types</h1>
+<h2>Pet Types</h2>
 
 <table>
     <thead>
@@ -53,11 +53,12 @@
  --}}
 
 {{!-- Add Pet Type Form AFTER FORM ID:  method="POST" action="/add-pet-type-form" --}}
-<h2>Add a Pet Type</h2>
-<p>please enter info and click submit</p>
 <form id="add-pet-type-form">
+<legend>Add a Pet Type</legend>
+<fieldset>
+<p>please enter info and click submit</p>
      <label for="input-type_name">Pet Type Name: </label>
     <input type="text" name="input-type_name" id="input-type_name">
-
     <input type="submit">
 </form>
+</fieldset>
