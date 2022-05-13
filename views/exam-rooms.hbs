@@ -1,9 +1,11 @@
 <!--exam-rooms.hbs-->
+
+{{!-- Exam Rooms Table --}}
 <h2>Exam Rooms</h2>
       <table>
         <tbody>
           <tr>
-            <th>Exam Rooms</th>
+            <th>Exam Room IDs</th>
           </tr>
           <tr>
             <td>1</td>
@@ -16,3 +18,15 @@
           </tr>
         </tbody>
       </table>
+
+{{!-- Add Exam Room Form --}}
+      <div id="add-exam-room">
+      <form id="add-exam-room-form">
+        <legend>Add Exam Room</legend>
+        <fieldset>
+          <label>Exam Room Number: </label>
+          <input type="number" name="insert-exam_room" id="insert-exam_room">
+        </fieldset>
+        <input type="submit" value="Add Exam Room">
+      </form>
+    </div>
