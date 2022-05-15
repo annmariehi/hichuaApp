@@ -11,11 +11,9 @@
 <table>
     <thead>
         <tr>
-            {{#each Owner.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>Owner ID</th>
+            <th>Owner Name</th>
+            <th>Email</th>
         </tr>
     </thead>
 
@@ -76,7 +74,7 @@
 
             <label for="input-owner_name">Owner's Name: </label>
             <select name="input-ownerID" id="ownerSelect">
-                <option value="test">Select an Owner</option>
+                <option disabled selected hidden>Select an Owner</option>
                 {{#each Owner}}
                  <option value="{{this.ownerID}}">{{this.owner_name}}</option>
                 {{/each}}

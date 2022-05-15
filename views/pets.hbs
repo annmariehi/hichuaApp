@@ -10,17 +10,16 @@
 {{!-- Pets Table --}}
 <table id="pets-table">
     <thead>
-
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>Pet ID</th>
+            <th>Pet Name</th>
+            <th>Owner</th>
+            <th>Pet Type</th>
+            <th>Breed</th>
+            <th>Birthdate</th>
             <th>delete</th>
         </tr>
     </thead>
-
     <tbody>
         {{#each data}}
         <tr data-value={{this.petID}}>
@@ -64,7 +63,7 @@
 
     <label for="input-ownerID">Owner: </label>
     <select name="input-ownerID" id="input-ownerID">
-        <option value="">Select Owner</option>
+        <option disabled selected hidden>Select Owner</option>
         {{#each owners}}
         <option value="{{this.ownerID}}">{{this.owner_name}}</option>
         {{/each}}
@@ -72,7 +71,7 @@
 
     <label for="input-pet_typeID">Pet Type: </label>
     <select name="input-pet_typeID" id="input-pet_typeID">
-        <option value="">Select Pet Type</option>
+        <option disabled selected hidden>Select Pet Type</option>
         {{#each pet_types}}
         <option value="{{this.pet_typeID}}">{{this.type_name}}</option>
         {{/each}}
@@ -98,7 +97,7 @@
 
     <label for="input-pet_name">Pet's Name: </label>
     <select name="input-pet_name" id="petSelect">
-        <option value="test">Select a Pet</option>
+        <option disabled selected hidden>Select a Pet</option>
         {{#each data}}
         <option value="{{this.petID}}">{{this.pet_name}}</option>
         {{/each}}
@@ -106,7 +105,7 @@
 
     <label for="input-pet_type">Pet Type: </label>
     <select name="input-pet_type" id="input-pet_type-update">
-        <option>select pet type</option>
+        <option disabled selected hidden>select pet type</option>
         {{#each pet_types}}
         <option value="{{this.pet_typeID}}">{{this.type_name}}</option>
         {{/each}}
