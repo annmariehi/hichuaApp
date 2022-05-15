@@ -8,95 +8,84 @@
 </script>
 
 {{!-- Appointments Table --}}
-      <table>
+      <table id="appointments-table">
         <thead>
           <tr>
             <th>Appointment ID</th>
             <th>Pet Name</th>
             <th>Exam Room</th>
-            <th>Scheduled Procedures</th>
             <th>Date</th>
-            <th>Edit</th>
+            <th>Scheduled Procedures</th>
             <th>Delete</th>
           </tr>
         </thead>
         <tbody>
-
-          <tr>
-
-            <td>1</td>
-            <td>Knox</td>
-            <td>1</td>
-            <td>wellness exam, vaccinate</td>
-            <td>4/26/2022</td>
-            <td><button onClick="editAppointment()">Edit</button></td>
-            <td><button onClick="deleteAppointment()">Delete</button></td>
+            {{#each appointmentData}}
+          <tr appointment-data-value={{this.appointmentID}}>
+            <td>{{this.appointmentID}}</td>
+            <td>{{this.petID}}</td>
+            <td>{{this.exam_roomID}}</td>
+            <td>{{this.appointment_date}}</td>
+            <td><button onClick="viewProcedures({{this.appointmentID}})">View</button></td>
+            <td><button onClick="deleteAppointment({{this.appointmentID}})">Delete</button></td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>Chelsea</td>
-            <td>2</td>
-            <td>sick exam</td>
-            <td>4/26/2022</td>
-            <td><button onClick="editAppointment()">Edit</button></td>
-            <td><button onClick="deleteAppointment()">Delete</button></td>
-          </tr>
-          <tr>
-
-            <td>3</td>
-            <td>Pico de Gallo</td>
-            <td>3</td>
-            <td>neuter, vaccinate</td>
-            <td>4/26/2022</td>
-            <td><button onClick="editAppointment()">Edit</button></td>
-            <td><button onClick="deleteAppointment()">Delete</button></td>
-          </tr>
+          {{/each}}
         </tbody>
       </table>
+      <script src="./js/view_procedures.js"></script>
+      <script src="./js/delete_appointment.js"></script>
+
+{{!-- Search Appointment Form --}}
+<div id="search-appointments">
+  <form id="search-appointments" method="GET" action="/appointments">
+  <legend>Search Appointments</legend>
+  <fieldset>
+    <p>Search Appointments by pet name.</p>
+    <lable for="input-pet_name">Search by Pet Name: </lable>
+    <select name="petID" id="input-petID">
+      <option disabled selected hidden>Select Pet Name</option>
+      {{#each pets}}
+      <option value="{{this.petID}}">{{this.pet_name}}</option>
+      {{/each}}
+    </select>
+    <input type="submit" value="search">
+    <a href='/appointments'><button>Reset</button></a>
+  </fieldset>
+  </form>
+</div>
 
 {{!-- Add Appointment Form --}}
     <div id="add-appointment">
-      <form id="add-appointment-form">
+      <form id="add-appointment-form" method="POST" action="/add-appointment-form">
         <legend>Add Appointment</legend>
         <fieldset>
+          <p>Please select appointment information, and then click 'add procedures' to add procedures to the appointment</p>
           <div>
-          <label for="petIDInsert">pet name:</label>
-          <select name="petIDInsert" id="petIDInsert">
-            <option value="1">Sunday</option>
-            <option value="2">Knox</option>
-            <option value="3">Chelsea</option>
-            <option value="4">Pico de Gallo</option>
-            <option value="5">Snickers</option>
+          <label for="input-petID">pet name: </label>
+          <select name="input-petID" id="input-petID">
+            <option disabled selected hidden>Select Pet Name</option>
+            {{#each pets}}
+            <option value="{{this.petID}}">{{this.pet_name}}</option>
+            {{/each}}
           </select>
           </div>
           <div>
-          <label for="roomIDInsert">exam room:</label>
-          <select name="roomIDInsert" id="roomIDInsert">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+          <label for="input-exam_roomID">exam room:</label>
+          <select name="input-exam_roomID" id="input-exam_roomID">
+            <option disabled selected hidden>select exam room</option>
+            {{#each exam_rooms}}
+            <option value="{{this.exam_roomID}}">{{this.exam_roomID}}</option>
+            {{/each}}
           </select>
         </div>
         <div>
-          <label for="proceduresInsert">procedures:</label>
-          <input type="checkbox" id="neuter" name="neuter">
-          <label for="neuter">Neuter</label>
-          <input type="checkbox" id="spay" name="spay">
-          <label for="spay">Spay</label>
-          <input type="checkbox" id="vaccinate" name="vaccinate">
-          <label for="vaccinate">Vaccinate</label>
-          <input type="checkbox" id="wellnessExam" name="wellnessExam">
-          <label for="wellnessExam">Wellness Exam</label>
-          <input type="checkbox" id="sickExam" name="sickExam">
-          <label for="sickExam">Sick Exam</label>
-        </div>
-        <div>
-          <label for ="apptdateInsert">appointment date:</label>
-          <input type="date" id="apptdateInsert" name="apptdateInsert"
-          value="2022-01-01" min="2022-01-01" max="2023-01-01">
+          <label for ="input-appointment_date">appointment date:</label>
+          <input type="date" id="input-appointment_date" name="input-appointment_date">
         </div>
 
-        <input type="submit" value="Add Appointment">
+        <input type="submit" value="Add Procedures">
                 </fieldset>
       </form>
     </div>
+
+    {{!-- Update Appointment Form --}}
