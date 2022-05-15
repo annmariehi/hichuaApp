@@ -8,7 +8,6 @@
 </script>
 
 {{!-- Procedures Table --}}
-    <div class="browse" style="display: block;">
       <table>
         <thead>
           <tr>
@@ -18,32 +17,13 @@
           </tr>
         </thead>
         <tbody>
-
+          {{#each procedureData}}
           <tr>
-            <td>1</td>
-            <td>Neuter</td>
-            <td>10</td>
+            <td>{{this.procedureID}}</td>
+            <td>{{this.proc_name}}</td>
+            <td>{{this.cost}}</td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>Spay</td>
-            <td>10</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Vaccinate</td>
-            <td>15</td>
-          </tr>
-             <tr>
-            <td>4</td>
-            <td>Wellness Exam</td>
-            <td>50</td>
-          </tr>
-             <tr>
-            <td>5</td>
-            <td>Sick Exam</td>
-            <td>50</td>
-          </tr>
+          {{/each}}
         </tbody>
       </table>
     </div>
@@ -51,9 +31,8 @@
 
 
 {{!-- Add Procedure Form --}}
-{{!-- IN FORM HEAD AFTER ID: method="POST" action="/add-procedure-form" --}}
 <div id="add-procedure">
-  <form id="add-procedure-form">
+  <form id="add-procedure-form" method="POST" action="/add-procedure-form">
     <legend>Add a Procedure</legend>
     <fieldset>
       <p>please enter info and click "Add Procedure"</p>
@@ -78,8 +57,8 @@
 
       <label for="input-procedure_name">Procedure: </label>
       <select name="input-procedure_name" id="procedureSelect">
-        <option value="test">Select a Procedure</option>
-        {{#each Procedure}}
+        <option disabled selected hidden>Select a Procedure</option>
+        {{#each procedureData}}
         <option value="{{this.procedureID}}">{{this.proc_name}}</option>
         {{/each}}
       </select>

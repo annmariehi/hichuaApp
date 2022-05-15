@@ -20,27 +20,13 @@
           </tr>
         </thead>
         <tbody>
-
+          {{#each vetData}}
           <tr>
-            <td>1</td>
-            <td>Sara Robinson</td>
-            <td><button onclick="viewProcedures(1)">View</button></td>
+            <td>{{this.vetID}}</td>
+            <td>{{this.vet_name}}</td>
+            <td><button onclick="viewProcedures({{this.vetID}})">View</button></td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>Evan Johnson</td>
-            <td><button onclick="viewProcedures(2)">View</button></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Mary Smith</td>
-            <td><button onclick="viewProcedures(3)">View</button></td>
-          </tr>
-             <tr>
-            <td>4</td>
-            <td>Greg Williams</td>
-            <td><button onclick="viewProcedures(4)">View</button></td>
-          </tr>
+          {{/each}}
         </tbody>
       </table>
     </div>
@@ -48,31 +34,16 @@
 <div class="column">
 {{!-- Add Vet Form --}}
 <div id="add-vet">
-  <form id="add-vet-form">
+  <form id="add-vet-form" method="POST" action="/add-vet-form">
     <legend>Add Veterinarian</legend>
     <fieldset>
       <label>Vet's Name: </label>
-      <input type="text" name="insert-vet_name" id="insert-vet_name">
+      <input type="text" name="input-vet_name" id="input-vet_name">
       <div></div>
 
       <label>Procedures: </label>
-
-      <input type="checkbox" id="neuter" name="neuter">
-      <label for="neuter">Neuter</label>
-
-      <input type="checkbox" id="spay" name="spay">
-      <label for="spay">Spay</label>
-
-      <input type="checkbox" id="vaccinate" name="vaccinate">
-      <label for="vaccinate">Vaccinate</label>
-
-      <input type="checkbox" id="wellnessExam" name="wellnessExam">
-      <label for="wellnessExam">Wellness Exam</label>
-
-      <input type="checkbox" id="sickExam" name="sickExam">
-      <label for="sickExam">Sick Exam</label>
+      <button id="add-vet-procedures">Add</button>
       <div></div>
-
       <input type="submit" value="Add Veterinarian">
     </fieldset>
   </form>

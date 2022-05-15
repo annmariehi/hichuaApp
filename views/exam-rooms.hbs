@@ -15,26 +15,21 @@
           </tr>
         </thead>
         <tbody>
-
+          {{#each examRoomData}}
           <tr>
-            <td>1</td>
+            <td>{{this.exam_roomID}}</td>
           </tr>
-          <tr>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>3</td>
-          </tr>
+          {{/each}}
         </tbody>
       </table>
 
 {{!-- Add Exam Room Form --}}
     <div id="add-exam-room">
-      <form id="add-exam-room-form">
+      <form id="add-exam-room-form" method="POST" action="/add-exam-room-form">
         <legend>Add Exam Room</legend>
         <fieldset>
           <label>Exam Room Number: </label>
-          <input type="number" name="insert-exam_room" id="insert-exam_room">
+          <input type="number" name="insert-exam_roomID" id="insert-exam_roomID">
           <input type="submit" value="Add Exam Room">
         </fieldset>
       </form>
