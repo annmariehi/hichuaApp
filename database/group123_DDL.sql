@@ -1,9 +1,9 @@
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT=0;
 
---------------------------------------------------------
+-- ------------------------------------------------------------
 -- Table structure and data insert for 'Owners'
---------------------------------------------------------
+-- ------------------------------------------------------------
 CREATE OR REPLACE TABLE Owners (
 	ownerID int AUTO_INCREMENT NOT NULL,
     owner_name VARCHAR(50) NOT NULL,
@@ -18,9 +18,9 @@ VALUES ("Robert McGee", "rmcgee12@email.com"),
 ("Eliana Randall", "elrandall23@email.com"),
 ("Vina Rosenfeld", "vinarosenfeld@email.com");
 
---------------------------------------------------------
+-- ------------------------------------------------------------
 -- Table structure and data insert for 'Pet_Types'
---------------------------------------------------------
+-- ------------------------------------------------------------
 CREATE OR REPLACE TABLE Pet_Types (
 	pet_typeID int AUTO_INCREMENT NOT NULL,
     type_name VARCHAR(50) NOT NULL,
@@ -32,9 +32,9 @@ VALUES ("Dog"),
 ("Cat"),
 ("Rat"),
 ("Rabbit");
---------------------------------------------------------
+-- ------------------------------------------------------------
 -- Table structure and data insert for 'Pets'
---------------------------------------------------------
+-- ------------------------------------------------------------
 CREATE OR REPLACE TABLE Pets (
 	petID int AUTO_INCREMENT NOT NULL,
     pet_name VARCHAR(50) NOT NULL,
@@ -54,9 +54,9 @@ VALUES ("Sunday", 1, 2, "Domestic Shorthair", "2020-04-15"),
 ("Pico de Gallo", 4, 3, NULL, "2021-07-01"),
 ("Snickers", 5, 1, "Pomeranian", "2012-03-01");
 
---------------------------------------------------------
+-- ------------------------------------------------------------
 -- Table structure and data insert for 'Veterinarians'
---------------------------------------------------------
+-- ------------------------------------------------------------
 CREATE OR REPLACE TABLE Veterinarians (
 	vetID int AUTO_INCREMENT NOT NULL,
     vet_name VARCHAR(50) NOT NULL,
@@ -69,9 +69,9 @@ VALUES ("Sara Robinson"),
 ("Mary Smith"),
 ("Greg Williams");
 
---------------------------------------------------------
+-- ------------------------------------------------------------
 -- Table structure and data insert for 'Procedures'
---------------------------------------------------------
+-- ------------------------------------------------------------
 CREATE OR REPLACE TABLE Procedures (
 	procedureID int AUTO_INCREMENT NOT NULL,
     proc_name VARCHAR(50) NOT NULL,
@@ -86,9 +86,9 @@ VALUES ("neuter", 10.00),
 ("wellness exam", 50.00),
 ("sick exam", 50.00);
 
---------------------------------------------------------
+-- ------------------------------------------------------------
 -- Table structure and data insert for 'Exam_Rooms'
---------------------------------------------------------
+-- ------------------------------------------------------------
 CREATE OR REPLACE TABLE Exam_Rooms (
 	exam_roomID TINYINT(3) NOT NULL,
     PRIMARY KEY(exam_roomID)
@@ -99,9 +99,9 @@ VALUES (1),
 (2),
 (3);
 
---------------------------------------------------------
+-- ------------------------------------------------------------
 -- Table structure and data insert for 'Appointments'
---------------------------------------------------------
+-- ------------------------------------------------------------
 CREATE OR REPLACE TABLE Appointments (
 	appointmentID int AUTO_INCREMENT NOT NULL,
     petID int NOT NULL,
@@ -117,9 +117,9 @@ VALUES (2, 1, "2022-04-26"),
 (3, 2, "2022-04-26"),
 (4, 3, "2022-04-26");
 
-------------------------------------------------------------------
+-- ------------------------------------------------------------
 -- Table structure and data insert for 'Appointment_has_Procedure'
-------------------------------------------------------------------
+-- ------------------------------------------------------------
 CREATE OR REPLACE TABLE Appointment_has_Procedure (
 	appointmentID int,
     procedureID int,
@@ -134,9 +134,9 @@ VALUES (1, 4),
 (3, 1),
 (3, 3);
 
---------------------------------------------------------------
+-- ------------------------------------------------------------
 -- Table structure and data insert for 'Procedure_has_Vet'
---------------------------------------------------------------
+-- ------------------------------------------------------------
 CREATE OR REPLACE TABLE Procedure_has_Vet (
 	procedureID int,
     vetID int,
