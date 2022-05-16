@@ -46,11 +46,16 @@
 </div>
 
 <div class="forms">
+
+        <div class="tab">
+        <button class="tablinks" onclick="openForm(event, 'addForm')">Add Owner</button>
+        <button class="tablinks" onclick="openForm(event, 'updateForm')">Update Owner</button>
+    </div>
+    <script src="./js/tabs.js"></script>
+
+    <div id="addForm" class="tabContent">
 {{!-- Add Owner Form --}}
-<div id="add-owner">
-    <form id="add-owner-form" method="POST" action="/add-owner-form">
-        <legend>Add an Owner</legend>
-        <fieldset>
+    <form class="addForm" id="add-owner-form" method="POST" action="/add-owner-form">
             <p>please enter info and click submit</p>
 
             <label for="input-owner_name">Owner Name: </label>
@@ -60,16 +65,13 @@
             <input type="text" name="input-email" id="input-email">
 
             <input type="submit" value="add owner">
-        </fieldset>
     </form>
 </div>
 
 
 {{!-- Update Owner Form --}}
-<div id="update-owner">
-    <form id="update-owner-form">
-        <legend>Update Owner Email</legend>
-        <fieldset>
+<div id="updateForm" class="tabContent">
+    <form class="updateForm" id="update-owner-form" method="PUT" action="/update-owner-form">
             <p>To update an owner's email, select their name and enter their new email</p>
 
             <label for="input-owner_name">Owner's Name: </label>
@@ -83,7 +85,6 @@
             <label for="input-email">New Email: </label>
             <input type="text" name="input-email" id="input-email-update">
             <input type="submit" value="update owner">
-        </fieldset>
     </form>
 </div>
 

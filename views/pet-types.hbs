@@ -32,10 +32,15 @@
 
 </div>
 <div class="forms">
+
+        <div class="tab">
+        <button class="tablinks" onclick="openForm(event, 'addForm')">Add Pet Type</button>
+    </div>
+    <script src="./js/tabs.js"></script>
+
+    <div id="addForm" class="tabContent">
 {{!-- Add Pet Type Form --}}
-<div id="add-pet-type">
     <form class="addForm" id="add-pet-type-form" method="POST" action="/add-pet-type-form">
-        <legend>Add a Pet Type</legend>
 
             <p>Please enter the new Pet Type and click "Add Pet Type"</p>
             <label for="input-type_name">Pet Type Name: </label>

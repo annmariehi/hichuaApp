@@ -35,11 +35,15 @@
 
 
 <div class="forms">
+      <div class="tab">
+        <button class="tablinks" onclick="openForm(event, 'addForm')">Add Procedure</button>
+        <button class="tablinks" onclick="openForm(event, 'updateForm')">Update Procedure</button>
+    </div>
+    <script src="./js/tabs.js"></script>
+
+    <div id="addForm" class="tabContent">
 {{!-- Add Procedure Form --}}
-<div id="add-procedure">
-  <form id="add-procedure-form" method="POST" action="/add-procedure-form">
-    <legend>Add a Procedure</legend>
-    <fieldset>
+  <form class="addForm" id="add-procedure-form" method="POST" action="/add-procedure-form">
       <p>please enter info and click "Add Procedure"</p>
 
       <label for="input-proc_name">Procedure Name: </label>
@@ -49,15 +53,12 @@
       <input type="number" name="input-cost" id="input-cost">
 
       <input type="submit" value="Add Procedure">
-    </fieldset>
   </form>
 </div>
 
 {{!-- Update Procedure Form --}}
-<div id="update-procedure">
-  <form id="update-procedure-form">
-    <legend>Update A Procedure</legend>
-    <fieldset>
+<div id="updateForm" class="tabContent">
+  <form class="updateForm" id="update-procedure-form">
       <p>To update the cost of a procedure, please select the procedure name from the drop down</p>
 
       <label for="input-procedure_name">Procedure: </label>
@@ -72,7 +73,6 @@
       <input type="number" name="input-cost" id="input-cost-update">
 
       <input type="submit" value="Update Procedure">
-    </fieldset>
   </form>
 </div>
 

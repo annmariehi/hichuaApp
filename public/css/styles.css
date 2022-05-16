@@ -5,6 +5,7 @@
 --pacific-blue: #009fb7ff;
 --prussian-blue: #172a3aff;
 */
+
 /* PAGE LAYOUT */
 .container {  display: grid;
   grid-template-columns: 1fr 0.7fr 1.3fr;
@@ -28,21 +29,11 @@
 
 .headerNavbar { grid-area: headerNavbar; }
 
-
-
-
-
-
-
-
-
-
-
-  body {
-    background-color: #c2cfb2ff;
-    padding: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-  }
+body {
+  background-color: #c2cfb2ff;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 
 /* NAV BAR */
@@ -58,6 +49,7 @@
     text-align: center;
     text-decoration: none;
     font-size: 17px;
+    transition: 0.3s;
   }
 
   .topnav a:hover {
@@ -127,14 +119,6 @@
   }
 
 /* FORMS */
-  form {
-    max-width: fit-content;
-  }
-
-  form.search {
-    max-width: 75%;
-    align-self: center;
-  }
 
   select option.placeholder {
     color: grey;
@@ -143,6 +127,10 @@
 /* SEARCH FORM */
 .searchSpace {
   height: 15px;
+}
+form.search {
+  max-width: 75%;
+  align-self: center;
 }
 form.search input[type=text] {
   padding: 10px;
@@ -202,10 +190,9 @@ form.search::after {
 
 form.addForm {
   background-color: #8db580ff;
-  width: 75%;
-  padding: 5px;
+  width: 100%;
 }
-form.addForm input[type=text], [type=date], select {
+form.addForm input[type=text], [type=date], [type=number], [type=email], select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -228,6 +215,73 @@ form.addForm input[type=submit] {
 
 form.addForm input[type=submit]:hover {
   background-color: lightgrey;
+}
+
+/*UPDATE FORM*/
+form.updateForm {
+  background-color: #8db580ff;
+  width: 100%;
+}
+
+form.updateFormForm input[type=text], [type=date], [type=number], [type=email], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid grey;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+form.updateForm input[type=submit] {
+  width: 100%;
+  background-color: grey;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+
+}
+
+
+form.updateFormForm input[type=submit]:hover {
+  background-color: lightgrey;
+}
+
+/* TABS */
+.tab {
+  overflow: hidden;
+  border: 1px solid grey;
+  border-bottom: none;
+  background-color: #8db580ff;
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.tab button:hover {
+  background-color: grey;
+}
+
+.tab button.active {
+  background-color: #172a3aff;
+}
+
+.tabContent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid grey;
+  border-top: none;
+  background-color: #8db580ff;
 }
   /* ETC */
   /*

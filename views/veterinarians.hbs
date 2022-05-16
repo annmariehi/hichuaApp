@@ -35,10 +35,14 @@
 </div>
 
 <div class="forms">
+     <div class="tab">
+        <button class="tablinks" onclick="openForm(event, 'addForm')">Add Veterinarian</button>
+    </div>
+    <script src="./js/tabs.js"></script>
+
+    <div id="addForm" class="tabContent">
 {{!-- Add Vet Form --}}
   <form class="addForm" id="add-vet-form" method="POST" action="/add-vet-form">
-    <legend>Add Veterinarian</legend>
-    <fieldset>
       <label>Vet's Name: </label>
       <input type="text" name="input-vet_name" id="input-vet_name">
       <div></div>
@@ -47,6 +51,6 @@
       <button id="add-vet-procedures">Add</button>
       <div></div>
       <input type="submit" value="Add Veterinarian">
-    </fieldset>
   </form>
+  </div>
 </div>
