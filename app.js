@@ -1,5 +1,8 @@
 // App.js
-
+// Citation for following block of code:
+// Date: 05/05/2022
+// Adapted from:
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
 /*
     SETUP
@@ -156,7 +159,7 @@ app.post('/add-appointment-form', function(req, res)
     });
 });
 
-// display procedures for appointment
+// display procedures for add appointment
 app.get('/appointment-procedures', function(req,res)
 {
     let displayProcedures = "SELECT * FROM Procedures;";
@@ -178,7 +181,7 @@ app.get('/appointment-procedures', function(req,res)
     });
 });
 
-// add procedures to appointment
+// add procedures to new appointment
 app.post('/add-appointment-procedure-form', function(req, res) {
     let numProcs = parseInt(req.body.numProcText);
     let apptProcData = req.body;
@@ -210,24 +213,23 @@ app.post('/add-appointment-procedure-form', function(req, res) {
     });
 });
 
-let apptProcsView;
-app.post('/view-appt-procs', function(req, res, next) {
-    console.log("app stop 1: " + req.body.appointmentID);
-    let apptID = parseInt(req.body.appointmentID);
-    console.log("app stop 2: " + apptID);
+// view appointment procedures
+let apptProcsView; // post assigns "apptProcsView" so that get can read it and pass to handlebars
 
+app.post('/view-appt-procs', function(req, res)
+{
+    let apptID = parseInt(req.body.appointmentID);
     let disApptProcs = `SELECT Procedures.procedureID, Procedures.proc_name, Procedures.cost FROM Appointment_has_Procedure JOIN Procedures ON Appointment_has_Procedure.procedureID = Procedures.procedureID WHERE Appointment_has_Procedure.appointmentID = ${apptID}`;
     db.pool.query(disApptProcs, function(error, results, fields) {
-        console.log("app stop 3: " + results);
         apptProcsView = results;
+        // idk where these are being sent :-) maybe ajax? waiting for response idk
         res.send(results);
-        next();
     });
 });
 
-app.get('/view-appt-procs', function(req, res, next) {
-    console.log("it send...idk");
-    console.log(apptProcsView);
+// literally just renders all the work post did
+app.get('/view-appt-procs', function(req, res)
+{
     res.render('view-appt-procs', {ApptProcs: apptProcsView, layout: 'blank'});
 });
 
@@ -367,6 +369,26 @@ app.post('/add-vet-form', function(req, res)
     });
 });
 
+// view veterinarian procedures
+
+let vetProcsView; // POST assigns "vetProcsView" so that GET can read it and pass to handlebars
+
+app.post('/view-vet-procs', function(req, res)
+{
+    let vetID = parseInt(req.body.vetID);
+    let disVetProcs = `SELECT Procedures.procedureID, Procedures.proc_name, Procedures.cost FROM Procedure_has_Vet JOIN Procedures ON Procedure_has_Vet.procedureID = Procedures.procedureID WHERE Procedure_has_Vet.vetID = ${vetID}`;
+    db.pool.query(disVetProcs, function(error, results, fields) {
+        vetProcsView = results;
+        // idk where these are being sent :-) maybe ajax? waiting for response idk
+        res.send(results);
+    });
+});
+
+// literally just renders all the work post did
+app.get('/view-vet-procs', function(req, res)
+{
+    res.render('view-vet-procs', {vetProcs: vetProcsView, layout: 'blank'});
+});
 ///////////////////////////////////////// Procedures Page ///////////////////////////////////////////
 // display procedures page
 app.get('/procedures', function(req,res)
@@ -378,6 +400,8 @@ app.get('/procedures', function(req,res)
     })
 });
 
+
+// add procedures
 app.post('/add-procedure-form', function(req, res)
 {
     let procedureData = req.body;
@@ -401,6 +425,10 @@ app.put('/update-procedure-form', function(req, res) {
 
 
 /////////////////////////////////////////// Pets Page /////////////////////////////////////////////////
+// Citation for following block of code:
+// Date: 05/05/2022
+// Adapted from:
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 // display pets page
 app.get('/pets', function(req, res)
 {
@@ -421,13 +449,11 @@ app.get('/pets', function(req, res)
 
     db.pool.query(displayPets, function(error, rows, fields){
 
-        // Save the pets
         let pets = rows;
 
         // Populate dropdown query
         db.pool.query(petsTypesDropDown, (error, rows, fields) => {
 
-            // Save pet_types
             let pet_types = rows;
 
             // Construct an object for reference in the table
@@ -441,7 +467,6 @@ app.get('/pets', function(req, res)
             // populate owner dropdown
             db.pool.query(ownersDropDown, (error, rows, fields) => {
 
-                // save owners
                 let owners = rows;
 
                 let owner_map = {}
@@ -480,6 +505,7 @@ app.delete('/delete-pet', function(req,res,next){
         }
     });
 });
+
 
 // Update Pet
 app.put('/put-pet', function(req,res,next){
@@ -521,8 +547,8 @@ app.put('/put-pet', function(req,res,next){
 
 
 // Add Pet
-app.post('/add-pet-form', function(req, res){
-    // Capture the incoming data and parse it back to a JS object
+app.post('/add-pet-form', function(req, res)
+{
     let data = req.body;
 
     // Capture NULL values
