@@ -30,13 +30,13 @@
         <td>{{this.petID}}</td>
         <td>{{this.exam_roomID}}</td>
         <td>{{formatDate this.appointment_date}}</td>
-        <td><button class="view" onClick="viewProcedures({{this.appointmentID}})">View</button></td>
+        <td><button id="viewAppts" class="view" onClick="viewAppt({{this.appointmentID}})">View</button></td>
         <td><button class="delete" onClick="deleteAppointment({{this.appointmentID}})">Delete</button></td>
       </tr>
     {{/each}}
     </tbody>
   </table>
-  <script src="./js/view_procedures.js"></script>
+  <script src="./js/view_appt-proc.js"></script>
   <script src="./js/delete_appointment.js"></script>
 
   <div class="searchSpace"></div>
