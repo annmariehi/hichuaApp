@@ -1,7 +1,8 @@
 var register = function(Handlebars) {
     var helpers = {
-    counter: function(index){
-        return index + 1;
+    formatDate: function(sqlDate) {
+        var jsDate = new Date(sqlDate);
+        return jsDate.toDateString();
     }
     };
     if (Handlebars && typeof Handlebars.registerHelper === "function") {
