@@ -1,0 +1,39 @@
+what works: +
+what doesn't work: -
+will maybe add later: ~
+---------------------
+* Pets Page
+    + display
+    + search
+    + add pet
+    + delete pet
+    + update pet
+* Appointments Page
+    + display
+    - view procedures per appointment
+    + search by pet name
+    + add appointment
+    - add procedures to appointment
+    + delete appointment
+    - update appointment
+    ~ view total cost of appt?
+    ~ search by date?
+* Owners
+    + display
+    + add owner
+    - search owners
+    - update owner
+* Pet Types
+    + display
+    + add pet type
+* Procedures
+    + display
+    + add procedure
+    - update procedure
+* Veterinarians
+    + display
+    + add veterinarian
+    - add procedures to veterinarian
+* Exam Rooms
+    + display
+    + add exam room
