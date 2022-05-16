@@ -1,3 +1,7 @@
+// Citation for following block of code:
+// Date: 05/13/2022
+// Adapted from:
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 function deleteAppointment(appointmentID) {
     let appointmentData = {
         appointmentID: appointmentID
