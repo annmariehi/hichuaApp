@@ -20,15 +20,20 @@ var db = require('./database/db-connector');
 
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');
+var moment = require('moment');
 const res = require('express/lib/response');
 app.engine('.hbs', engine({
     extname: ".hbs",
+    layoutsDir: 'views/layouts',
+    defaultLayout: 'main.hbs',
     helpers: require("./public/js/helpers.js").helpers
 }));
 app.set('view engine', '.hbs');
 
+
 // Static Files
 app.use(express.static('public'));
+
 
 /*
     ROUTES
@@ -159,10 +164,13 @@ app.get('/appointment-procedures', function(req,res)
     let apptInfoQuery = "SELECT * FROM Appointments ORDER BY appointmentID DESC LIMIT 1;";
     db.pool.query(displayProcedures, function(error, responseVal, fields) {
         let options = responseVal;
+        console.log(options);
         db.pool.query(apptPetName, function(error, responseVal, fields) {
             let appointmentPet = responseVal;
+            console.log(appointmentPet);
             db.pool.query(apptInfoQuery, function(error, responseVal, fields) {
                 let apptInfo = responseVal;
+                console.log(apptInfo);
 
                 res.render('appointment-procedures', {apptInfo: apptInfo, procedureOptions: options, appointmentPet: appointmentPet});
             });
@@ -202,10 +210,25 @@ app.post('/add-appointment-procedure-form', function(req, res) {
     });
 });
 
-app.get('/display-appt-proc', function(req, res) {
+let apptProcsView;
+app.post('/view-appt-procs', function(req, res, next) {
+    console.log("app stop 1: " + req.body.appointmentID);
     let apptID = parseInt(req.body.appointmentID);
+    console.log("app stop 2: " + apptID);
 
-    let disApptProcs = `SELECT Procedures.proc_name FROM Appointment_has_Procedure JOIN Procedures ON Appointment_has_Procedure.procedureID = Procedures.procedureID WHERE Appointment_has_Procedure.appointmentID = ${apptID}`;
+    let disApptProcs = `SELECT Procedures.procedureID, Procedures.proc_name, Procedures.cost FROM Appointment_has_Procedure JOIN Procedures ON Appointment_has_Procedure.procedureID = Procedures.procedureID WHERE Appointment_has_Procedure.appointmentID = ${apptID}`;
+    db.pool.query(disApptProcs, function(error, results, fields) {
+        console.log("app stop 3: " + results);
+        apptProcsView = results;
+        res.send(results);
+        next();
+    });
+});
+
+app.get('/view-appt-procs', function(req, res, next) {
+    console.log("it send...idk");
+    console.log(apptProcsView);
+    res.render('view-appt-procs', {ApptProcs: apptProcsView, layout: 'blank'});
 });
 
 // update appointment
@@ -503,28 +526,20 @@ app.post('/add-pet-form', function(req, res){
     let data = req.body;
 
     // Capture NULL values
-    let breed = parseInt(data['input-breed']);
-    if (isNaN(breed))
+    let breed = data['input-breed'];
+    if (breed === undefined)
     {
         breed = 'NULL'
     }
 
-    // Create the query and run it on the database
     query1 = `INSERT INTO Pets(pet_name, ownerID, pet_typeID, breed, birthdate) VALUES ('${data['input-pet_name']}', '${data['input-ownerID']}', '${data['input-pet_typeID']}', ${breed}, '${data['input-birthdate']}');`;
     db.pool.query(query1, function(error, rows, fields){
 
-        // Check to see if there was an error
         if (error) {
-
-            // Log the error to the terminal so we know what went wrong
             console.log(error)
             res.sendStatus(400);
         }
-
-        // If there was no error, we direct back to our root route, which automatically runs the SELECT * FROM Pets
-        // and presents it on the screen
-        else
-        {
+        else {
             res.redirect('/pets');
         }
     });
