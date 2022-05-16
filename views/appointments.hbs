@@ -1,5 +1,5 @@
 <!-- appointments.hbs -->
-<h2>Appointments</h2>
+
 
 {{!-- script to highlight current tab in nav bar --}}
 <script>
@@ -7,85 +7,94 @@
   element.classList.add("active");
 </script>
 
-{{!-- Appointments Table --}}
-      <table id="appointments-table">
-        <thead>
-          <tr>
-            <th>Appointment ID</th>
-            <th>Pet Name</th>
-            <th>Exam Room</th>
-            <th>Date</th>
-            <th>Scheduled Procedures</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-            {{#each appointmentData}}
-          <tr appointment-data-value={{this.appointmentID}}>
-            <td>{{this.appointmentID}}</td>
-            <td>{{this.petID}}</td>
-            <td>{{this.exam_roomID}}</td>
-            <td>{{this.appointment_date}}</td>
-            <td><button onClick="viewProcedures({{this.appointmentID}})">View</button></td>
-            <td><button onClick="deleteAppointment({{this.appointmentID}})">Delete</button></td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
-      <script src="./js/view_procedures.js"></script>
-      <script src="./js/delete_appointment.js"></script>
+<div class="pageTitle">
+<h2>Appointments</h2>
+</div>
 
+<div class="tables">
+{{!-- Appointments Table --}}
+<table id="appointments-table">
+  <thead>
+    <tr>
+      <th>Appointment ID</th>
+      <th>Pet Name</th>
+      <th>Exam Room</th>
+      <th>Date</th>
+      <th>Scheduled Procedures</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each appointmentData}}
+    <tr appointment-data-value={{this.appointmentID}}>
+      <td>{{this.appointmentID}}</td>
+      <td>{{this.petID}}</td>
+      <td>{{this.exam_roomID}}</td>
+      <td>{{formatDate this.appointment_date}}</td>
+      <td><button onClick="viewProcedures({{this.appointmentID}})">View</button></td>
+      <td><button onClick="deleteAppointment({{this.appointmentID}})">Delete</button></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<script src="./js/view_procedures.js"></script>
+<script src="./js/delete_appointment.js"></script>
+
+<div class="searchSpace"></div>
 {{!-- Search Appointment Form --}}
 <div id="search-appointments">
-  <form id="search-appointments" method="GET" action="/appointments">
-  <legend>Search Appointments</legend>
-  <fieldset>
-    <p>Search Appointments by pet name.</p>
-    <lable for="input-pet_name">Search by Pet Name: </lable>
-    <select name="petID" id="input-petID">
-      <option disabled selected hidden>Select Pet Name</option>
+  <form class="search" id="search-appointments" method="GET" action="/appointments">
+      <select name="petID" id="input-petID">
+      <option disabled selected hidden>Search by Pet Name...</option>
       {{#each pets}}
       <option value="{{this.petID}}">{{this.pet_name}}</option>
       {{/each}}
-    </select>
-    <input type="submit" value="search">
-    <a href='/appointments'><button>Reset</button></a>
-  </fieldset>
+      </select>
+
+      <input class="search" type="submit" value="search">
+      <a href='/appointments'><button>Reset</button></a>
+  </form>
+</div>
+</div>
+
+<div class="forms">
+{{!-- Add Appointment Form --}}
+<div id="add-appointment">
+  <form id="add-appointment-form" method="POST" action="/add-appointment-form">
+    <legend>Add Appointment</legend>
+    <fieldset>
+      <p>Please select appointment information, and then click 'add procedures' to add procedures to the appointment</p>
+
+      <div>
+      <label for="input-petID">pet name: </label>
+      <select name="input-petID" id="input-petID">
+        <option disabled selected hidden>Select Pet Name</option>
+        {{#each pets}}
+        <option value="{{this.petID}}">{{this.pet_name}}</option>
+        {{/each}}
+      </select>
+      </div>
+
+      <div>
+      <label for="input-exam_roomID">exam room:</label>
+      <select name="input-exam_roomID" id="input-exam_roomID">
+        <option disabled selected hidden>select exam room</option>
+        {{#each exam_rooms}}
+        <option value="{{this.exam_roomID}}">{{this.exam_roomID}}</option>
+        {{/each}}
+      </select>
+      </div>
+
+      <div>
+        <label for ="input-appointment_date">appointment date:</label>
+        <input type="date" id="input-appointment_date" name="input-appointment_date">
+      </div>
+
+      <input type="submit" value="Add Procedures">
+    </fieldset>
   </form>
 </div>
 
-{{!-- Add Appointment Form --}}
-    <div id="add-appointment">
-      <form id="add-appointment-form" method="POST" action="/add-appointment-form">
-        <legend>Add Appointment</legend>
-        <fieldset>
-          <p>Please select appointment information, and then click 'add procedures' to add procedures to the appointment</p>
-          <div>
-          <label for="input-petID">pet name: </label>
-          <select name="input-petID" id="input-petID">
-            <option disabled selected hidden>Select Pet Name</option>
-            {{#each pets}}
-            <option value="{{this.petID}}">{{this.pet_name}}</option>
-            {{/each}}
-          </select>
-          </div>
-          <div>
-          <label for="input-exam_roomID">exam room:</label>
-          <select name="input-exam_roomID" id="input-exam_roomID">
-            <option disabled selected hidden>select exam room</option>
-            {{#each exam_rooms}}
-            <option value="{{this.exam_roomID}}">{{this.exam_roomID}}</option>
-            {{/each}}
-          </select>
-        </div>
-        <div>
-          <label for ="input-appointment_date">appointment date:</label>
-          <input type="date" id="input-appointment_date" name="input-appointment_date">
-        </div>
+{{!-- Update Appointment Form --}}
 
-        <input type="submit" value="Add Procedures">
-                </fieldset>
-      </form>
-    </div>
-
-    {{!-- Update Appointment Form --}}
+</div>

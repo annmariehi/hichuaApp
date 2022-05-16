@@ -6,8 +6,13 @@
   element.classList.add("active");
 </script>
 
-{{!-- Exam Rooms Table --}}
+<div class="pageTitle">
 <h2>Exam Rooms</h2>
+</div>
+
+<div class="tables">
+{{!-- Exam Rooms Table --}}
+
       <table>
         <thead>
           <tr>
@@ -22,7 +27,9 @@
           {{/each}}
         </tbody>
       </table>
+</div>
 
+<div class="forms">
 {{!-- Add Exam Room Form --}}
     <div id="add-exam-room">
       <form id="add-exam-room-form" method="POST" action="/add-exam-room-form">
@@ -33,4 +40,5 @@
           <input type="submit" value="Add Exam Room">
         </fieldset>
       </form>
+    </div>
     </div>

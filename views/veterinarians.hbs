@@ -1,5 +1,5 @@
 <!-- veterinarians.hbs -->
-<h2>Veterinarians</h2>
+
 
 {{!-- script to highlight current tab in nav bar --}}
 <script>
@@ -7,8 +7,11 @@
   element.classList.add("active");
 </script>
 
-<div class="row">
-<div class = "column">
+<div class="pageTitle">
+<h2>Veterinarians</h2>
+</div>
+
+<div class="tables">
 {{!-- Veterinarians Table --}}
 <p>Click view to see all the procedures that talented vet can perform!</p>
       <table>
@@ -29,12 +32,11 @@
           {{/each}}
         </tbody>
       </table>
-    </div>
 </div>
-<div class="column">
+
+<div class="forms">
 {{!-- Add Vet Form --}}
-<div id="add-vet">
-  <form id="add-vet-form" method="POST" action="/add-vet-form">
+  <form class="addForm" id="add-vet-form" method="POST" action="/add-vet-form">
     <legend>Add Veterinarian</legend>
     <fieldset>
       <label>Vet's Name: </label>
@@ -47,6 +49,4 @@
       <input type="submit" value="Add Veterinarian">
     </fieldset>
   </form>
-</div>
-</div>
 </div>

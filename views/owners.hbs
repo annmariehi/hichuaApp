@@ -1,5 +1,5 @@
 <!-- owners.hbs -->
-<h2>Owners</h2>
+
 
 {{!-- script to highlight current tab in nav bar --}}
 <script>
@@ -7,6 +7,11 @@
   element.classList.add("active");
 </script>
 
+<div class="pageTitle">
+<h2>Owners</h2>
+</div>
+
+<div class="tables">
 {{!-- Owners Table --}}
 <table>
     <thead>
@@ -28,27 +33,22 @@
     </tbody>
 </table>
 
-{{!-- Search form --}}
+<div class="searchSpace"></div>
+{{!-- Search Form/Bar --}}
 <div id="search-owners">
-    <form id="search-owner" method='GET' action='/owners'>
-        <legend>Search</legend>
-        <fieldset>
-            <p>Search by owner name. Partial names okay!</p>
+    <form class="search" id="search-owner" method='GET' action='/owners'>
+        <input type="text" placeholder="Search by Owner Name..." name="owner_name" id="input-owner_name-search">
+        <input class="search" type="submit" value="search">
+        <a href='/owners'><button>Reset</button></a>
 
-            <label for="input-owner_name"> Owner Name: </label>
-            <input type="text" name="owner_name" id="input-owner_name-search">
-
-            <input type="submit" value="search">
-            <a href='/owners'><button>Reset</button></a>
-        </fieldset>
     </form>
 </div>
+</div>
 
-<aside>
+<div class="forms">
 {{!-- Add Owner Form --}}
-{{!--IN FORM HEADER AFTER ID: method="POST" action="/add-owner-form"--}}
 <div id="add-owner">
-    <form id="add-owner-form">
+    <form id="add-owner-form" method="POST" action="/add-owner-form">
         <legend>Add an Owner</legend>
         <fieldset>
             <p>please enter info and click submit</p>
@@ -88,4 +88,4 @@
 </div>
 
 <script src="./js/update_owner.js"></script>
-</aside>
+</div>

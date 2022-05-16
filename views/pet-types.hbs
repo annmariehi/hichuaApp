@@ -1,5 +1,5 @@
 <!-- pet-types.hbs -->
-<h2>Pet Types</h2>
+
 
 {{!-- script to highlight current tab in nav bar --}}
 <script>
@@ -7,6 +7,11 @@
   element.classList.add("active");
 </script>
 
+<div class="pageTitle">
+<h2>Pet Types</h2>
+</div>
+
+<div class="tables">
 {{!-- Pet Types Table --}}
 <table>
     <thead>
@@ -25,16 +30,19 @@
     </tbody>
 </table>
 
-{{!-- Add Pet Type --}}
+</div>
+<div class="forms">
+{{!-- Add Pet Type Form --}}
 <div id="add-pet-type">
-    <form id="add-pet-type-form" method="POST" action="/add-pet-type-form">
+    <form class="addForm" id="add-pet-type-form" method="POST" action="/add-pet-type-form">
         <legend>Add a Pet Type</legend>
-        <fieldset>
+
             <p>Please enter the new Pet Type and click "Add Pet Type"</p>
             <label for="input-type_name">Pet Type Name: </label>
             <input type="text" name="input-type_name" id="input-type_name">
 
             <input type="submit" value="Add Pet Type">
-        </fieldset>
+
     </form>
+</div>
 </div>

@@ -1,5 +1,5 @@
 <!-- procedures.hbs -->
-<h2>Procedures</h2>
+
 
 {{!-- script to highlight current tab in nav bar --}}
 <script>
@@ -7,6 +7,11 @@
   element.classList.add("active");
 </script>
 
+<div class="pageTitle">
+<h2>Procedures</h2>
+</div>
+
+<div class="tables">
 {{!-- Procedures Table --}}
       <table>
         <thead>
@@ -26,10 +31,10 @@
           {{/each}}
         </tbody>
       </table>
-    </div>
+</div>
 
 
-
+<div class="forms">
 {{!-- Add Procedure Form --}}
 <div id="add-procedure">
   <form id="add-procedure-form" method="POST" action="/add-procedure-form">
@@ -72,3 +77,4 @@
 </div>
 
 <script src="./js/update_procedure.js"></script>
+</div>
