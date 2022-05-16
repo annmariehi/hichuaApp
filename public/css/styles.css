@@ -5,40 +5,45 @@
 --pacific-blue: #009fb7ff;
 --prussian-blue: #172a3aff;
 */
-
 /* PAGE LAYOUT */
+.container {  display: grid;
+  grid-template-columns: 1fr 0.7fr 1.3fr;
+  grid-template-rows: 0.3fr 0.2fr 3.3fr 0.15fr;
+  gap: 5px 20px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "headerNavbar headerNavbar headerNavbar"
+    "pageTitle pageTitle pageTitle"
+    "tables tables forms"
+    "footers footers footers";
+}
+
+.pageTitle { grid-area: pageTitle; }
+
+.tables { grid-area: tables; }
+
+.forms { grid-area: forms; }
+
+.footers { grid-area: footers; }
+
+.headerNavbar { grid-area: headerNavbar; }
+
+
+
+
+
+
+
+
+
+
+
   body {
     background-color: #c2cfb2ff;
     padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
   }
 
-  /* table on right forms on left?
-  .column {
-    float: left;
-    width: 50%;
-  }
-
-  .row:after {
-    display: table;
-    clear: both;
-  }
-  */
-
-  #page-container {
-    position: relative;
-  }
-
-  #content-wrap {
-    padding-bottom: 2.5rem;
-  }
-
-  footer{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 2.5rem;
-
-  }
 
 /* NAV BAR */
   .topnav {
@@ -52,6 +57,7 @@
     color: #172a3aff;
     text-align: center;
     text-decoration: none;
+    font-size: 17px;
   }
 
   .topnav a:hover {
@@ -71,11 +77,26 @@
   table {
     border-collapse: collapse;
       border: "1";
+      font-size: 17px;
+      width: 100%;
   }
 
   th, td {
-    border: 1px solid black;
     padding: 5px;
+    text-align: center;
+  }
+
+  .deleteCell {
+    padding: 0px;
+    border: none;
+  }
+
+  tbody tr:hover {
+    background-color: #009fb7ff;
+  }
+
+  tr {
+    border-bottom: 1px;
   }
 
   thead {
@@ -84,7 +105,7 @@
   }
 
   tbody {
-    background-color: white;
+    background-color: #8db580ff;
     color: #172a3aff;
   }
 
@@ -92,14 +113,122 @@
     font-weight:bold;
   }
 
+  .deleteButton {
+    width: 65px;
+    height: 45px;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .deleteButton:hover {
+    background: #66101fff;
+    color: white;
+  }
+
 /* FORMS */
   form {
-    padding: 5px;
     max-width: fit-content;
   }
 
+  form.search {
+    max-width: 75%;
+    align-self: center;
+  }
 
+  select option.placeholder {
+    color: grey;
+  }
 
+/* SEARCH FORM */
+.searchSpace {
+  height: 15px;
+}
+form.search input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width:60%;
+  background: lightblue;
+}
+
+form.search select {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width:60%;
+  background: lightblue;
+}
+form.search button {
+  float: right;
+  width: 17%;
+  padding: 10px;
+  background: grey;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  display: inline;
+}
+
+input.search {
+  float: left;
+  width: 17%;
+  padding: 10px;
+  background: grey;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  display: inline;
+}
+
+form.search button:hover {
+  background: lightgrey;
+}
+
+input.search:hover {
+  background: lightgrey;
+}
+
+form.search::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* ADD FORM */
+
+form.addForm {
+  background-color: #8db580ff;
+  width: 75%;
+  padding: 5px;
+}
+form.addForm input[type=text], [type=date], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid grey;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+form.addForm input[type=submit] {
+  width: 100%;
+  background-color: grey;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+
+}
+
+form.addForm input[type=submit]:hover {
+  background-color: lightgrey;
+}
   /* ETC */
   /*
   #update-pet {
