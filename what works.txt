@@ -20,7 +20,8 @@ will maybe add later: ~
     - update appointment
     ~ view total cost of appt?
     ~ search by date?
-    ~ add pet name to view procedures?
+    + add pet name to view procedures
+    ~ add appointment date to view procedures?
 * Owners
     + display
     + add owner
@@ -38,7 +39,7 @@ will maybe add later: ~
     + add veterinarian
     + add procedures to veterinarian
     + view veterinarian procedures
-    ~ add vet name to view procedures?
+    + add vet name to view procedures
 * Exam Rooms
     + display
     + add exam room
