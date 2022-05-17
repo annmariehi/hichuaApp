@@ -142,12 +142,17 @@ app.get('/appointments', function(req,res)
 });
 
 // add appointment
+let newApptInfo;
 app.post('/add-appointment-form', function(req, res)
 {
     let appointmentData = req.body;
 
     let createAppointment = `INSERT INTO Appointments(petID, exam_roomID, appointment_date) VALUES('${appointmentData['input-petID']}', '${appointmentData['input-exam_roomID']}', '${appointmentData['input-appointment_date']}')`;
-
+    newApptInfo = {
+        petID: appointmentData['input-petID'],
+        appointment_date: appointmentData['input-appointment_date']
+    }
+    console.log("newApptInfo.petID: " + newApptInfo.petID + " newApptInfo.appointment_date: " + newApptInfo.appointment_date);
     db.pool.query(createAppointment, function(error, rows, fields) {
         if (error) {
             console.log(error)
@@ -158,24 +163,23 @@ app.post('/add-appointment-form', function(req, res)
         }
     });
 });
-
+let procApptID; // set with get appointment procedures, read by post appointment procedures to bulk insert into intersection table
 // display procedures for add appointment
 app.get('/appointment-procedures', function(req,res)
 {
     let displayProcedures = "SELECT * FROM Procedures;";
-    let apptPetName = "SELECT * FROM Pets WHERE PetID = 2";
+    let apptPetName = `SELECT * FROM Pets WHERE PetID = ${newApptInfo.petID}`;
     let apptInfoQuery = "SELECT * FROM Appointments ORDER BY appointmentID DESC LIMIT 1;";
     db.pool.query(displayProcedures, function(error, responseVal, fields) {
         let options = responseVal;
-        console.log(options);
         db.pool.query(apptPetName, function(error, responseVal, fields) {
-            let appointmentPet = responseVal;
-            console.log(appointmentPet);
+            let apptPet = responseVal;
             db.pool.query(apptInfoQuery, function(error, responseVal, fields) {
                 let apptInfo = responseVal;
-                console.log(apptInfo);
+                // get appointmentID value to pass to appointment procedure form
+                procApptID = apptInfo[0].appointmentID;
+                    res.render('appointment-procedures', {apptInfo: apptInfo, procedureOptions: options, apptPet: apptPet});
 
-                res.render('appointment-procedures', {apptInfo: apptInfo, procedureOptions: options, appointmentPet: appointmentPet});
             });
         });
     });
@@ -183,34 +187,36 @@ app.get('/appointment-procedures', function(req,res)
 
 // add procedures to new appointment
 app.post('/add-appointment-procedure-form', function(req, res) {
-    let numProcs = parseInt(req.body.numProcText);
-    let apptProcData = req.body;
-    if(numProcs == 0) {
-        // delete appointment
-        res.redirect('/appointments');
-        // return error saying there must be procedures assigned to appointment
+    let procs = req.body;
+    let count = Object.keys(procs).length;
+    // TO DO: insert if statement if count = 0 delete appointment
+    // create array of procedureIDs sent in req.body (only sent if checkbox is checked)
+    let procsArray = new Array;
+    for (const [index, productID] of Object.entries(procs)) {
+        procsArray.push(productID);
+        console.log(productID);
     }
-        res.redirect('/appointments');
-    //let apptID = parseInt(req.body.apptID);
-    let apptID = 33;
-    let procIDs = [];
-    for(i = 0; i < numProcs; i++) {
-            procIDs.push(parseInt(apptProcData.i));
-    }
+    console.log(procsArray);
+    console.log(procApptID);
+
+    // create array of arrays with same appointmentID and different procedureIDs
     let procVals = [];
-    for(i = 0; i < procIDs.length; i++) {
-        procVals[i] = [apptID, procIDs[i]];
+    for(i = 0; i < procsArray.length; i++)
+    {
+        procVals[i] = [procApptID, parseInt(procsArray[i])];
     }
+    console.log(procVals);
+    // "bulk insert" array of arrays into Appointment_has_Procedure so appointment has multiple procedures
     let createAppointmentProcedures = `INSERT INTO Appointment_has_Procedure(appointmentID, procedureID) VALUES ?`;
     db.pool.query(createAppointmentProcedures, [procVals], function(error, results, fields) {
         if (error) {
-            console.log(error)
+            console.log(error);
             res.sendStatus(400);
         }
         else {
             res.redirect('/appointments');
         }
-    });
+    })
 });
 
 // view appointment procedures
@@ -230,7 +236,7 @@ app.post('/view-appt-procs', function(req, res)
 // literally just renders all the work post did
 app.get('/view-appt-procs', function(req, res)
 {
-    res.render('view-appt-procs', {ApptProcs: apptProcsView, layout: 'blank'});
+    res.render('view-appt-procs', {apptProcs: apptProcsView, layout: 'blank'});
 });
 
 // update appointment
