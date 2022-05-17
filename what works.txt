@@ -15,11 +15,12 @@ will maybe add later: ~
     + view procedures per appointment
     + search by pet name
     + add appointment
-    - add procedures to appointment
+    + add procedures to appointment
     + delete appointment
     - update appointment
     ~ view total cost of appt?
     ~ search by date?
+    ~ add pet name to view procedures?
 * Owners
     + display
     + add owner
@@ -37,6 +38,7 @@ will maybe add later: ~
     + add veterinarian
     - add procedures to veterinarian
     + view veterinarian procedures
+    ~ add vet name to view procedures?
 * Exam Rooms
     + display
     + add exam room
