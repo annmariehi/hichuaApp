@@ -3,7 +3,7 @@
 {{!-- Add Vet Procedures Form --}}
       <form id="add-veterinarian-procedures-form" method="POST" action="/add-veterinarian-procedures-form">
         <legend>Assign Procedures to Veterinarian</legend>
-          <p>Please select procedures Veterinarian {{#each vetInfo}}{{this.vetID}}{{/each}} can perform:</p>
+          <p>Please select procedures Veterinarian {{vetName}} can perform:</p>
           {{#each procedureOptions}}
           <input type="checkbox" onClick="showChecked()" id="{{this.proc_name}}" name="procedure{{@index}}" value="{{this.procedureID}}">
           <label for="{{this.proc_name}}">{{this.proc_name}}</label>

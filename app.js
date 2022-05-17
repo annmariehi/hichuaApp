@@ -173,12 +173,13 @@ app.get('/appointment-procedures', function(req,res)
     db.pool.query(displayProcedures, function(error, responseVal, fields) {
         let options = responseVal;
         db.pool.query(apptPetName, function(error, responseVal, fields) {
-            let apptPet = responseVal;
+            let apptPet = responseVal[0].pet_name;
             db.pool.query(apptInfoQuery, function(error, responseVal, fields) {
                 let apptInfo = responseVal;
                 // get appointmentID value to pass to POST appointment procedure form
                 procApptID = apptInfo[0].appointmentID;
-                    res.render('appointment-procedures', {apptInfo: apptInfo, procedureOptions: options, apptPet: apptPet});
+                let procApptDate = apptInfo[0].appointment_date;
+                    res.render('appointment-procedures', {procApptID: procApptID, procApptDate: procApptDate, procedureOptions: options, apptPet: apptPet});
 
             });
         });
@@ -225,22 +226,28 @@ app.post('/add-appointment-procedure-form', function(req, res) {
 
 // view appointment procedures
 let apptProcsView; // post assigns "apptProcsView" so that get can read it and pass to handlebars
-
+let apptPetName;
 app.post('/view-appt-procs', function(req, res)
 {
     let apptID = parseInt(req.body.appointmentID);
+
     let disApptProcs = `SELECT Procedures.procedureID, Procedures.proc_name, Procedures.cost FROM Appointment_has_Procedure JOIN Procedures ON Appointment_has_Procedure.procedureID = Procedures.procedureID WHERE Appointment_has_Procedure.appointmentID = ${apptID}`;
+    let disPetName = `SELECT Pets.pet_name FROM Appointments JOIN Pets ON Appointments.petID = Pets.petID WHERE Appointments.appointmentID = ${apptID}`;
     db.pool.query(disApptProcs, function(error, results, fields) {
         apptProcsView = results;
-        // idk where these are being sent :-) maybe ajax? waiting for response idk
-        res.send(results);
+        db.pool.query(disPetName, function(error, results, fields) {
+            apptPetName = results[0].pet_name;
+            // idk where these are being sent :-) maybe ajax? waiting for response idk
+            res.send(results);
+        })
+
     });
 });
 
 // literally just renders all the work post did
 app.get('/view-appt-procs', function(req, res)
 {
-    res.render('view-appt-procs', {apptProcs: apptProcsView, layout: 'blank'});
+    res.render('view-appt-procs', {apptProcs: apptProcsView, apptPetName: apptPetName, layout: 'blank'});
 });
 
 // update appointment
@@ -388,7 +395,8 @@ app.get('/veterinarian-procedures', function(req, res) {
         db.pool.query(vetInfoQuery, function(error, responseVal, fields) {
             let vetInfo = responseVal;
             procVetID = vetInfo[0].vetID;
-            res.render('veterinarian-procedures', {vetInfo: vetInfo, procedureOptions: options, layout: 'blank'});
+            vetName = vetInfo[0].vet_name;
+            res.render('veterinarian-procedures', {vetName: vetName, procedureOptions: options, layout: 'blank'});
         })
     })
 })
@@ -425,22 +433,28 @@ app.post('/add-veterinarian-procedures-form', function(req, res) {
 // view veterinarian procedures
 
 let vetProcsView; // POST assigns "vetProcsView" so that GET can read it and pass to handlebars
-
+let vetNameView;    // POST assigns "vetNameView" so that GET can read it and pass to handlebars
 app.post('/view-vet-procs', function(req, res)
 {
     let vetID = parseInt(req.body.vetID);
+    let disVetName = `SELECT * FROM Veterinarians WHERE vetID = ${vetID}`;
     let disVetProcs = `SELECT Procedures.procedureID, Procedures.proc_name, Procedures.cost FROM Procedure_has_Vet JOIN Procedures ON Procedure_has_Vet.procedureID = Procedures.procedureID WHERE Procedure_has_Vet.vetID = ${vetID}`;
     db.pool.query(disVetProcs, function(error, results, fields) {
         vetProcsView = results;
-        // idk where these are being sent :-) maybe ajax? waiting for response idk
-        res.send(results);
+        db.pool.query(disVetName, function(error, results, fields) {
+            vetNameView = results;
+            vetNameView = results[0].vet_name;
+            // idk where these are being sent :-) maybe ajax? waiting for response idk
+            res.send(results);
+        })
+
     });
 });
 
 // literally just renders all the work post did
 app.get('/view-vet-procs', function(req, res)
 {
-    res.render('view-vet-procs', {vetProcs: vetProcsView, layout: 'blank'});
+    res.render('view-vet-procs', {vetProcs: vetProcsView, vetInfo: vetNameView, layout: 'blank'});
 });
 ///////////////////////////////////////// Procedures Page ///////////////////////////////////////////
 // display procedures page

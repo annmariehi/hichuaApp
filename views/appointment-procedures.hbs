@@ -5,16 +5,14 @@
       <form id="add-appointment-procedures-form" method="POST" action="/add-appointment-procedure-form">
         <legend>Add Procedures to Appointment</legend>
         <fieldset>
-          <p>Please select procedures for appointment {{#each apptInfo}}{{this.appointmentID}}{{/each}}: {{#each apptPet}}{{this.pet_name}}{{/each}} on {{#each apptInfo}}{{formatDate this.appointment_date}}{{/each}}:</p>
+          <p>Please select procedures for appointment {{procApptID}}: {{apptPet}} on {{formatDate procApptDate}}:</p>
           {{#each procedureOptions}}
           <input type="checkbox" onClick="showChecked()" id="{{this.proc_name}}" name="procedure{{@index}}" value="{{this.procedureID}}">
-          <label for="{{this.proc_name}}">{{@index}}: {{this.proc_name}}</label>
+          <label for="{{this.proc_name}}">{{this.proc_name}}</label>
          {{/each}}
-         <input type="text" id="numProcText">
-         <div id="procsChecked">Total Procedures = <span id="numProcs" name="numProcs"></span></div>
+         <div id="procsChecked">Total Procedures: <span id="numProcs" name="numProcs"></span></div>
          <script>
              function showChecked() {
-                 document.getElementById('numProcText').setAttribute('value', getCheckBoxCount());
                  document.getElementById('numProcs').innerHTML = getCheckBoxCount();
              }
              function getCheckBoxCount() {
