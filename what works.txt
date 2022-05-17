@@ -36,7 +36,7 @@ will maybe add later: ~
 * Veterinarians
     + display
     + add veterinarian
-    - add procedures to veterinarian
+    + add procedures to veterinarian
     + view veterinarian procedures
     ~ add vet name to view procedures?
 * Exam Rooms
