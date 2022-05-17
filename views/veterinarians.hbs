@@ -12,7 +12,7 @@
 
 <div class="tables">
 {{!-- Veterinarians Table --}}
-<p>Click view to see all the procedures that talented vet can perform!</p>
+
       <table>
         <thead>
           <tr>
@@ -32,6 +32,7 @@
         </tbody>
       </table>
       <script src="./js/view_vet-proc.js"></script>
+      <p>Click view to see all the procedures that talented vet can perform!</p>
 </div>
 
 <div class="forms">
@@ -43,14 +44,11 @@
     <div id="addForm" class="tabContent">
 {{!-- Add Vet Form --}}
   <form class="addForm" id="add-vet-form" method="POST" action="/add-vet-form">
+  <p>Enter new Veterinarian's name, then click "Add Procedures" to assign that vet procedures.</p>
       <label>Vet's Name: </label>
       <input type="text" name="input-vet_name" id="input-vet_name">
       <div></div>
-
-      <label>Procedures: </label>
-      <button id="add-vet-procedures">Add</button>
-      <div></div>
-      <input type="submit" value="Add Veterinarian">
+      <input type="submit" value="Add Procedures">
   </form>
   </div>
 </div>

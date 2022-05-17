@@ -176,7 +176,7 @@ app.get('/appointment-procedures', function(req,res)
             let apptPet = responseVal;
             db.pool.query(apptInfoQuery, function(error, responseVal, fields) {
                 let apptInfo = responseVal;
-                // get appointmentID value to pass to appointment procedure form
+                // get appointmentID value to pass to POST appointment procedure form
                 procApptID = apptInfo[0].appointmentID;
                     res.render('appointment-procedures', {apptInfo: apptInfo, procedureOptions: options, apptPet: apptPet});
 
@@ -188,8 +188,12 @@ app.get('/appointment-procedures', function(req,res)
 // add procedures to new appointment
 app.post('/add-appointment-procedure-form', function(req, res) {
     let procs = req.body;
+
+    // counts number of checkboxes checked (only values sent in req.body)
     let count = Object.keys(procs).length;
+
     // TO DO: insert if statement if count = 0 delete appointment
+
     // create array of procedureIDs sent in req.body (only sent if checkbox is checked)
     let procsArray = new Array;
     for (const [index, productID] of Object.entries(procs)) {
@@ -370,10 +374,53 @@ app.post('/add-vet-form', function(req, res)
             res.sendStatus(400);
         }
         else {
-            res.redirect('/veterinarians')
+            res.redirect('/veterinarian-procedures')
         }
     });
 });
+
+let procVetID;
+app.get('/veterinarian-procedures', function(req, res) {
+    let displayProcedures = "SELECT * FROM Procedures;";
+    let vetInfoQuery = "SELECT * FROM Veterinarians ORDER BY vetID DESC LIMIT 1;";
+    db.pool.query(displayProcedures, function(error, responseVal, fields) {
+        let options = responseVal;
+        db.pool.query(vetInfoQuery, function(error, responseVal, fields) {
+            let vetInfo = responseVal;
+            procVetID = vetInfo[0].vetID;
+            res.render('veterinarian-procedures', {vetInfo: vetInfo, procedureOptions: options, layout: 'blank'});
+        })
+    })
+})
+
+app.post('/add-veterinarian-procedures-form', function(req, res) {
+    let procs = req.body;
+
+    let count = Object.keys(procs).length;
+
+    // TO DO: insert if statement if count = 0, delete vet
+
+    let procsArray = new Array;
+    for(const [index, procedureID] of Object.entries(procs)) {
+        procsArray.push(procedureID);
+    }
+
+    let procVals = [];
+    for(i = 0; i < procsArray.length; i++) {
+        procVals[i] = [parseInt(procsArray[i]), procVetID];
+    }
+    console.log(procVals);
+    let createVetProcedures = `INSERT INTO Procedure_has_Vet(procedureID, vetID) VALUES ?`
+    db.pool.query(createVetProcedures, [procVals], function(error, results, fields) {
+        if(error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else {
+            res.redirect('/veterinarians');
+        }
+    })
+})
 
 // view veterinarian procedures
 
