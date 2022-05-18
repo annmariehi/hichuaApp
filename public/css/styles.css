@@ -74,7 +74,12 @@ body.main {
       width: 100%;
   }
 
-  th, td {
+  th {
+    height: 43px;
+    text-align: center;
+  }
+
+  td {
     height: 35px;
     text-align: center;
   }
@@ -82,7 +87,42 @@ body.main {
   .deleteCell {
     padding: 0px;
     border: none;
-    width: 60px;
+    width: 80px;
+  }
+
+  .deleteButton {
+    width: 80px;
+    height: 36px;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+  }
+
+  .deleteButton:hover {
+    background: #66101fff;
+    color: white;
+  }
+
+  .viewCell {
+    padding: 0px;
+    border: none;
+    width: 120px;
+  }
+
+  .viewButton {
+    width: 120px;
+    height: 36px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-right: 1px solid #8db580ff !important;
+    font-weight: bold;
+  }
+
+  .viewButton:hover {
+    background-color: #172a3aff;
+    color: white;
   }
 
   tbody tr:hover {
@@ -109,19 +149,7 @@ body.main {
     font-weight:bold;
   }
 
-  .deleteButton {
-    width: 60px;
-    height: 36px;
-    margin: 0;
-    padding: 0;
-    box-shadow: none;
-    border: none;
-  }
 
-  .deleteButton:hover {
-    background: #66101fff;
-    color: white;
-  }
 
 /* FORMS */
 
@@ -135,7 +163,8 @@ body.main {
 }
 form.search {
   max-width: 75%;
-  align-self: center;
+  padding-top: 0px;
+
 }
 form.search input[type=text] {
   padding: 10px;
@@ -147,22 +176,25 @@ form.search input[type=text] {
 }
 
 form.search select {
-  padding: 10px;
+  vertical-align: top;
+  padding: 9px;
   font-size: 17px;
   border: 1px solid grey;
   float: left;
   width:60%;
   background: lightblue;
+  margin-top: 0;
+  border-radius: 0px;
 }
 form.search button {
-  float: right;
+  float: left;
+  margin-left: 3px;
   width: 17%;
   padding: 10px;
   background: grey;
   color: white;
   font-size: 17px;
   border: 1px solid grey;
-  display: inline;
 }
 
 input.search {
@@ -174,7 +206,6 @@ input.search {
   font-size: 17px;
   border: 1px solid grey;
   border-left: none;
-  display: inline;
 }
 
 form.search button:hover {

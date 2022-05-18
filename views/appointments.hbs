@@ -30,7 +30,7 @@
         <td>{{this.petID}}</td>
         <td>{{this.exam_roomID}}</td>
         <td>{{formatDate this.appointment_date}}</td>
-        <td><button id="viewAppts" class="view" onClick="viewAppt({{this.appointmentID}})">View</button></td>
+        <td class="viewCell"><button id="viewAppts" class="viewButton" onClick="viewAppt({{this.appointmentID}})">View</button></td>
         <td class="deleteCell"><button class="deleteButton" onClick="deleteAppointment({{this.appointmentID}})"><i class="fa-solid fa-trash fa-1x"></i></button></td>
       </tr>
       {{/each}}
