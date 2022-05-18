@@ -41,6 +41,7 @@ body.main {
   .topnav {
     background-color: #8db580ff;
     overflow: hidden;
+    border-radius: 5px;
   }
 
   .topnav a {
@@ -72,11 +73,13 @@ body.main {
       border: "1";
       font-size: 17px;
       width: 100%;
+      border-radius: 5px;
   }
 
   th {
     height: 43px;
     text-align: center;
+
   }
 
   td {
@@ -143,6 +146,7 @@ body.main {
   tbody {
     background-color: #8db580ff;
     color: #172a3aff;
+    border-radius: 0px 0px 5px 5px;
   }
 
   legend {
@@ -173,7 +177,9 @@ form.search input[type=text] {
   float: left;
   width:60%;
   background: lightblue;
+  border-radius: 5px 0px 0px 5px;
 }
+
 
 form.search select {
   vertical-align: top;
@@ -184,7 +190,7 @@ form.search select {
   width:60%;
   background: lightblue;
   margin-top: 0;
-  border-radius: 0px;
+  border-radius: 5px 0px 0px 5px;
 }
 form.search button {
   float: left;
@@ -195,6 +201,7 @@ form.search button {
   color: white;
   font-size: 17px;
   border: 1px solid grey;
+  border-radius: 5px;
 }
 
 input.search {
@@ -206,6 +213,7 @@ input.search {
   font-size: 17px;
   border: 1px solid grey;
   border-left: none;
+  border-radius: 0px 5px 5px 0px;
 }
 
 form.search button:hover {
@@ -255,6 +263,15 @@ form.addForm input[type=submit]:hover {
 
 /*UPDATE FORM*/
 
+.updateApptProcList {
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.updateProcSpace {
+  padding: 5px;
+}
+
 form.updateForm {
   background-color: #8db580ff;
   width: 100%;
@@ -282,7 +299,86 @@ form.updateForm input[type=submit] {
 }
 
 form.updateForm input[type=submit]:hover {
+  width: 100%;
   background-color: #009fb7ff;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+
+}
+
+.procCheckbox {
+  display: inline;
+  position: relative;
+  padding-left: 22px;
+  padding-right: 4px;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.procCheckbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.procCheckmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  border-radius: 3px;
+  background-color: white;
+}
+
+.procCheckbox:hover input ~ .procCheckmark {
+  background-color: #009fb7ff;
+}
+
+.procCheckbox input:checked ~ .procCheckmark {
+  background-color: #172a3aff;
+}
+
+.procCheckmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.procCheckbox input:checked ~ .procCheckmark:after {
+  display: block;
+}
+
+.procCheckbox .procCheckmark:after {
+  left: 6px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+form.procedureForm input[type=submit] {
+  background-color: #172a3aff;
+  color: #009fb7ff;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  font-size: 20px;
+}
+
+form.procedureForm input[type=submit]:hover {
+  background-color: #009fb7ff;
+  color: #172a3aff;
 }
 
 /* Citation for following block of css: */
@@ -392,6 +488,7 @@ body.blank {
   border: 1px solid grey;
   border-bottom: none;
   background-color: #8db580ff;
+  border-radius: 5px 5px 0px 0px;
 }
 
 .tab button {
@@ -420,6 +517,7 @@ body.blank {
   border: 1px solid grey;
   border-top: none;
   background-color: #8db580ff;
+  border-radius: 0px 0px 5px 5px;
 }
 
 
