@@ -1,8 +1,11 @@
 <!-- view-appt-procs.hbs -->
 {{!< blank}}
-<p>Appointment for {{apptPetName}}</p>
+
+<div class="procList">
+<p><b>Appointment for {{apptPetName}}</b></p>
 <ul>
     {{#each apptProcs}}
     <li>{{this.proc_name}}</li>
     {{/each}}
 </ul>
+</div>

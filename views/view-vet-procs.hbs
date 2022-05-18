@@ -1,8 +1,11 @@
 <!-- view-vet-procs.hbs -->
 {{!< blank}}
-<p>{{vetInfo}}: </p>
+
+<div class="procList">
+<p><b>{{vetInfo}}:</b> </p>
 <ul>
     {{#each vetProcs}}
     <li>{{this.proc_name}}</li>
     {{/each}}
 </ul>
+</div>
