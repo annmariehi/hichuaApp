@@ -20,7 +20,6 @@ PORT        = 50689;
 var db = require('./database/db-connector');
 
 // Handlebars
-
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');
 var moment = require('moment');
@@ -82,6 +81,7 @@ app.post('/add-exam-room-form', function(req, res)
 app.get('/appointments', function(req,res)
 {
    let displayAppointments;
+   // search
    if(req.query.petID === undefined)
    {
        displayAppointments = "SELECT * FROM Appointments;";
@@ -97,6 +97,12 @@ app.get('/appointments', function(req,res)
 
    // Populate exam-room dropdown
    let examRoomDropDown = "SELECT * FROM Exam_Rooms;";
+
+   // Populate appointment ID/ pets drop down for update
+   let apptUpdateDropDown = "SELECT Pets.pet_name, Pets.petID, Appointments.appointmentID FROM Pets JOIN Appointments ON Pets.petID = Appointments.petID;";
+
+   // Populate procedures for update
+   let apptUpdateProcedures = "SELECT * FROM Procedures;";
 
    db.pool.query(displayAppointments, function(error, rows, fields){
         // save appointments
@@ -122,27 +128,39 @@ app.get('/appointments', function(req,res)
                 // save exam rooms
                 let exam_rooms = rows;
 
-                let exam_roommap = {};
-                exam_rooms.map(exam_room => {
-                    let exam_roomID = parseInt(exam_room.exam_roomID, 10);
+                // populate appointmentID/pets dropdown
+                db.pool.query(apptUpdateDropDown, (error, selects, fields) => {
 
-                    exam_roommap[exam_roomID] = exam_room["exam_roomID"];
-                });
+                    // save apptIDs and Pet Names
+                    let petApptIDs = selects;
 
-                // overwrite petID with name of pet
-                appointmentData = appointmentData.map(appointment => {
-                    return Object.assign(appointment, {petID: petmap[appointment.petID]})
+                    // populate procedures checkboxes
+                    db.pool.query(apptUpdateProcedures, (error, results, fields) => {
+
+                        // save procedures
+                        let updateProcs = results;
+
+                        // overwrite petID with name of pet
+                        appointmentData = appointmentData.map(appointment => {
+                            return Object.assign(appointment, {petID: petmap[appointment.petID]})
+                            })
+
+                            return res.render('appointments', {appointmentData: appointmentData, updateProcs: updateProcs, petApptIDs: petApptIDs, pets: pets, exam_rooms: exam_rooms})
+                    })
+
+                    });
+
+
                 })
 
-                return res.render('appointments', {appointmentData: appointmentData, pets: pets, exam_rooms: exam_rooms})
+
             })
         })
 
    })
-});
 
 // add appointment
-let newApptInfo;
+let newApptInfo; // set with POST add-appointment-form read by GET appointment-procedures
 app.post('/add-appointment-form', function(req, res)
 {
     let appointmentData = req.body;
@@ -152,31 +170,38 @@ app.post('/add-appointment-form', function(req, res)
         petID: appointmentData['input-petID'],
         appointment_date: appointmentData['input-appointment_date']
     }
-    console.log("newApptInfo.petID: " + newApptInfo.petID + " newApptInfo.appointment_date: " + newApptInfo.appointment_date);
     db.pool.query(createAppointment, function(error, rows, fields) {
         if (error) {
             console.log(error)
             res.sendStatus(400);
         }
         else {
+            // creates new appointment then goes to next page to add procedures to just added appointment
             res.redirect('/appointment-procedures');
         }
     });
 });
-let procApptID; // set with get appointment procedures, read by post appointment procedures to bulk insert into intersection table
+let procApptID; // set with GET appointment-procedures, read by POST appointment-procedures to bulk insert into intersection table
 // display procedures for add appointment
 app.get('/appointment-procedures', function(req,res)
 {
+    // query to get list of procedures to display
     let displayProcedures = "SELECT * FROM Procedures;";
+    // query to get pet's name for appointment were adding procedures to
     let apptPetName = `SELECT * FROM Pets WHERE PetID = ${newApptInfo.petID}`;
+    // query to get most recently added appointment (the one we just created with add-appointment-form)
     let apptInfoQuery = "SELECT * FROM Appointments ORDER BY appointmentID DESC LIMIT 1;";
     db.pool.query(displayProcedures, function(error, responseVal, fields) {
+        // procedures
         let options = responseVal;
         db.pool.query(apptPetName, function(error, responseVal, fields) {
+            // pets name
             let apptPet = responseVal[0].pet_name;
             db.pool.query(apptInfoQuery, function(error, responseVal, fields) {
                 let apptInfo = responseVal;
-                // get appointmentID value to pass to POST appointment procedure form
+                // setting procApptID with appointmentID
+                // also getting appointmentID and appointment_date for page prompt
+                // could just use newApptInfo.appointment_date but oh well
                 procApptID = apptInfo[0].appointmentID;
                 let procApptDate = apptInfo[0].appointment_date;
                     res.render('appointment-procedures', {procApptID: procApptID, procApptDate: procApptDate, procedureOptions: options, apptPet: apptPet});
@@ -219,13 +244,15 @@ app.post('/add-appointment-procedure-form', function(req, res) {
             res.sendStatus(400);
         }
         else {
+            // go back to appointments page where new appointment and its procedures now displayed
             res.redirect('/appointments');
         }
     })
 });
 
 // view appointment procedures
-let apptProcsView; // post assigns "apptProcsView" so that get can read it and pass to handlebars
+// POST assigns "apptProcsView" "apptPetName" GET uses it and passes to handlebars
+let apptProcsView;
 let apptPetName;
 app.post('/view-appt-procs', function(req, res)
 {
@@ -251,6 +278,53 @@ app.get('/view-appt-procs', function(req, res)
 });
 
 // update appointment
+app.put('/put-appointment', function(req, res, next) {
+    let updateAppointmentData = req.body;
+    let appointmentID = updateAppointmentData.appointmentID;
+    let appointment_date = updateAppointmentData.appointment_date;
+    let exam_roomID = updateAppointmentData.exam_roomID;
+    let updateApptData = {
+        appointmentID: appointmentID,
+        appointment_date: appointment_date,
+        exam_roomID: exam_roomID
+    }
+    let proceduresArray = updateAppointmentData.procedures;
+    let updateAppointmentQuery = "UPDATE Appointments SET appointment_date = ?, exam_roomID = ? WHERE Appointments.appointmentID = ?;"
+    let clearProcedures = "DELETE FROM Appointment_has_Procedure WHERE appointmentID = ?"
+    let updateProcedures = "INSERT INTO Appointment_has_Procedure VALUES ?"
+    let updateProcs = [];
+    for(i = 0; i < proceduresArray.length; i++)
+    {
+        updateProcs[i] = [appointmentID, proceduresArray[i]];
+    }
+    console.log(updateProcs);
+    db.pool.query(updateAppointmentQuery, [appointment_date, exam_roomID, appointmentID], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else {
+            db.pool.query(clearProcedures, [appointmentID], function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    db.pool.query(updateProcedures, [updateProcs], function(error, rows, fields) {
+                        if (error) {
+                            console.log(error);
+                            res.sendStatus(400);
+                        }
+                        else {
+                            console.log(JSON.stringify(updateApptData));
+                            res.send(updateApptData);
+                        }
+                    })
+                }
+            })
+        }
+    })
+})
 
 // delete appointment
 app.delete('/delete-appointment', function(req, res, next) {
@@ -309,13 +383,13 @@ app.post('/add-owner-form', function(req, res)
 // Update Owner (Doesn't work yet)
 app.put('/put-owner', function(req,res,next)
 {
-    let Owner = req.body;
+    let ownerData = req.body;
 
-    let email = Owner.email;
-    let ownerID = parseInt(Owner.ownerID);
+    let email = ownerData.email;
+    let ownerID = parseInt(ownerData.ownerID);
 
     let queryUpdateOwnerEmail = 'UPDATE Owners SET email = ? WHERE Owners.ownerID = ?';
-    //let enterEmail = 'SELECT * FROM Pet_Types WHERE pet_typeID = ?'
+    let sendOwnerEmailData = 'SELECT * FROM Owners WHERE Owners.ownerID = ?'
 
     db.pool.query(queryUpdateOwnerEmail, [email, ownerID], function(error, rows, fields) {
         if(error) {
@@ -323,7 +397,17 @@ app.put('/put-owner', function(req,res,next)
             res.sendStatus(400);
         }
         else {
-            res.send(rows);
+
+            db.pool.query(sendOwnerEmailData, [ownerID], function(error, rows, fields) {
+
+                if(error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    res.send(rows);
+                }
+            })
         }
     });
 });
@@ -386,6 +470,7 @@ app.post('/add-vet-form', function(req, res)
     });
 });
 
+// displays list of procedures to assign to new vet
 let procVetID;
 app.get('/veterinarian-procedures', function(req, res) {
     let displayProcedures = "SELECT * FROM Procedures;";
@@ -401,12 +486,13 @@ app.get('/veterinarian-procedures', function(req, res) {
     })
 })
 
+// adds those procedures
 app.post('/add-veterinarian-procedures-form', function(req, res) {
     let procs = req.body;
 
     let count = Object.keys(procs).length;
 
-    // TO DO: insert if statement if count = 0, delete vet
+    // TO DO: insert if statement if count = 0, delete vet OR just make checkbox required before submit
 
     let procsArray = new Array;
     for(const [index, procedureID] of Object.entries(procs)) {
@@ -485,9 +571,42 @@ app.post('/add-procedure-form', function(req, res)
     });
 });
 
-// update procedures
-app.put('/update-procedure-form', function(req, res) {
+// Update Procedure
+app.put('/put-procedure', function(req,res,next){
+    let procedureData = req.body;
 
+    let procedureID = parseInt(procedureData.procedureID);
+    let cost = parseInt(procedureData.cost);
+
+    let updateProcedureQuery = 'UPDATE Procedures SET cost = ? WHERE Procedures.procedureID = ?';
+    let costQuery = 'SELECT * FROM Procedures WHERE procedureID = ?'
+
+    // run first query
+    db.pool.query(updateProcedureQuery, [cost, procedureID], function(error, rows, fields){
+        if(error) {
+
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        // if no error, run second query and return that data so we can use it to update
+        // pets table
+        else
+        {
+            // run second query
+            db.pool.query(costQuery, [procedureID], function(error, rows, fields) {
+
+                if(error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    res.send(rows);
+                }
+
+            });
+        }
+    });
 });
 
 
@@ -625,7 +744,7 @@ app.post('/add-pet-form', function(req, res)
         breed = 'NULL'
     }
 
-    query1 = `INSERT INTO Pets(pet_name, ownerID, pet_typeID, breed, birthdate) VALUES ('${data['input-pet_name']}', '${data['input-ownerID']}', '${data['input-pet_typeID']}', ${breed}, '${data['input-birthdate']}');`;
+    query1 = `INSERT INTO Pets(pet_name, ownerID, pet_typeID, breed, birthdate) VALUES ('${data['input-pet_name']}', '${data['input-ownerID']}', '${data['input-pet_typeID']}', '${breed}', '${data['input-birthdate']}');`;
     db.pool.query(query1, function(error, rows, fields){
 
         if (error) {
