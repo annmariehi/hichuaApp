@@ -50,7 +50,7 @@
         {{/each}}
       </select>
 
-      <input class="search" type="submit" value="search">
+      <input class="search" type="submit" value="Search">
       <a href='/appointments'><button>Reset</button></a>
   </form>
 </div>
@@ -81,7 +81,7 @@
       <div>
         <label for="input-exam_roomID">exam room:</label>
         <select name="input-exam_roomID" id="input-exam_roomID">
-          <option disabled selected hidden>select exam room</option>
+          <option disabled selected hidden>Select Exam Room</option>
           {{#each exam_rooms}}
           <option value="{{this.exam_roomID}}">{{this.exam_roomID}}</option>
           {{/each}}
@@ -89,7 +89,7 @@
       </div>
 
       <div>
-        <label for ="input-appointment_date">appointment date:</label>
+        <label for ="input-appointment_date">Appointment Date:</label>
         <input type="date" id="input-appointment_date" name="input-appointment_date">
       </div>
 
@@ -107,19 +107,19 @@
       </p>
 
       <div>
-        <label for="input-appointmentID">pet name | appointment ID: </label>
+        <label for="input-appointmentID">Pet Name | Appointment ID: </label>
         <select name="appointmentSelect" id="appointmentSelect">
           <option disabled selected hidden>Select Pet Name</option>
           {{#each petApptIDs}}
-          <option value="{{this.appointmentID}}">{{this.pet_name}} | appointment ID: {{this.appointmentID}}</option>
+          <option value="{{this.appointmentID}}">{{this.pet_name}} | Appointment ID: {{this.appointmentID}}</option>
           {{/each}}
         </select>
       </div>
 
       <div>
-        <label for="input-exam_roomID">exam room:</label>
+        <label for="input-exam_roomID">Exam Room:</label>
         <select name="input-exam_room-update" id="input-exam_room-update">
-          <option disabled selected hidden>select exam room</option>
+          <option disabled selected hidden>Select Exam Room</option>
           {{#each exam_rooms}}
           <option value="{{this.exam_roomID}}">{{this.exam_roomID}}</option>
           {{/each}}
@@ -127,15 +127,18 @@
       </div>
 
       <div>
-        <label for ="input-appointment_date">appointment date:</label>
+        <label for ="input-appointment_date">Appointment Date:</label>
         <input type="date" id="input-date-update" name="input-date-update">
       </div>
 
-      <div>
-        <label for="input-procedures">procedures:</label>
+      <div class="updateApptProcList">
+        <label for="input-procedures">Procedures:</label>
+        <div class="updateProcSpace"></div>
         {{#each updateProcs}}
+        <label class="procCheckbox" for="{{this.proc_name}}">{{this.proc_name}}
         <input type="checkbox" id="{{this.proc_name}}" name="procedure{{@index}}" value="{{this.procedureID}}">
-        <label for="{{this.proc_name}}">{{this.proc_name}}</label>
+        <span class="procCheckmark"></span>
+        </label>
         {{/each}}
       </div>
 
