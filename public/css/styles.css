@@ -380,6 +380,9 @@ body.blank {
 
 .procList {
   text-align: left;
+  background-color: #8db580ff;
+  border-radius: 10px;
+  padding: 20px;
 }
 
 
