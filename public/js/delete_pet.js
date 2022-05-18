@@ -20,6 +20,7 @@ function deletePet(petID) {
 
             // remove data from the table
             deleteRow(petID);
+            deleteDropDownMenu(petID);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was a nerror with the input");
@@ -37,14 +38,13 @@ function deleteRow(petID){
         // iterate thru rows
         if (table.rows[i].getAttribute("data-value") == petID) {
             table.deleteRow(i);
-            deleteDropDownMenu(petID);
             break;
         }
     }
 }
 
 function deleteDropDownMenu(petID){
-    let selectMenu = document.getElementById("mySelect");
+    let selectMenu = document.getElementById("petSelect");
     for (let i = 0; i < selectMenu.length; i++) {
         if(Number(selectMenu.options[i].value) === Number(petID)){
             selectMenu[i].remove();
