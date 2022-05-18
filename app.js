@@ -599,7 +599,7 @@ app.get('/pets', function(req, res)
     if(req.query.pet_name === undefined) {
         displayPets = "SELECT * FROM Pets;";
     } else {
-        displayPets = `SELECT * FROM Pets WHERE pet_name LIKE "${req.query.pet_name}%"`
+        displayPets = `SELECT * FROM Pets WHERE pet_name LIKE "${req.query.pet_name}%"`;
     }
 
     // Populate Pet_Types dropdown
@@ -710,7 +710,7 @@ app.post('/add-pet-form', function(req, res)
     createPetQuery = `INSERT INTO Pets(pet_name, ownerID, pet_typeID, breed, birthdate) VALUES ('${petData['input-pet_name']}', '${petData['input-ownerID']}', '${petData['input-pet_typeID']}', '${breed}', '${petData['input-birthdate']}');`;
     db.pool.query(createPetQuery, (error, rows, fields) => {
         if (error) {
-            console.log(error)
+            console.log(error);
             res.sendStatus(400);
         } else {
             res.redirect('/pets');
