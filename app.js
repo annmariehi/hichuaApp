@@ -202,7 +202,7 @@ app.get('/appointment-procedures', function(req,res)
                 procApptID = apptInfo[0].appointmentID;
                 let procApptDate = apptInfo[0].appointment_date;
 
-                res.render('appointment-procedures', {procApptID: procApptID, procApptDate: procApptDate, procedureOptions: options, apptPet: apptPet});
+                res.render('appointment-procedures', {procApptID: procApptID, procApptDate: procApptDate, procedureOptions: options, apptPet: apptPet, layout: 'blank'});
             });
         });
     });
