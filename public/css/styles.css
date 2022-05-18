@@ -29,7 +29,7 @@
 
 .headerNavbar { grid-area: headerNavbar; }
 
-body {
+body.main {
   background-color: #c2cfb2ff;
   padding: 10px;
   font-family: Arial, Helvetica, sans-serif;
@@ -250,10 +250,107 @@ form.updateForm input[type=submit] {
 
 }
 
-
 form.updateForm input[type=submit]:hover {
   background-color: #009fb7ff;
 }
+
+/* Citation for following block of css: */
+/* Date: 05/18/2022 */
+/* Adapted from: */
+/* Source URL: https://www.w3schools.com/howto/howto_css_custom_checkbox.asp */
+
+/* PROCEDURE FORM */
+.pCheckbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.pCheckbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: white;
+}
+
+.pCheckbox:hover input ~ .checkmark {
+  background-color: #009fb7ff;
+}
+
+.pCheckbox input:checked ~ .checkmark {
+  background-color: #172a3aff;
+}
+
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.pCheckbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.pCheckbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+form.procedureForm input[type=submit] {
+  background-color: #172a3aff;
+  color: #009fb7ff;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  font-size: 20px;
+}
+
+form.procedureForm input[type=submit]:hover {
+  background-color: #009fb7ff;
+  color: #172a3aff;
+}
+
+form.procedureForm {
+  margin:auto;
+  text-align: left;
+}
+
+form.procedureForm p.apptDetails {
+  font-weight: bold;
+}
+
+
+body.blank {
+  display: flex;
+  text-align: center;
+  background-color: #c2cfb2ff;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.procList {
+  text-align: left;
+}
+
 
 /* TABS */
 .tab {
