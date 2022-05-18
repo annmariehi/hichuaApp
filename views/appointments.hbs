@@ -33,7 +33,7 @@
         <td><button id="viewAppts" class="view" onClick="viewAppt({{this.appointmentID}})">View</button></td>
         <td class="deleteCell"><button class="deleteButton" onClick="deleteAppointment({{this.appointmentID}})"><i class="fa-solid fa-trash fa-1x"></i></button></td>
       </tr>
-    {{/each}}
+      {{/each}}
     </tbody>
   </table>
   <script src="./js/view_appt-proc.js"></script>
@@ -62,87 +62,85 @@
     <button class="tablinks" onclick="openForm(event, 'updateForm')">Update Appointment</button>
   </div>
   <script src="./js/tabs.js"></script>
+
   <div id="addForm" class="tabContent">
-  {{!-- Add Appointment Form --}}
-  <form class="addForm" id="add-appointment-form" method="POST" action="/add-appointment-form">
-      <p>Please select appointment information, and then click 'add procedures' to add procedures to the appointment</p>
+    {{!-- Add Appointment Form --}}
+    <form class="addForm" id="add-appointment-form" method="POST" action="/add-appointment-form">
+        <p>Please select appointment information, and then click 'add procedures' to add procedures to the appointment</p>
 
-    <div>
-      <label for="input-petID">pet name: </label>
-      <select name="input-petID" id="input-petID">
-        <option disabled selected hidden>Select Pet Name</option>
-        {{#each pets}}
-        <option value="{{this.petID}}">{{this.pet_name}}</option>
-        {{/each}}
+      <div>
+        <label for="input-petID">pet name: </label>
+        <select name="input-petID" id="input-petID">
+          <option disabled selected hidden>Select Pet Name</option>
+          {{#each pets}}
+          <option value="{{this.petID}}">{{this.pet_name}}</option>
+          {{/each}}
       </select>
-    </div>
+      </div>
 
-    <div>
-      <label for="input-exam_roomID">exam room:</label>
-      <select name="input-exam_roomID" id="input-exam_roomID">
-        <option disabled selected hidden>select exam room</option>
-        {{#each exam_rooms}}
-        <option value="{{this.exam_roomID}}">{{this.exam_roomID}}</option>
-        {{/each}}
-      </select>
-    </div>
+      <div>
+        <label for="input-exam_roomID">exam room:</label>
+        <select name="input-exam_roomID" id="input-exam_roomID">
+          <option disabled selected hidden>select exam room</option>
+          {{#each exam_rooms}}
+          <option value="{{this.exam_roomID}}">{{this.exam_roomID}}</option>
+          {{/each}}
+        </select>
+      </div>
 
-    <div>
-      <label for ="input-appointment_date">appointment date:</label>
-      <input type="date" id="input-appointment_date" name="input-appointment_date">
-    </div>
+      <div>
+        <label for ="input-appointment_date">appointment date:</label>
+        <input type="date" id="input-appointment_date" name="input-appointment_date">
+      </div>
 
-    <input type="submit" value="Add Procedures">
-  </form>
+      <input type="submit" value="Add Procedures">
+    </form>
   </div>
 
   <div id="updateForm" class="tabContent">
 
-{{!-- Update Appointment Form --}}
- <form class="updateForm" id="update-appointment-form">
+    {{!-- Update Appointment Form --}}
+    <form class="updateForm" id="update-appointment-form">
       <p>Please select the Pet's Name of the appointment you'd like to update.
         Verify you have selected the correct appointment by the appointment ID.
         Then update information.
       </p>
 
-    <div>
-      <label for="input-appointmentID">pet name | appointment ID: </label>
-      <select name="appointmentSelect" id="appointmentSelect">
-        <option disabled selected hidden>Select Pet Name</option>
-        {{#each petApptIDs}}
-        <option value="{{this.appointmentID}}">{{this.pet_name}} | appointment ID: {{this.appointmentID}}</option>
+      <div>
+        <label for="input-appointmentID">pet name | appointment ID: </label>
+        <select name="appointmentSelect" id="appointmentSelect">
+          <option disabled selected hidden>Select Pet Name</option>
+          {{#each petApptIDs}}
+          <option value="{{this.appointmentID}}">{{this.pet_name}} | appointment ID: {{this.appointmentID}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div>
+        <label for="input-exam_roomID">exam room:</label>
+        <select name="input-exam_room-update" id="input-exam_room-update">
+          <option disabled selected hidden>select exam room</option>
+          {{#each exam_rooms}}
+          <option value="{{this.exam_roomID}}">{{this.exam_roomID}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div>
+        <label for ="input-appointment_date">appointment date:</label>
+        <input type="date" id="input-date-update" name="input-date-update">
+      </div>
+
+      <div>
+        <label for="input-procedures">procedures:</label>
+        {{#each updateProcs}}
+        <input type="checkbox" id="{{this.proc_name}}" name="procedure{{@index}}" value="{{this.procedureID}}">
+        <label for="{{this.proc_name}}">{{this.proc_name}}</label>
         {{/each}}
-      </select>
-    </div>
+      </div>
 
-    <div>
-      <label for="input-exam_roomID">exam room:</label>
-      <select name="input-exam_room-update" id="input-exam_room-update">
-        <option disabled selected hidden>select exam room</option>
-        {{#each exam_rooms}}
-        <option value="{{this.exam_roomID}}">{{this.exam_roomID}}</option>
-        {{/each}}
-      </select>
-    </div>
-
-    <div>
-      <label for ="input-appointment_date">appointment date:</label>
-      <input type="date" id="input-date-update" name="input-date-update">
-    </div>
-
-    <div>
-      <label for="input-procedures">procedures:</label>
-       {{#each updateProcs}}
-          <input type="checkbox" id="{{this.proc_name}}" name="procedure{{@index}}" value="{{this.procedureID}}">
-          <label for="{{this.proc_name}}">{{this.proc_name}}</label>
-         {{/each}}
-    </div>
-
-
-    <input type="submit" value="Update Appointment">
-  </form>
-  <script src="./js/update_appointment.js"></script>
-
-
-</div>
+      <input type="submit" value="Update Appointment">
+    </form>
+    <script src="./js/update_appointment.js"></script>
+  </div>
 </div>
