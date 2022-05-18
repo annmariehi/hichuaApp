@@ -11,8 +11,8 @@
 // Express
 var express = require('express');
 var app     = express();
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 PORT        = 50689;
 
@@ -23,7 +23,6 @@ var db = require('./database/db-connector');
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');
 var moment = require('moment');
-const res = require('express/lib/response');
 app.engine('.hbs', engine({
     extname: ".hbs",
     layoutsDir: 'views/layouts',
@@ -52,9 +51,9 @@ app.get('/', function(req,res)
 // display exam-rooms page
 app.get('/exam-rooms', function(req, res)
 {
-    let displayExamRooms = "SELECT * FROM Exam_Rooms;"
+    let displayExamRooms = "SELECT * FROM Exam_Rooms;";
 
-    db.pool.query(displayExamRooms, function(error, rows, fields) {
+    db.pool.query(displayExamRooms, (error, rows, fields) => {
         res.render('exam-rooms', {examRoomData: rows});
     })
 });
@@ -65,12 +64,11 @@ app.post('/add-exam-room-form', function(req, res)
     let examRoomData = req.body;
 
     let createExamRoom = `INSERT INTO Exam_Rooms(exam_roomID) VALUES ("${examRoomData['input-exam_roomID']}");`;
-    db.pool.query(createExamRoom, function(error, rows, fields){
+    db.pool.query(createExamRoom, (error, rows, fields) => {
         if (error) {
-            console.log(error)
+            console.log(error);
             res.sendStatus(400);
-        }
-        else {
+        } else {
             res.redirect('/exam-rooms');
         }
     });
@@ -82,36 +80,26 @@ app.post('/add-exam-room-form', function(req, res)
 app.get('/appointments', function(req,res)
 {
    let displayAppointments;
+
    // search
-   if(req.query.petID === undefined)
-   {
+   if(req.query.petID === undefined) {
        displayAppointments = "SELECT * FROM Appointments;";
-   }
-   else
-   {
+   } else {
        let inputPetID = parseInt(req.query.petID);
        displayAppointments = `SELECT * FROM Appointments WHERE petID = ${inputPetID}`;
    }
 
-   // Populate pet dropdowns
+   // Queries for populating table/drop downs/checkboxes
    let petDropDown = "SELECT * FROM Pets;";
-
-   // Populate exam-room dropdown
    let examRoomDropDown = "SELECT * FROM Exam_Rooms;";
-
-   // Populate appointment ID/Pet name drop down for update
    let apptUpdateDropDown = "SELECT Pets.pet_name, Pets.petID, Appointments.appointmentID FROM Pets JOIN Appointments ON Pets.petID = Appointments.petID;";
-
-   // Populate procedures for update
    let apptUpdateProcedures = "SELECT * FROM Procedures;";
 
    db.pool.query(displayAppointments, (error, rows, fields) => {
-
         let appointmentData = rows;
 
         // populate pet drop down queries
         db.pool.query(petDropDown, (error, rows, fields) => {
-
             let pets = rows;
 
             // array map to replace petID with pet name in appointments table
@@ -123,17 +111,14 @@ app.get('/appointments', function(req,res)
 
             // populate examroom dropdown
             db.pool.query(examRoomDropDown, (error, rows, fields) => {
-
                 let exam_rooms = rows;
 
                 // populate appointmentID/pets dropdown
                 db.pool.query(apptUpdateDropDown, (error, selects, fields) => {
-
                     let petApptIDs = selects;
 
                     // populate procedures checkboxes
                     db.pool.query(apptUpdateProcedures, (error, results, fields) => {
-
                         let updateProcs = results;
 
                         // overwrite petID with name of pet in appointment table
@@ -161,7 +146,7 @@ app.post('/add-appointment-form', function(req, res)
         petID: appointmentData['input-petID'],
         appointment_date: appointmentData['input-appointment_date']
     }
-    db.pool.query(createAppointment, function(error, rows, fields) {
+    db.pool.query(createAppointment, (error, rows, fields) => {
         if (error) {
             console.log(error)
             res.sendStatus(400);
@@ -229,8 +214,7 @@ app.post('/add-appointment-procedure-form', function(req, res) {
 
     // create array of arrays with same appointmentID and different procedureIDs
     let procVals = [];
-    for(i = 0; i < procsArray.length; i++)
-    {
+    for(i = 0; i < procsArray.length; i++) {
         procVals[i] = [procApptID, parseInt(procsArray[i])];
     }
     console.log(procVals);
@@ -257,7 +241,9 @@ app.post('/view-appt-procs', function(req, res)
 {
     let apptID = parseInt(req.body.appointmentID);
 
+    // get all procedure information where procedureID matches the passed appointmentID in Appointment_has_Procedure
     let disApptProcs = `SELECT Procedures.procedureID, Procedures.proc_name, Procedures.cost FROM Appointment_has_Procedure JOIN Procedures ON Appointment_has_Procedure.procedureID = Procedures.procedureID WHERE Appointment_has_Procedure.appointmentID = ${apptID}`;
+    // get the pet name for the appointment
     let disPetName = `SELECT Pets.pet_name FROM Appointments JOIN Pets ON Appointments.petID = Pets.petID WHERE Appointments.appointmentID = ${apptID}`;
 
     db.pool.query(disApptProcs, (error, results, fields) => {
@@ -270,7 +256,7 @@ app.post('/view-appt-procs', function(req, res)
     });
 });
 
-// literally just renders all the work post did
+// rendering work POST did on popup page
 app.get('/view-appt-procs', function(req, res)
 {
     res.render('view-appt-procs', {apptProcs: apptProcsView, apptPetName: apptPetName, layout: 'blank'});
@@ -289,8 +275,7 @@ app.put('/put-appointment', function(req, res, next) {
     // putting new procedures in array of arrays with same appointmentID and different procedureIDs
     let proceduresArray = updateAppointmentData.procedures;
     let updateProcs = [];
-    for(i = 0; i < proceduresArray.length; i++)
-    {
+    for(i = 0; i < proceduresArray.length; i++) {
         updateProcs[i] = [appointmentID, proceduresArray[i]];
     }
 
@@ -301,6 +286,7 @@ app.put('/put-appointment', function(req, res, next) {
     let clearProcedures = "DELETE FROM Appointment_has_Procedure WHERE appointmentID = ?"
     let updateProcedures = "INSERT INTO Appointment_has_Procedure VALUES ?"
 
+    // running all queries, checking for errors each time
     db.pool.query(updateAppointmentQuery, [appointment_date, exam_roomID, appointmentID], (error, rows, fields) => {
         if (error) {
             console.log(error);
@@ -370,11 +356,11 @@ app.get('/owners', function(req,res)
 app.post('/add-owner-form', function(req, res)
 {
     let ownerData = req.body;
+    let createOwnerQuery = `INSERT INTO Owners(owner_name, email) VALUES ('${ownerData['input-owner_name']}', '${ownerData['input-email']}');`;
 
-    createOwnerQuery = `INSERT INTO Owners(owner_name, email) VALUES ('${ownerData['input-owner_name']}', '${ownerData['input-email']}');`;
     db.pool.query(createOwnerQuery, (error, rows, fields) => {
         if (error) {
-            console.log(error)
+            console.log(error);
             res.sendStatus(400);
         } else {
             res.redirect('/owners');
@@ -387,7 +373,6 @@ app.post('/add-owner-form', function(req, res)
 app.put('/put-owner', function(req,res,next)
 {
     let ownerData = req.body;
-
     let email = ownerData.email;
     let ownerID = parseInt(ownerData.ownerID);
 
@@ -421,11 +406,11 @@ app.get('/pet-types', function(req, res)
 app.post('/add-pet-type-form', function(req, res)
 {
     let typeData = req.body;
-    createPetTypeQuery = `INSERT INTO Pet_Types(type_name) VALUES ("${typeData['input-type_name']}");`;
+    let createPetTypeQuery = `INSERT INTO Pet_Types(type_name) VALUES ("${typeData['input-type_name']}");`;
 
     db.pool.query(createPetTypeQuery, (error, rows, fields) => {
         if (error) {
-            console.log(error)
+            console.log(error);
             res.sendStatus(400);
         } else {
             res.redirect('/pet-types');
@@ -453,31 +438,36 @@ app.post('/add-vet-form', function(req, res)
     let vetData = req.body;
     createVetQuery = `INSERT INTO Veterinarians(vet_name) VALUES ("${vetData['input-vet_name']}");`;
 
-    db.pool.query(createVetQuery, function(error, rows, fields) {
+    db.pool.query(createVetQuery, (error, rows, fields) => {
         if(error) {
             console.log(error);
             res.sendStatus(400);
         } else {
-            res.redirect('/veterinarian-procedures')
+            res.redirect('/veterinarian-procedures');
         }
     });
 });
 
 // DISPLAY PROCEDURES FOR ADD VETERINARIAN
 let procVetID; //
-app.get('/veterinarian-procedures', function(req, res) {
+app.get('/veterinarian-procedures', function(req, res)
+{
     let displayProcedures = "SELECT * FROM Procedures;";
     let vetInfoQuery = "SELECT * FROM Veterinarians ORDER BY vetID DESC LIMIT 1;";
+
     db.pool.query(displayProcedures, function(error, responseVal, fields) {
         let options = responseVal;
+
+        // get info from most recently added vet (will have the highest vetID)
         db.pool.query(vetInfoQuery, function(error, responseVal, fields) {
             let vetInfo = responseVal;
             procVetID = vetInfo[0].vetID;
             vetName = vetInfo[0].vet_name;
+
             res.render('veterinarian-procedures', {vetName: vetName, procedureOptions: options, layout: 'blank'});
-        })
-    })
-})
+        });
+    });
+});
 
 // ADD PROCEDURES TO VETERINARIAN
 app.post('/add-veterinarian-procedures-form', function(req, res)
@@ -523,11 +513,13 @@ app.post('/view-vet-procs', function(req, res)
     let vetID = parseInt(req.body.vetID);
 
     let disVetName = `SELECT * FROM Veterinarians WHERE vetID = ${vetID}`;
+    // get procedure information where procedureID matches passed vetID in Procedure_has_Vet
     let disVetProcs = `SELECT Procedures.procedureID, Procedures.proc_name, Procedures.cost FROM Procedure_has_Vet JOIN Procedures ON Procedure_has_Vet.procedureID = Procedures.procedureID WHERE Procedure_has_Vet.vetID = ${vetID}`;
+
     db.pool.query(disVetProcs, (error, results, fields) => {
         vetProcsView = results;
+
         db.pool.query(disVetName, (error, results, fields) => {
-            vetNameView = results;
             vetNameView = results[0].vet_name;
             res.sendStatus(200);
         });
@@ -604,7 +596,7 @@ app.get('/pets', function(req, res)
     let displayPets;
 
     // search
-    if(req.query.pet_name === undefined){
+    if(req.query.pet_name === undefined) {
         displayPets = "SELECT * FROM Pets;";
     } else {
         displayPets = `SELECT * FROM Pets WHERE pet_name LIKE "${req.query.pet_name}%"`
@@ -617,12 +609,10 @@ app.get('/pets', function(req, res)
     let ownersDropDown = 'SELECT * FROM Owners;';
 
     db.pool.query(displayPets, (error, rows, fields) => {
-
         let pets = rows;
 
         // Populate dropdown query
         db.pool.query(petsTypesDropDown, (error, rows, fields) => {
-
             let pet_types = rows;
 
             // make array map to repalce pet_typeIDs with type_names in Pets table
@@ -634,7 +624,6 @@ app.get('/pets', function(req, res)
 
             // populate owner dropdown
             db.pool.query(ownersDropDown, (error, rows, fields) => {
-
                 let owners = rows;
 
                 // make array map to replace ownerIDs with owner_name in Pets table
@@ -686,7 +675,7 @@ app.put('/put-pet', function(req,res,next)
     let selectPetType = 'SELECT * FROM Pet_Types WHERE pet_typeID = ?'
 
     // run first query
-    db.pool.query(queryUpdatePetType, [pet_typeID, pet], function(error, rows, fields){
+    db.pool.query(queryUpdatePetType, [pet_typeID, pet], (error, rows, fields) => {
         if(error) {
             console.log(error);
             res.sendStatus(400);
@@ -694,7 +683,7 @@ app.put('/put-pet', function(req,res,next)
         // pets table
         } else {
             // run second query
-            db.pool.query(selectPetType, [pet_typeID], function(error, rows, fields) {
+            db.pool.query(selectPetType, [pet_typeID], (error, rows, fields) => {
                 if(error) {
                     console.log(error);
                     res.sendStatus(400);
