@@ -1,25 +1,29 @@
 <!--appointment-procedures.hbs-->
+{{!< blank}}
 
 {{!-- Add Appointment Procedures Form --}}
-    <div id="add-appointment-procedures">
-      <form id="add-appointment-procedures-form" method="POST" action="/add-appointment-procedure-form">
-        <legend>Add Procedures to Appointment</legend>
-        <fieldset>
-          <p>Please select procedures for appointment {{procApptID}}: {{apptPet}} on {{formatDate procApptDate}}:</p>
-          {{#each procedureOptions}}
-          <input type="checkbox" onClick="showChecked()" id="{{this.proc_name}}" name="procedure{{@index}}" value="{{this.procedureID}}">
-          <label for="{{this.proc_name}}">{{this.proc_name}}</label>
-         {{/each}}
-         <div id="procsChecked">Total Procedures: <span id="numProcs" name="numProcs"></span></div>
-         <script>
-             function showChecked() {
-                 document.getElementById('numProcs').innerHTML = getCheckBoxCount();
-             }
-             function getCheckBoxCount() {
-                 return document.querySelectorAll('input[type=checkbox]:checked').length;
-             }
-         </script>
-        <input type="submit" value="Add Procedures">
-        </fieldset>
-      </form>
-    </div>
+<form class="procedureForm" id="add-appointment-procedures-form" method="POST" action="/add-appointment-procedure-form">
+  <h2>Add Procedures to Appointment</h2>
+  <p>Please select procedures for appointment {{procApptID}}:</p>
+  <p class="apptDetails">{{apptPet}} on {{formatDate procApptDate}}:</p>
+
+  {{#each procedureOptions}}
+  <label class="pCheckbox" for="{{this.proc_name}}">{{this.proc_name}}
+    <input type="checkbox" onClick="showChecked()" id="{{this.proc_name}}" name="procedure{{@index}}" value="{{this.procedureID}}">
+    <span class="checkmark"></span>
+  </label>
+  {{/each}}
+
+  {{!-- Procedure Counter --}}
+  <div id="procsChecked">Total Procedures: <span id="numProcs" name="numProcs"></span></div>
+  <script>
+    function showChecked() {
+      document.getElementById('numProcs').innerHTML = getCheckBoxCount();
+    }
+    function getCheckBoxCount() {
+      return document.querySelectorAll('input[type=checkbox]:checked').length;
+    }
+  </script>
+
+  <input type="submit" value="Add Procedures">
+</form>
