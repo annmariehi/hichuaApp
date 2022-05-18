@@ -13,7 +13,7 @@
 
 <div class="tables">
 {{!-- Procedures Table --}}
-      <table>
+      <table id="procedures-table">
         <thead>
           <tr>
             <th>Procedure ID</th>
@@ -23,7 +23,7 @@
         </thead>
         <tbody>
           {{#each procedureData}}
-          <tr>
+          <tr data-value={{this.procedureID}}>
             <td>{{this.procedureID}}</td>
             <td>{{this.proc_name}}</td>
             <td>{{this.cost}}</td>
