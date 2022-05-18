@@ -7,6 +7,13 @@ var register = function(Handlebars) {
     formatDate: function(sqlDate) {
         var jsDate = new Date(sqlDate);
         return jsDate.toDateString();
+    },
+    formatBirthdate: function(sqlDate) {
+        var jsDate = new Date(sqlDate);
+        let day = jsDate.getDate();
+        let month = jsDate.getMonth();
+        let year = jsDate.getFullYear();
+        return(day + "-" + month + "-" + year);
     }
     };
     if (Handlebars && typeof Handlebars.registerHelper === "function") {
