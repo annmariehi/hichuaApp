@@ -87,6 +87,7 @@ body {
 
   tbody tr:hover {
     background-color: #009fb7ff;
+    transition: 0.3s;
   }
 
   tr {
@@ -208,7 +209,7 @@ form.addForm input[type=text], [type=date], [type=number], [type=email], select 
 
 form.addForm input[type=submit] {
   width: 100%;
-  background-color: grey;
+  background-color: #172a3aff;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -218,16 +219,17 @@ form.addForm input[type=submit] {
 }
 
 form.addForm input[type=submit]:hover {
-  background-color: lightgrey;
+  background-color: #009fb7ff;
 }
 
 /*UPDATE FORM*/
+
 form.updateForm {
   background-color: #8db580ff;
   width: 100%;
 }
 
-form.updateFormForm input[type=text], [type=date], [type=number], [type=email], select {
+form.updateForm input[type=text], [type=date], [type=number], [type=email], select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -239,7 +241,7 @@ form.updateFormForm input[type=text], [type=date], [type=number], [type=email], 
 
 form.updateForm input[type=submit] {
   width: 100%;
-  background-color: grey;
+  background-color: #172a3aff;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -249,8 +251,8 @@ form.updateForm input[type=submit] {
 }
 
 
-form.updateFormForm input[type=submit]:hover {
-  background-color: lightgrey;
+form.updateForm input[type=submit]:hover {
+  background-color: #009fb7ff;
 }
 
 /* TABS */
@@ -273,11 +275,12 @@ form.updateFormForm input[type=submit]:hover {
 }
 
 .tab button:hover {
-  background-color: grey;
+  background-color: #009fb7ff !important;
 }
 
 .tab button.active {
   background-color: #172a3aff;
+  color: #009fb7ff;
 }
 
 .tabContent {
@@ -287,67 +290,6 @@ form.updateFormForm input[type=submit]:hover {
   border-top: none;
   background-color: #8db580ff;
 }
-  /* ETC */
-  /*
-  #update-pet {
-    padding: 5px;
-    max-width: fit-content;
-  }
-
-  #add-pet {
-    padding: 5px;
-    max-width: fit-content;
-  }
-
-  #search-pets {
-    padding: 5px;
-    max-width: fit-content;
-  }
-
-  #add-appointment {
-    padding: 5px;
-    max-width: fit-content;
-  }
-
-  #add-vet {
-    padding: 5px;
-    max-width: fit-content;
-  }
-
-  #add-procedure {
-    padding: 5px;
-    max-width: fit-content;
-  }
-
-  #update-procedure {
-    padding: 5px;
-    max-width: fit-content;
-  }
-
-  #add-owner {
-    padding: 5px;
-    max-width: fit-content;
-  }
-
-  #update-owner {
-    padding: 5px;
-    max-width: fit-content;
-  }
-
-  #search-owners {
-    padding: 5px;
-    max-width: fit-content;
-  }
-
-  #add-pet-type {
-    padding: 5px;
-    max-width: fit-content;
-  }
-
-  #add-exam-room {
-    padding: 5px;
-    max-width: fit-content;
-  }
 
 
-  */
+
