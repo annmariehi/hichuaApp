@@ -30,7 +30,7 @@ updateOwnerForm.addEventListener("submit", function (e) {
 
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            updateRow(xhttp.response, ownerIDValue);
+            updateRow(emailValue, ownerIDValue);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -42,17 +42,17 @@ updateOwnerForm.addEventListener("submit", function (e) {
 
 })
 
-function updateRow(ownerData, ownerIDVal){
-    let parseData = JSON.parse(ownerData);
+function updateRow(emailValue, ownerIDValue)
+{
     let table = document.getElementById("owners-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
         // iterate thru rows
-        if (table.rows[i].getAttribute("data-value") == ownerIDVal) {
+        if (table.rows[i].getAttribute("data-value") == ownerIDValue) {
 
             let updateRowIndex = table.getElementsByTagName("tr")[i];
-            let td = updateRowIndex.getElementsByTagName("td")[2];
-            td.innerHTML = parseData[0].email;
+            let emailTD = updateRowIndex.getElementsByTagName("td")[2];
+            emailTD.innerHTML = emailValue;
         }
     }
 }

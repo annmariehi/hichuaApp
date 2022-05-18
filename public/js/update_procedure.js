@@ -33,7 +33,7 @@ updateProcedureForm.addEventListener("submit", function (e) {
 
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            updateRow(xhttp.response, procedureIDValue);
+            updateRow(costValue, procedureIDValue);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -45,17 +45,17 @@ updateProcedureForm.addEventListener("submit", function (e) {
 
 })
 
-function updateRow(procedureData, procedureID){
-    let parseData = JSON.parse(procedureData);
+function updateRow(costValue, procedureIDValue)
+{
     let table = document.getElementById("procedures-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
         // iterate thru rows
-        if (table.rows[i].getAttribute("data-value") == procedureID) {
+        if (table.rows[i].getAttribute("data-value") == procedureIDValue) {
 
             let updateRowIndex = table.getElementsByTagName("tr")[i];
             let td = updateRowIndex.getElementsByTagName("td")[2];
-            td.innerHTML = parseData[0].cost;
+            td.innerHTML = costValue;
         }
     }
 }

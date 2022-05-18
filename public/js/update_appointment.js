@@ -1,7 +1,5 @@
-
 let updateProcedureForm = document.getElementById('update-appointment-form');
 
-// modify objects we need
 updateProcedureForm.addEventListener("submit", function (e) {
 
     // prevent form from submitting
@@ -11,12 +9,13 @@ updateProcedureForm.addEventListener("submit", function (e) {
     let inputAppointmentID = document.getElementById("appointmentSelect");
     let inputAppointmentDate = document.getElementById('input-date-update');
     let inputExamRoom = document.getElementById('input-exam_room-update');
+
+    // get values of checkboxes and put them in array
     let inputProcedures = document.querySelectorAll('input[type="checkbox"]:checked');
     let procedureArray = new Array;
     for(var checkbox of inputProcedures) {
         procedureArray.push(checkbox.value);
     }
-    console.log(procedureArray);
 
     // get values from form fields
     let appointmentIDValue = inputAppointmentID.value;
@@ -49,14 +48,15 @@ updateProcedureForm.addEventListener("submit", function (e) {
 
 })
 
-function updateRow(appointmentData, appointmentID) {
-
+function updateRow(appointmentData, appointmentID)
+{
     let table = document.getElementById("appointments-table");
     // fix appointment date
     for (let i = 0, row; row = table.rows[i]; i++) {
         // iterate thru rows
         if (table.rows[i].getAttribute("appointment-data-value") == appointmentID) {
 
+            // display new exam room and date in table
             let updateRowIndex = table.getElementsByTagName("tr")[i];
             let examTD = updateRowIndex.getElementsByTagName("td")[2];
             let dateTD = updateRowIndex.getElementsByTagName("td")[3];
