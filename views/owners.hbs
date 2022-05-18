@@ -13,7 +13,7 @@
 
 <div class="tables">
 {{!-- Owners Table --}}
-<table>
+<table id="owners-table">
     <thead>
         <tr>
             <th>Owner ID</th>
@@ -24,7 +24,7 @@
 
     <tbody>
         {{#each Owner}}
-        <tr>
+        <tr data-value={{this.ownerID}}>
             <td>{{this.ownerID}}</td>
             <td>{{this.owner_name}}</td>
             <td>{{this.email}}</td>
@@ -71,7 +71,7 @@
 
 {{!-- Update Owner Form --}}
 <div id="updateForm" class="tabContent">
-    <form class="updateForm" id="update-owner-form" method="PUT" action="/update-owner-form">
+    <form class="updateForm" id="update-owner-form">
             <p>To update an owner's email, select their name and enter their new email</p>
 
             <label for="input-owner_name">Owner's Name: </label>
@@ -86,7 +86,8 @@
             <input type="text" name="input-email" id="input-email-update">
             <input type="submit" value="update owner">
     </form>
+    <script src="./js/update_owner.js"></script>
 </div>
 
-<script src="./js/update_owner.js"></script>
+
 </div>
