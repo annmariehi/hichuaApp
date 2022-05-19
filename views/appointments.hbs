@@ -15,10 +15,11 @@
   <table id="appointments-table">
     <thead>
       <tr>
-        <th>Appointment ID</th>
-        <th>Pet Name</th>
-        <th>Exam Room</th>
-        <th>Date</th>
+        <th class="apptIDCell">Appointment ID</th>
+        <th class="petNameCell">Pet Name</th>
+        <th class="examRoomCell">Exam Room</th>
+        <th class="requestedVetCell">Requested Vet</th>
+        <th class="dateCell">Date</th>
         <th>Scheduled Procedures</th>
         <th>Delete</th>
       </tr>
@@ -29,6 +30,7 @@
         <td>{{this.appointmentID}}</td>
         <td>{{this.petID}}</td>
         <td>{{this.exam_roomID}}</td>
+        <td>{{this.requested_vetID}}</td>
         <td>{{formatDate this.appointment_date}}</td>
         <td class="viewCell"><button id="viewAppts" class="viewButton" onClick="viewAppt({{this.appointmentID}})">View</button></td>
         <td class="deleteCell"><button class="deleteButton" onClick="deleteAppointment({{this.appointmentID}})"><i class="fa-solid fa-trash fa-1x"></i></button></td>
@@ -79,12 +81,23 @@
       </div>
 
       <div>
-        <label for="input-exam_roomID">exam room:</label>
+        <label for="input-exam_roomID">Exam Room:</label>
         <select name="input-exam_roomID" id="input-exam_roomID">
           <option disabled selected hidden>Select Exam Room</option>
           {{#each exam_rooms}}
           <option value="{{this.exam_roomID}}">{{this.exam_roomID}}</option>
           {{/each}}
+        </select>
+      </div>
+
+      <div>
+        <label for="input-requested_vetID">Requested Vet:</label>
+        <select name="input-requested_vetID" id="input-requested_vetID">
+          <option disabled selected hidden>Select Requested Vet</option>
+          {{#each requestedVets}}
+          <option value="{{this.vetID}}">{{this.vet_name}}</option>
+          {{/each}}
+          <option value="">No Requested Vet</option>
         </select>
       </div>
 
@@ -123,6 +136,17 @@
           {{#each exam_rooms}}
           <option value="{{this.exam_roomID}}">{{this.exam_roomID}}</option>
           {{/each}}
+        </select>
+      </div>
+
+      <div>
+        <label for="input-requested_vetID">Requested Vet:</label>
+        <select name="input-requested_vetID-update" id="input-requested_vetID-update">
+          <option disabled selected hidden>Select Requested Vet</option>
+          {{#each requestedVets}}
+          <option value="{{this.vetID}}">{{this.vet_name}}</option>
+          {{/each}}
+          <option value="NULL">No Requested Vet</option>
         </select>
       </div>
 

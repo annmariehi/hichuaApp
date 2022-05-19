@@ -9,6 +9,7 @@ updateProcedureForm.addEventListener("submit", function (e) {
     let inputAppointmentID = document.getElementById("appointmentSelect");
     let inputAppointmentDate = document.getElementById('input-date-update');
     let inputExamRoom = document.getElementById('input-exam_room-update');
+    let inputRequestedVet = document.getElementById('input-requested_vetID-update');
 
     // get values of checkboxes and put them in array
     let inputProcedures = document.querySelectorAll('input[type="checkbox"]:checked');
@@ -21,14 +22,19 @@ updateProcedureForm.addEventListener("submit", function (e) {
     let appointmentIDValue = inputAppointmentID.value;
     let appointmentDateValue = inputAppointmentDate.value;
     let examRoomValue = inputExamRoom.value;
+    let requestedVetValue = inputRequestedVet.value;
+
 
     // put data we want to send in javascript object
     let appointmentUpdateData = {
         appointmentID: appointmentIDValue,
         appointment_date: appointmentDateValue,
         exam_roomID: examRoomValue,
+        requested_vetID: requestedVetValue,
         procedures: procedureArray
     }
+
+    console.log(appointmentUpdateData);
 
     var xhttp = new XMLHttpRequest();
     xhttp.open("PUT", "/put-appointment", true);
@@ -36,7 +42,7 @@ updateProcedureForm.addEventListener("submit", function (e) {
 
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            updateRow(appointmentUpdateData, appointmentIDValue);
+            updateRow(xhttp.response, appointmentUpdateData);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -48,20 +54,31 @@ updateProcedureForm.addEventListener("submit", function (e) {
 
 })
 
-function updateRow(appointmentData, appointmentID)
+function updateRow(responseVal, appointmentData)
 {
+    let vetName;
+
+    if(parseInt(responseVal) === 0)
+    {
+        vetName = " ";
+    } else {
+        vetName = responseVal;
+    }
+
     let table = document.getElementById("appointments-table");
     // fix appointment date
     for (let i = 0, row; row = table.rows[i]; i++) {
         // iterate thru rows
-        if (table.rows[i].getAttribute("appointment-data-value") == appointmentID) {
+        if (table.rows[i].getAttribute("appointment-data-value") == appointmentData.appointmentID) {
 
             // display new exam room and date in table
             let updateRowIndex = table.getElementsByTagName("tr")[i];
             let examTD = updateRowIndex.getElementsByTagName("td")[2];
-            let dateTD = updateRowIndex.getElementsByTagName("td")[3];
+            let dateTD = updateRowIndex.getElementsByTagName("td")[4];
+            let vetTD = updateRowIndex.getElementsByTagName("td")[3];
             examTD.innerHTML = appointmentData.exam_roomID;
             dateTD.innerHTML = appointmentData.appointment_date;
+            vetTD.innerHTML = vetName;
         }
     }
 }

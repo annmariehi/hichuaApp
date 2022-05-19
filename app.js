@@ -94,6 +94,7 @@ app.get('/appointments', function(req,res)
    let examRoomDropDown = "SELECT * FROM Exam_Rooms;";
    let apptUpdateDropDown = "SELECT Pets.pet_name, Pets.petID, Appointments.appointmentID FROM Pets JOIN Appointments ON Pets.petID = Appointments.petID;";
    let apptUpdateProcedures = "SELECT * FROM Procedures;";
+   let vetsDropDown = "SELECT * FROM Veterinarians;"
 
    db.pool.query(displayAppointments, (error, rows, fields) => {
         let appointmentData = rows;
@@ -121,12 +122,23 @@ app.get('/appointments', function(req,res)
                     db.pool.query(apptUpdateProcedures, (error, results, fields) => {
                         let updateProcs = results;
 
-                        // overwrite petID with name of pet in appointment table
-                        appointmentData = appointmentData.map(appointment => {
-                            return Object.assign(appointment, {petID: petmap[appointment.petID]})
+                        db.pool.query(vetsDropDown, (error, results, fields) => {
+                            let requestedVets = results;
+
+                            //array map to replace requested_vetID with vet name in appoitments table
+                            let vetmap = {}
+                            requestedVets.map(vet => {
+                                let vetID = parseInt(vet.vetID, 10);
+                                vetmap[vetID] = vet["vet_name"];
+                            });
+
+                            // overwrite petID and requested_vetID with name of pet and name of vet in appointment table
+                            appointmentData = appointmentData.map(appointment => {
+                            return Object.assign(appointment, {petID: petmap[appointment.petID], requested_vetID: vetmap[appointment.requested_vetID]})
                         });
 
-                        return res.render('appointments', {appointmentData: appointmentData, updateProcs: updateProcs, petApptIDs: petApptIDs, pets: pets, exam_rooms: exam_rooms})
+                        return res.render('appointments', {appointmentData: appointmentData, requestedVets: requestedVets, updateProcs: updateProcs, petApptIDs: petApptIDs, pets: pets, exam_rooms: exam_rooms})
+                        });
                     });
                 });
             });
@@ -141,9 +153,15 @@ app.post('/add-appointment-form', function(req, res)
 {
     let appointmentData = req.body;
 
-    let createAppointment = `INSERT INTO Appointments(petID, exam_roomID, appointment_date) VALUES('${appointmentData['input-petID']}', '${appointmentData['input-exam_roomID']}', '${appointmentData['input-appointment_date']}')`;
+    let requested_vetID = parseInt(appointmentData['input-requested_vetID']);
+    if (isNaN(requested_vetID)) {
+        requested_vetID = 'NULL';
+    }
+
+    let createAppointment = `INSERT INTO Appointments(petID, exam_roomID, requested_vetID, appointment_date) VALUES(${appointmentData['input-petID']}, ${appointmentData['input-exam_roomID']}, ${requested_vetID}, '${appointmentData['input-appointment_date']}')`;
     newApptInfo = {
         petID: appointmentData['input-petID'],
+        requested_vetID: requested_vetID,
         appointment_date: appointmentData['input-appointment_date']
     }
     db.pool.query(createAppointment, (error, rows, fields) => {
@@ -271,6 +289,7 @@ app.put('/put-appointment', function(req, res, next) {
     let appointmentID = updateAppointmentData.appointmentID;
     let appointment_date = updateAppointmentData.appointment_date;
     let exam_roomID = updateAppointmentData.exam_roomID;
+    let requested_vetID = updateAppointmentData.requested_vetID;
 
     // putting new procedures in array of arrays with same appointmentID and different procedureIDs
     let proceduresArray = updateAppointmentData.procedures;
@@ -279,15 +298,27 @@ app.put('/put-appointment', function(req, res, next) {
         updateProcs[i] = [appointmentID, proceduresArray[i]];
     }
 
-    // update appointment
-    let updateAppointmentQuery = "UPDATE Appointments SET appointment_date = ?, exam_roomID = ? WHERE Appointments.appointmentID = ?;"
+    let updateAppointmentQuery;
+    let getReqVet;
+    let inputVals = new Array;
+
+    if (isNaN(requested_vetID)) {
+        requested_vetID = 'NULL';
+        updateAppointmentQuery = "UPDATE Appointments SET appointment_date = ?, exam_roomID = ?, requested_vetID = NULL WHERE Appointments.appointmentID = ?;";
+        inputVals = [appointment_date, exam_roomID, appointmentID];
+        getReqVet = "SELECT vetID FROM Veterinarians WHERE vetID = 1";
+    } else {
+        updateAppointmentQuery = "UPDATE Appointments SET appointment_date = ?, exam_roomID = ?, requested_vetID = ? WHERE Appointments.appointmentID = ?;";
+        inputVals = [appointment_date, exam_roomID, requested_vetID, appointmentID];
+        getReqVet = `SELECT vet_name FROM Veterinarians WHERE vetID = ${requested_vetID}`;
+    }
 
     // clear out all the Appointment_has_Procedure rows with this appointmentID, insert the new procedures under this appointmentID
     let clearProcedures = "DELETE FROM Appointment_has_Procedure WHERE appointmentID = ?"
     let updateProcedures = "INSERT INTO Appointment_has_Procedure VALUES ?"
 
     // running all queries, checking for errors each time
-    db.pool.query(updateAppointmentQuery, [appointment_date, exam_roomID, appointmentID], (error, rows, fields) => {
+    db.pool.query(updateAppointmentQuery, inputVals, (error, rows, fields) => {
         if (error) {
             console.log(error);
             res.sendStatus(400);
@@ -302,8 +333,19 @@ app.put('/put-appointment', function(req, res, next) {
                             console.log(error);
                             res.sendStatus(400);
                         } else {
-                            // send all good status back to update_appointment.js
-                            res.sendStatus(200);
+                            db.pool.query(getReqVet, (error, reqVet, fields) => {
+                                if (error) {
+                                    console.log(error);
+                                    res.sendStatus(400);
+                                } else {
+                                    if(reqVet[0].vetID === undefined) {
+                                        res.send(reqVet[0].vet_name);
+                                    } else {
+                                        let nullVet = "0";
+                                        res.send(nullVet);
+                                    }
+                                }
+                            });
                         }
                     });
                 }
