@@ -133,6 +133,18 @@ body.main {
     transition: 0.3s;
   }
 
+  .dateCell {
+    width: 140px;
+  }
+
+  .apptIDCell {
+    width: 120px;
+  }
+
+  .examRoomCell {
+    width: 80px;
+  }
+
   tr {
     border-bottom: 1px;
   }
