@@ -90,7 +90,7 @@ VALUES ("neuter", 10.00),
 -- Table structure and data insert for 'Exam_Rooms'
 -- ------------------------------------------------------------
 CREATE OR REPLACE TABLE Exam_Rooms (
-	exam_roomID TINYINT(3) NOT NULL,
+	exam_roomID int NOT NULL,
     PRIMARY KEY(exam_roomID)
 );
 
@@ -105,17 +105,22 @@ VALUES (1),
 CREATE OR REPLACE TABLE Appointments (
 	appointmentID int AUTO_INCREMENT NOT NULL,
     petID int NOT NULL,
-    exam_roomID tinyint(3) NOT NULL,
+    exam_roomID int NOT NULL,
+    requested_vetID int DEFAULT NULL,
     appointment_date DATE NOT NULL,
     PRIMARY KEY (appointmentID),
     FOREIGN KEY (petID) REFERENCES Pets(petID) ON DELETE CASCADE,
-    FOREIGN KEY (exam_roomID) REFERENCES Exam_Rooms(exam_roomID)
+    FOREIGN KEY (exam_roomID) REFERENCES Exam_Rooms(exam_roomID),
+    FOREIGN KEY (requested_vetID) REFERENCES Veterinarians(vetID) ON DELETE SET NULL
 );
 
-INSERT INTO Appointments(petID, exam_roomID, appointment_date)
-VALUES (2, 1, "2022-04-26"),
-(3, 2, "2022-04-26"),
-(4, 3, "2022-04-26");
+INSERT INTO Appointments(petID, exam_roomID, requested_vetID, appointment_date)
+VALUES (2, 1, 2, "2022-04-26"),
+(3, 2, 1, "2022-04-26"),
+(4, 3, NULL, "2022-04-26"),
+(5, 1, NULL, "2022-04-27"),
+(1, 3, 4, "2022-04-27");
+
 
 -- ------------------------------------------------------------
 -- Table structure and data insert for 'Appointment_has_Procedure'
@@ -132,7 +137,10 @@ VALUES (1, 4),
 (1, 3),
 (2, 5),
 (3, 1),
-(3, 3);
+(3, 3),
+(4, 5),
+(4, 4),
+(5, 3);
 
 -- ------------------------------------------------------------
 -- Table structure and data insert for 'Procedure_has_Vet'
@@ -145,10 +153,15 @@ CREATE OR REPLACE TABLE Procedure_has_Vet (
 );
 
 INSERT INTO Procedure_has_Vet(procedureID, vetID)
-VALUES (4, 2),
+VALUES (5, 1),
+(2, 1),
+(4, 2),
+(3, 2),
+(1, 2),
 (4, 3),
-(5, 1),
-(3, 2);
+(2, 3),
+(5, 4);
+
 
 
 SET FOREIGN_KEY_CHECKS=1;
