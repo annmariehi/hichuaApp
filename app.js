@@ -574,6 +574,25 @@ app.get('/view-vet-procs', function(req, res)
     res.render('view-vet-procs', {vetProcs: vetProcsView, vetInfo: vetNameView, layout: 'blank'});
 });
 
+// DELTE VETERINARIAN
+app.delete('/delete-vet', function(req, res, next)
+{
+    let vetData = req.body;
+    let vetID = parseInt(vetData.vetID);
+
+    // will cascade and set requested_vetID in appointments to null
+    let deleteVet = 'DELETE FROM Veterinarians WHERE vetID = ?';
+
+    db.pool.query(deleteVet, [vetID], (error, rows, fields) => {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+    });
+});
+
 
 ///////////////////////////////////////// Procedures Page ///////////////////////////////////////////
 

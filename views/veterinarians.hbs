@@ -13,25 +13,29 @@
 <div class="tables">
 {{!-- Veterinarians Table --}}
 
-      <table>
+      <table id="vets-table">
         <thead>
           <tr>
             <th>Vet ID</th>
             <th>Vet Name</th>
             <th>Procedures</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           {{#each vetData}}
-          <tr>
+          <tr vet-data-value={{this.vetID}}>
             <td>{{this.vetID}}</td>
             <td>{{this.vet_name}}</td>
             <td class="viewCell"><button class="viewButton" onclick="viewProcedures({{this.vetID}})">View</button></td>
+            <td class="deleteCell"><button class="deleteButton" onclick="deleteVet({{this.vetID}})"><i class="fa-solid fa-trash fa-1x"></i></button>
+
           </tr>
           {{/each}}
         </tbody>
       </table>
       <script src="./js/view_vet-proc.js"></script>
+      <script src="./js/delete_vet.js"></script>
       <p>Click view to see all the procedures that talented vet can perform!</p>
 </div>
 
