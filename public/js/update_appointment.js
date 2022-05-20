@@ -58,10 +58,11 @@ function updateRow(responseVal, appointmentData)
 {
     let vetName;
 
-    if(parseInt(responseVal) === 0)
-    {
+    // if returned value was string of 0, set vetName to be blank
+    if(parseInt(responseVal) === 0) {
         vetName = " ";
     } else {
+        // else set it to the vet name that was sent
         vetName = responseVal;
     }
 

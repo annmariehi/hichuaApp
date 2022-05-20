@@ -31,8 +31,8 @@ function deleteVet(vetID) {
     xhttp.send(JSON.stringify(vetData));
 }
 
-function deleteRow(vetID){
-
+function deleteRow(vetID)
+{
     let table = document.getElementById("vets-table");
     for (let i = 0, row; row = table.rows[i]; i++) {
         // iterate thru rows
@@ -43,10 +43,11 @@ function deleteRow(vetID){
     }
 }
 
+// not using it but leaving it here for now
 function deleteDropDownMenu(vetID){
     let selectMenu = document.getElementById("vetSelect");
     for (let i = 0; i < selectMenu.length; i++) {
-        if(Number(selectMenu.options[i].value) === Number(vetID)){
+        if(Number(selectMenu.options[i].value) === Number(vetID)) {
             selectMenu[i].remove();
             break;
         }

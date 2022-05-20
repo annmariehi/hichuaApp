@@ -122,6 +122,7 @@ app.get('/appointments', function(req,res)
                     db.pool.query(apptUpdateProcedures, (error, results, fields) => {
                         let updateProcs = results;
 
+                        // populate requested vet dropdown
                         db.pool.query(vetsDropDown, (error, results, fields) => {
                             let requestedVets = results;
 
@@ -153,6 +154,7 @@ app.post('/add-appointment-form', function(req, res)
 {
     let appointmentData = req.body;
 
+    // catching null requested vetID
     let requested_vetID = parseInt(appointmentData['input-requested_vetID']);
     if (isNaN(requested_vetID)) {
         requested_vetID = 'NULL';
@@ -225,17 +227,13 @@ app.post('/add-appointment-procedure-form', function(req, res) {
     let procsArray = new Array;
     for (const [index, productID] of Object.entries(procs)) {
         procsArray.push(productID);
-        console.log(productID);
     }
-    console.log(procsArray);
-    console.log(procApptID);
 
     // create array of arrays with same appointmentID and different procedureIDs
     let procVals = [];
     for(i = 0; i < procsArray.length; i++) {
         procVals[i] = [procApptID, parseInt(procsArray[i])];
     }
-    console.log(procVals);
 
     // "bulk insert" array of arrays into Appointment_has_Procedure so appointment has multiple procedures
     let createAppointmentProcedures = `INSERT INTO Appointment_has_Procedure(appointmentID, procedureID) VALUES ?`;
@@ -298,18 +296,25 @@ app.put('/put-appointment', function(req, res, next) {
         updateProcs[i] = [appointmentID, proceduresArray[i]];
     }
 
+    // declaring values to deal with null/not null requested_vetID values
     let updateAppointmentQuery;
     let getReqVet;
     let inputVals = new Array;
 
+
     if (isNaN(requested_vetID)) {
+        // if no vet requested, set requested_vetID to NULL in SQL statement
         requested_vetID = 'NULL';
         updateAppointmentQuery = "UPDATE Appointments SET appointment_date = ?, exam_roomID = ?, requested_vetID = NULL WHERE Appointments.appointmentID = ?;";
+        // do not include requested_vetID in array of variables
         inputVals = [appointment_date, exam_roomID, appointmentID];
+        // set "vet name" to a number
         getReqVet = "SELECT vetID FROM Veterinarians WHERE vetID = 1";
     } else {
+        // else include it in SQL statement and array of variables
         updateAppointmentQuery = "UPDATE Appointments SET appointment_date = ?, exam_roomID = ?, requested_vetID = ? WHERE Appointments.appointmentID = ?;";
         inputVals = [appointment_date, exam_roomID, requested_vetID, appointmentID];
+        // set "vet name" query to get the vet name from the inserted vetID
         getReqVet = `SELECT vet_name FROM Veterinarians WHERE vetID = ${requested_vetID}`;
     }
 
@@ -338,9 +343,11 @@ app.put('/put-appointment', function(req, res, next) {
                                     console.log(error);
                                     res.sendStatus(400);
                                 } else {
+                                    // if there is no vetID (wasn't set to 1 with query) send back vet's name
                                     if(reqVet[0].vetID === undefined) {
                                         res.send(reqVet[0].vet_name);
                                     } else {
+                                        // else send back a string of 0
                                         let nullVet = "0";
                                         res.send(nullVet);
                                     }
@@ -573,6 +580,7 @@ app.get('/view-vet-procs', function(req, res)
 {
     res.render('view-vet-procs', {vetProcs: vetProcsView, vetInfo: vetNameView, layout: 'blank'});
 });
+
 
 // DELTE VETERINARIAN
 app.delete('/delete-vet', function(req, res, next)
