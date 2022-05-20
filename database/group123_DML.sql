@@ -53,6 +53,9 @@ VALUES (:input-vet_name);
 INSERT INTO Procedure_has_Vet(procedureID, vetID)
 VALUES (:input-procedureID, :input-vetID);
 
+-- delete Veterinarians
+DELETE FROM Veterinarians WHERE vetID = :input-vetID;
+
 -------------------------------------------------------------------
 -- Procedures Page
 -------------------------------------------------------------------
@@ -74,20 +77,20 @@ SELECT procedureID FROM Appointment_has_Procedure
 WHERE appointmentID = :input-appoitmentID;
 
 -- add Appointments
-INSERT INTO Appointments(petID, exam_roomID, appointment_date)
-VALUES (:input-petID, :input-exam_roomID, :input-appointment_date);
+INSERT INTO Appointments(petID, exam_roomID, requested_vetID, appointment_date)
+VALUES (:input-petID, :input-exam_roomID, :input-requested_vetID, :input-appointment_date);
 
 -- add Procedures to Appointments with Appointment_has_Procedure
 INSERT INTO Appointment_has_Procedure(appointmentID, procedureID)
 VALUES (:input-appointmentID, :input-procedureID);
 
 -- update Appointments
-UPDATE Appointments SET exam_roomID =:input-exam_roomID_update, appointment_date =:input-appointment_date_update
+UPDATE Appointments SET exam_roomID = :input-exam_roomID_update, requested_vetID = :input-requested_vetID_update, appointment_date = :input-appointment_date_update
 WHERE appointmentID = :input-appointmentID;
 
 -- update Appointment Procedures in Appointment_has_Procedure
-UPDATE Appointment_has_Procedure SET procedureID =:input-procedureID_update
-WHERE appointmentID =:input-appointmentID;
+UPDATE Appointment_has_Procedure SET procedureID = :input-procedureID_update
+WHERE appointmentID = :input-appointmentID;
 
 -- delete Appointments
 DELETE FROM Appointments WHERE appointmentID = :input-appoitnmentID;
