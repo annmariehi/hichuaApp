@@ -215,13 +215,27 @@ app.get('/appointment-procedures', function(req,res)
 
 
 // ADD PROCEDURES TO NEW APPOINTMENT
-app.post('/add-appointment-procedure-form', function(req, res) {
+app.post('/add-appointment-procedure-form', function(req, res)
+{
+    console.log(req.body);
     let procs = req.body;
 
     // counts number of checkboxes checked (only values sent in req.body)
     let count = Object.keys(procs).length;
 
     // TO DO: insert if statement if count = 0 delete appointment
+    if(count === 0)
+    {
+        let deleteNoProcAppt = `DELETE Appointments WHERE appointmentID = ${procApptID}`;
+        db.pool.query(deleteNoProcAppt, (error, results, fields) => {
+            if (error) {
+                console.log(error);
+                res.sendStatus(400);
+            } else {
+                res.redirect('/appointments');
+            }
+        })
+    }
 
     // create array of procedureIDs sent in req.body (only sent if checkbox is checked)
     let procsArray = new Array;
