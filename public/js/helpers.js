@@ -11,7 +11,13 @@ var register = function(Handlebars) {
     formatBirthdate: function(sqlDate) {
         var jsDate = new Date(sqlDate);
         let day = jsDate.getDate();
+        if(day < 10){
+            day = "0" + day;
+        }
         let month = jsDate.getMonth() + 1;
+        if(month < 10){
+            month = "0" + month;
+        }
         let year = jsDate.getFullYear();
         return(month + "-" + day + "-" + year);
     }

@@ -42,15 +42,33 @@ updatePetForm.addEventListener("submit", function (e)
 
 })
 
+function updateBirthdate(sqlDate)
+{
+    var jsDate = new Date(sqlDate);
+        let day = jsDate.getDate() + 1;
+        if(day < 10){
+            day = "0" + day;
+        }
+        let month = jsDate.getMonth() + 1;
+        if(month < 10){
+            month = "0" + month;
+        }
+        let year = jsDate.getFullYear();
+        return(month + "-" + day + "-" + year);
+}
+
 function updateRow(responseVal, petData)
 {
     let breedVal;
+    let dateFormat;
 
     if(parseInt(responseVal) === 0) {
         breedVal = " ";
     } else {
         breedVal = responseVal;
     }
+
+   dateFormat = updateBirthdate(petData.birthdate);
 
     let table = document.getElementById("pets-table");
 
@@ -61,7 +79,7 @@ function updateRow(responseVal, petData)
             let breedTD = updateRowIndex.getElementsByTagName("td")[4];
             let birthdateTD = updateRowIndex.getElementsByTagName("td")[5];
             breedTD.innerHTML = breedVal;
-            birthdateTD.innerHTML = petData.birthdate;
+            birthdateTD.innerHTML = dateFormat;
         }
     }
 }

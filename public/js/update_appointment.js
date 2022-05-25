@@ -54,6 +54,22 @@ updateProcedureForm.addEventListener("submit", function (e) {
 
 })
 
+function updateDate(sqlDate) {
+    var jsDate = new Date(sqlDate);
+    let day = jsDate.getDate() + 1;
+    if(day < 10){
+        day = "0" + day;
+    }
+    let month = jsDate.getMonth() + 1;
+    if(month < 10){
+        month = "0" + month;
+    }
+    let year = jsDate.getFullYear();
+    let tempString = month + "-" + day + "-" + year;
+    var tempDate = new Date(tempString);
+    return(tempDate.toDateString());
+}
+
 function updateRow(responseVal, appointmentData)
 {
     let vetName;
@@ -65,8 +81,8 @@ function updateRow(responseVal, appointmentData)
         // else set it to the vet name that was sent
         vetName = responseVal;
     }
-    var jsDate = new Date(appointmentData.appointment_date);
-    dateFormat = jsDate.toDateString();
+
+    dateFormat = updateDate(appointmentData.appointment_date);
 
     let table = document.getElementById("appointments-table");
     // fix appointment date
