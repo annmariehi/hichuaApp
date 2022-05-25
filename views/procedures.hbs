@@ -47,10 +47,10 @@
       <p>please enter info and click "Add Procedure"</p>
 
       <label for="input-proc_name">Procedure Name: </label>
-      <input type="text" name="input-proc_name" id="input-proc_name">
+      <input required type="text" placeholder="Procedure Name..." name="input-proc_name" id="input-proc_name">
 
       <label for="input-cost">Cost: </label>
-      <input type="number" name="input-cost" id="input-cost">
+      <input required type="number" name="input-cost" id="input-cost">
 
       <input type="submit" value="Add Procedure">
   </form>
@@ -62,15 +62,15 @@
       <p>To update the cost of a procedure, please select the procedure name from the drop down</p>
 
       <label for="input-procedure_name">Procedure: </label>
-      <select name="input-procedure_name" id="procedureSelect">
-        <option disabled selected hidden>Select a Procedure</option>
+      <select required name="input-procedure_name" id="procedureSelect">
+        <option disabled selected value="">Select a Procedure</option>
         {{#each procedureData}}
         <option value="{{this.procedureID}}">{{this.proc_name}}</option>
         {{/each}}
       </select>
 
       <label for="input-cost">Cost: </label>
-      <input type="number" name="input-cost" id="input-cost-update">
+      <input required type="number" name="input-cost" id="input-cost-update">
 
       <input type="submit" value="Update Procedure">
   </form>
