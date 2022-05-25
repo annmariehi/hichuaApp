@@ -11,9 +11,9 @@ var register = function(Handlebars) {
     formatBirthdate: function(sqlDate) {
         var jsDate = new Date(sqlDate);
         let day = jsDate.getDate();
-        let month = jsDate.getMonth();
+        let month = jsDate.getMonth() + 1;
         let year = jsDate.getFullYear();
-        return(day + "-" + month + "-" + year);
+        return(month + "-" + day + "-" + year);
     }
     };
     if (Handlebars && typeof Handlebars.registerHelper === "function") {
