@@ -106,13 +106,12 @@
             {{/each}}
         </select>
 
-        <label for="input-pet_type">Pet Type: </label>
-        <select required name="input-pet_type" id="input-pet_type-update">
-            <option disabled selected value="">select pet type</option>
-            {{#each pet_types}}
-            <option value="{{this.pet_typeID}}">{{this.type_name}}</option>
-            {{/each}}
-        </select>
+        <label for="input-breed">Breed: </label>
+        <input type="text" placeholder="Breed..." name="input-breed-update" id="input-breed-update">
+
+        <label for="input-birthdate">Birthdate: </label>
+        <input required type="date" name="input-birthdate-update" id="input-birthdate-update">
+
         <input type="submit" value="Update Pet">
     </form>
     <script src="./js/update_pet.js"></script>

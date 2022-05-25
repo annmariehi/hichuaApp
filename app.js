@@ -14,7 +14,7 @@ var app     = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-PORT        = 50689;
+PORT        = 50690;
 
 // Database
 var db = require('./database/db-connector');
@@ -737,29 +737,36 @@ app.put('/put-pet', function(req,res,next)
 {
     let petData = req.body;
 
-    let pet_typeID = parseInt(petData.pet_typeID);
+    let breed = petData.breed;
+    console.log(breed);
+    let birthdate = petData.birthdate;
     let pet = parseInt(petData.pet_name);
 
-    let queryUpdatePetType = 'UPDATE Pets SET pet_typeID = ? WHERE Pets.petID = ?';
-    let selectPetType = 'SELECT * FROM Pet_Types WHERE pet_typeID = ?'
+    let queryUpdatePet;
+    let inputVals = new Array;
+    let returnVal;
+    let nullBreed;
+    if(breed == undefined) {
+        queryUpdatePet = 'UPDATE Pets SET breed = NULL, birthdate = ? WHERE Pets.petID = ?';
+        inputVals = [birthdate, pet];
+        returnVal = 0;
+        nullBreed = "0";
+    } else {
+        queryUpdatePet = 'UPDATE Pets SET breed = ?, birthdate = ? WHERE Pets.petID = ?';
+        inputVals = [breed, birthdate, pet];
+        returnVal = 1;
+    }
 
-    // run first query
-    db.pool.query(queryUpdatePetType, [pet_typeID, pet], (error, rows, fields) => {
+    db.pool.query(queryUpdatePet, inputVals, (error, rows, fields) => {
         if(error) {
             console.log(error);
             res.sendStatus(400);
-        // if no error, run second query and return that data so we can use it to update
-        // pets table
         } else {
-            // run second query
-            db.pool.query(selectPetType, [pet_typeID], (error, rows, fields) => {
-                if(error) {
-                    console.log(error);
-                    res.sendStatus(400);
-                } else {
-                    res.send(rows);
-                }
-            });
+            if(returnVal == 0) {
+                res.send(nullBreed);
+            } else {
+                res.send(breed);
+            }
         }
     });
 });
