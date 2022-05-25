@@ -72,8 +72,8 @@
 
       <div>
         <label for="input-petID">pet name: </label>
-        <select name="input-petID" id="input-petID">
-          <option disabled selected hidden>Select Pet Name</option>
+        <select required name="input-petID" id="input-petID">
+          <option disabled selected value="">Select Pet Name</option>
           {{#each pets}}
           <option value="{{this.petID}}">{{this.pet_name}}</option>
           {{/each}}
@@ -82,8 +82,8 @@
 
       <div>
         <label for="input-exam_roomID">Exam Room:</label>
-        <select name="input-exam_roomID" id="input-exam_roomID">
-          <option disabled selected hidden>Select Exam Room</option>
+        <select required name="input-exam_roomID" id="input-exam_roomID">
+          <option disabled selected value="">Select Exam Room</option>
           {{#each exam_rooms}}
           <option value="{{this.exam_roomID}}">{{this.exam_roomID}}</option>
           {{/each}}
@@ -92,8 +92,8 @@
 
       <div>
         <label for="input-requested_vetID">Requested Vet:</label>
-        <select name="input-requested_vetID" id="input-requested_vetID">
-          <option disabled selected hidden>Select Requested Vet</option>
+        <select required name="input-requested_vetID" id="input-requested_vetID">
+          <option disabled selected value="">Select Requested Vet</option>
           {{#each requestedVets}}
           <option value="{{this.vetID}}">{{this.vet_name}}</option>
           {{/each}}
@@ -103,7 +103,7 @@
 
       <div>
         <label for ="input-appointment_date">Appointment Date:</label>
-        <input type="date" id="input-appointment_date" name="input-appointment_date">
+        <input required type="date" id="input-appointment_date" name="input-appointment_date">
       </div>
 
       <input type="submit" value="Add Procedures">
@@ -121,8 +121,8 @@
 
       <div>
         <label for="input-appointmentID">Pet Name | Appointment ID: </label>
-        <select name="appointmentSelect" id="appointmentSelect">
-          <option disabled selected hidden>Select Pet Name</option>
+        <select required name="appointmentSelect" id="appointmentSelect">
+          <option disabled selected value="">Select Pet Name</option>
           {{#each petApptIDs}}
           <option value="{{this.appointmentID}}">{{this.pet_name}} | Appointment ID: {{this.appointmentID}}</option>
           {{/each}}
@@ -131,8 +131,8 @@
 
       <div>
         <label for="input-exam_roomID">Exam Room:</label>
-        <select name="input-exam_room-update" id="input-exam_room-update">
-          <option disabled selected hidden>Select Exam Room</option>
+        <select required name="input-exam_room-update" id="input-exam_room-update">
+          <option disabled selected value="">Select Exam Room</option>
           {{#each exam_rooms}}
           <option value="{{this.exam_roomID}}">{{this.exam_roomID}}</option>
           {{/each}}
@@ -141,8 +141,8 @@
 
       <div>
         <label for="input-requested_vetID">Requested Vet:</label>
-        <select name="input-requested_vetID-update" id="input-requested_vetID-update">
-          <option disabled selected hidden>Select Requested Vet</option>
+        <select required name="input-requested_vetID-update" id="input-requested_vetID-update">
+          <option disabled selected value="">Select Requested Vet</option>
           {{#each requestedVets}}
           <option value="{{this.vetID}}">{{this.vet_name}}</option>
           {{/each}}
@@ -152,7 +152,7 @@
 
       <div>
         <label for ="input-appointment_date">Appointment Date:</label>
-        <input type="date" id="input-date-update" name="input-date-update">
+        <input required type="date" id="input-date-update" name="input-date-update">
       </div>
 
       <div class="updateApptProcList">
