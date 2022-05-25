@@ -1,6 +1,6 @@
--------------------------------------------------------------------
+-- -----------------------------------------------------------------
 -- Pets Page
--------------------------------------------------------------------
+-- -----------------------------------------------------------------
 -- display Pets
 SELECT * FROM Pets;
 
@@ -11,9 +11,13 @@ VALUES (:input-pet_name, :input-ownerID, :input-pet_typeID, :input-breed, :input
 -- delete Pets
 DELETE FROM Pets WHERE petID = :input-petID;
 
--------------------------------------------------------------------
+-- update Pets
+UPDATE Pets SET breed = :input-breed_update, birthdate = :input-birthdate_update
+WHERE Pets.petID = :input-petID
+
+-- -----------------------------------------------------------------
 -- Pet_Types Page
--------------------------------------------------------------------
+-- -----------------------------------------------------------------
 -- display Pet_Types
 SELECT * FROM Pet_Types;
 
@@ -21,9 +25,12 @@ SELECT * FROM Pet_Types;
 INSERT INTO Pet_Types(type_name)
 VALUES (:input-type_name);
 
--------------------------------------------------------------------
+-- delete Pet_Types
+DELETE FROM Pet_Types WHERE pet_typeID = :input-pet_typeID;
+
+-- -----------------------------------------------------------------
 -- Owners Page
--------------------------------------------------------------------
+-- -----------------------------------------------------------------
 -- display Owners
 SELECT * FROM Owners;
 
@@ -35,9 +42,9 @@ VALUES (:input-owner_name, :input-email);
 UPDATE Owners SET email = :input-email_update
 WHERE Owners.ownerID = :input-ownerID;
 
--------------------------------------------------------------------
+-- -----------------------------------------------------------------
 -- Veterinarians Page
--------------------------------------------------------------------
+-- -----------------------------------------------------------------
 -- display Veterinarians
 SELECT * FROM Veterinarians;
 
@@ -56,9 +63,9 @@ VALUES (:input-procedureID, :input-vetID);
 -- delete Veterinarians
 DELETE FROM Veterinarians WHERE vetID = :input-vetID;
 
--------------------------------------------------------------------
+-- -----------------------------------------------------------------
 -- Procedures Page
--------------------------------------------------------------------
+-- -----------------------------------------------------------------
 -- display Procedures
 SELECT * FROM Procedures;
 
@@ -66,9 +73,9 @@ SELECT * FROM Procedures;
 INSERT INTO Procedures(proc_name, cost)
 VALUES (:input-proc_name, :input-cost);
 
--------------------------------------------------------------------
+-- -----------------------------------------------------------------
 -- Appointments Page
--------------------------------------------------------------------
+-- -----------------------------------------------------------------
 -- display Appointments
 SELECT * FROM Appointments;
 
@@ -95,9 +102,9 @@ WHERE appointmentID = :input-appointmentID;
 -- delete Appointments
 DELETE FROM Appointments WHERE appointmentID = :input-appoitnmentID;
 
--------------------------------------------------------------------
+-- -----------------------------------------------------------------
 -- Exam_Rooms Page
--------------------------------------------------------------------
+-- -----------------------------------------------------------------
 -- display all Exam_Rooms data for Exam_Rooms Table
 SELECT * FROM Exam_Rooms;
 
