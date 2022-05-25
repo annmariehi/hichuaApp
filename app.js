@@ -467,6 +467,25 @@ app.post('/add-pet-type-form', function(req, res)
     });
 });
 
+// DELETE PET TYPE
+app.delete('/delete-pet_type', function(req, res, next)
+{
+    let typeData = req.body;
+    let pet_typeID = parseInt(typeData.pet_typeID);
+
+    // will cascade and set requested_vetID in appointments to null
+    let deleteType = 'DELETE FROM Pet_Types WHERE pet_typeID = ?';
+
+    db.pool.query(deleteType, [pet_typeID], (error, rows, fields) => {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+    });
+});
+
 
 //////////////////////////////////////// Veterinarians Page ////////////////////////////////////////
 
