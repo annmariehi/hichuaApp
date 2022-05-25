@@ -50,3 +50,6 @@ will maybe add later: ~
     + add exam room
     ~ add attribute?
 
+TO RUN FOREVER:
+alias forever='./node_modules/forever/bin/forever'
+forever start app.js
