@@ -9,7 +9,7 @@ will maybe add later: ~
     + delete pet
     + update pet
     + remove weekday element of date
-    ~ change what you can update?
+    + change what you can update
 * Appointments Page
     + display
     + view procedures per appointment
@@ -31,7 +31,7 @@ will maybe add later: ~
 * Pet Types
     + display
     + add pet type
-    ~ delete pet type?
+    + delete pet type
 * Procedures
     + display
     + add procedure
@@ -44,7 +44,7 @@ will maybe add later: ~
     + view veterinarian procedures
     + add vet name to view procedures
     ~ update vet?
-    ~ delete vet?
+    + delete vet
 * Exam Rooms
     + display
     + add exam room
