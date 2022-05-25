@@ -57,7 +57,7 @@ updateProcedureForm.addEventListener("submit", function (e) {
 function updateRow(responseVal, appointmentData)
 {
     let vetName;
-
+    let dateFormat;
     // if returned value was string of 0, set vetName to be blank
     if(parseInt(responseVal) === 0) {
         vetName = " ";
@@ -65,6 +65,8 @@ function updateRow(responseVal, appointmentData)
         // else set it to the vet name that was sent
         vetName = responseVal;
     }
+    var jsDate = new Date(appointmentData.appointment_date);
+    dateFormat = jsDate.toDateString();
 
     let table = document.getElementById("appointments-table");
     // fix appointment date
@@ -78,7 +80,7 @@ function updateRow(responseVal, appointmentData)
             let dateTD = updateRowIndex.getElementsByTagName("td")[4];
             let vetTD = updateRowIndex.getElementsByTagName("td")[3];
             examTD.innerHTML = appointmentData.exam_roomID;
-            dateTD.innerHTML = appointmentData.appointment_date;
+            dateTD.innerHTML = dateFormat;
             vetTD.innerHTML = vetName;
         }
     }
