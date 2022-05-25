@@ -13,21 +13,24 @@
 
 <div class="tables">
 {{!-- Pet Types Table --}}
-<table>
+<table id="pet-types-table">
     <thead>
         <tr>
             <th>Pet Type ID</th>
             <th>Type Name</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
         {{#each typeData}}
-        <tr>
+        <tr pet-type-data-value={{this.pet_typeID}}>
             <td>{{this.pet_typeID}}</td>
             <td>{{this.type_name}}</td>
+            <td class="deleteCell"><button class="deleteButton" onclick="deletePetType({{this.pet_typeID}})"><i class="fa-solid fa-trash fa-1x"></i></button>
         </tr>
         {{/each}}
     </tbody>
+    <script src="./js/delete_pet_type.js"></script>
 </table>
 
 </div>
