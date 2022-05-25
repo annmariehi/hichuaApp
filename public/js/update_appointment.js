@@ -54,14 +54,17 @@ updateProcedureForm.addEventListener("submit", function (e) {
 
 })
 
-function updateDate(sqlDate) {
+// formats updated appointment date to display as the rest of toDateString dates
+// also adds 1 to day and month because javascript dates are weird
+function updateDate(sqlDate)
+{
     var jsDate = new Date(sqlDate);
     let day = jsDate.getDate() + 1;
-    if(day < 10){
+    if(day < 10) {
         day = "0" + day;
     }
     let month = jsDate.getMonth() + 1;
-    if(month < 10){
+    if(month < 10) {
         month = "0" + month;
     }
     let year = jsDate.getFullYear();
@@ -82,6 +85,7 @@ function updateRow(responseVal, appointmentData)
         vetName = responseVal;
     }
 
+    // format updated appointment date
     dateFormat = updateDate(appointmentData.appointment_date);
 
     let table = document.getElementById("appointments-table");

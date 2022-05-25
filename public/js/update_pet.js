@@ -42,19 +42,21 @@ updatePetForm.addEventListener("submit", function (e)
 
 })
 
+// correctly formats updated birthdate in MM-DD-YYYY
+// also adds 1 to day and month because javascript dates are weird
 function updateBirthdate(sqlDate)
 {
     var jsDate = new Date(sqlDate);
-        let day = jsDate.getDate() + 1;
-        if(day < 10){
-            day = "0" + day;
-        }
-        let month = jsDate.getMonth() + 1;
-        if(month < 10){
-            month = "0" + month;
-        }
-        let year = jsDate.getFullYear();
-        return(month + "-" + day + "-" + year);
+    let day = jsDate.getDate() + 1;
+    if(day < 10) {
+        day = "0" + day;
+    }
+    let month = jsDate.getMonth() + 1;
+    if(month < 10) {
+        month = "0" + month;
+    }
+    let year = jsDate.getFullYear();
+    return(month + "-" + day + "-" + year);
 }
 
 function updateRow(responseVal, petData)
@@ -62,13 +64,16 @@ function updateRow(responseVal, petData)
     let breedVal;
     let dateFormat;
 
+    // if breed is NULL, set table to display blank
     if(parseInt(responseVal) === 0) {
         breedVal = " ";
     } else {
+        // else display new breed value
         breedVal = responseVal;
     }
 
-   dateFormat = updateBirthdate(petData.birthdate);
+    // format updated birthdate
+    dateFormat = updateBirthdate(petData.birthdate);
 
     let table = document.getElementById("pets-table");
 

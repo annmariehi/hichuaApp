@@ -2,7 +2,8 @@
 // Date: 05/13/2022
 // Adapted from:
 // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
-function deleteAppointment(appointmentID) {
+function deleteAppointment(appointmentID)
+{
     let appointmentData = {
         appointmentID: appointmentID
     };
@@ -35,7 +36,8 @@ function deleteRow(appointmentID)
     }
 }
 
-function deleteDropDownMenu(appointmentID) {
+function deleteDropDownMenu(appointmentID)
+{
     let selectMenu = document.getElementById("appointmentSelect");
     for (let i = 0; i < selectMenu.clientHeight; i++) {
         if(Number(selectMenu.options[i].value) === Number(appointmentID)) {

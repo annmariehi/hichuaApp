@@ -31,8 +31,8 @@ function deletePet(petID) {
     xhttp.send(JSON.stringify(data));
 }
 
-function deleteRow(petID){
-
+function deleteRow(petID)
+{
     let table = document.getElementById("pets-table");
     for (let i = 0, row; row = table.rows[i]; i++) {
         // iterate thru rows

@@ -44,7 +44,8 @@ function deleteRow(vetID)
 }
 
 // not using it but leaving it here for now
-function deleteDropDownMenu(vetID){
+function deleteDropDownMenu(vetID)
+{
     let selectMenu = document.getElementById("vetSelect");
     for (let i = 0; i < selectMenu.length; i++) {
         if(Number(selectMenu.options[i].value) === Number(vetID)) {
