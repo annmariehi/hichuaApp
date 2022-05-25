@@ -6,6 +6,7 @@
   <h2>Add Procedures to Appointment</h2>
   <p>Please select procedures for appointment {{procApptID}}:</p>
   <p class="apptDetails">{{apptPet}} on {{formatDate procApptDate}}:</p>
+  <p>If 0 procedures are selected, no appointment will be created.</p>
 
   {{#each procedureOptions}}
   <label class="pCheckbox" for="{{this.proc_name}}">{{this.proc_name}}
