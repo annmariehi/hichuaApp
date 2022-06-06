@@ -50,15 +50,3 @@ function deleteRow(pet_typeID)
     }
 }
 
-/* not using it but leaving it here for now
-function deleteDropDownMenu(pet_typeID)
-{
-    let selectMenu = document.getElementById("petTypeSelect");
-    for (let i = 0; i < selectMenu.length; i++) {
-        if(Number(selectMenu.options[i].value) === Number(pet_typeID)) {
-            selectMenu[i].remove();
-            break;
-        }
-    }
-}
-*/
